@@ -1,0 +1,17 @@
+.login-top{
+    height: 50%;
+    background: url(../img/windmills.jpg) no-repeat;
+    background-size: 100% 100%;
+    .login-header{
+        height: 20%;
+        background: rgba(65, 184, 133, 0.8);
+    }
+    .login-top-container{
+        height: 80%;
+        background: rgba(65, 184, 133, 0.6);
+    }
+}
+
+.login-bottom{
+    height: 50%;
+}
