@@ -1,17 +1,97 @@
 .login-top{
-    height: 50%;
-    background: url(../img/windmills.jpg) no-repeat;
+    height: 70%;
     background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
     .login-header{
-        height: 20%;
-        background: rgba(65, 184, 133, 0.8);
+        height: .6rem;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        margin-bottom: .1rem;
+        .logo{
+            height: .6rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding-left: 1rem;
+            font-size: .2rem;
+            img{
+                height: .5rem;
+            }
+            span{
+                margin-left: .2rem;
+            }
+        }
     }
     .login-top-container{
-        height: 80%;
-        background: rgba(65, 184, 133, 0.6);
+        flex-grow: 1;
+        overflow: hidden;
+        .ant-carousel{
+            height: 100%;
+        }
+        .ant-carousel .slick-slider{
+            height: 100%;
+        }
+        .ant-carousel .slick-slide {
+            text-align: center;
+            height: 100%;
+            line-height: 100%;
+            overflow: hidden;
+            .carousel1{
+                height: 100%;
+                background: url('../img/carousel_1.jpg') no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .carousel2{
+                height: 100%;
+                background: url('../img/carousel_2.jpg') no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .carousel3{
+                height: 100%;
+                background: url('../img/carousel_3.jpg') no-repeat;
+                background-size: 100% 100%;
+            }
+        }
+
+        .ant-carousel .slick-slider .slick-track, .ant-carousel .slick-slider .slick-list{
+            height: 100%;
+        }
+        .ant-carousel .slick-slide > div {
+            height: 100%;
+        }
     }
 }
 
 .login-bottom{
-    height: 50%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    .ad-item{
+        height: 80%;
+        width: 20%;
+        border: 1px solid #d7dae2;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        &:hover{
+            box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+        }
+    }
+    .ad-bg1{
+        background: url('../img/2_01.png') no-repeat;
+        background-size: 100% 100%;
+    }
+    .ad-bg2{
+        background: url('../img/2_02.png') no-repeat;
+        background-size: 100% 100%;
+    }
+    .ad-bg3{
+        background: url('../img/2_03.png') no-repeat;
+        background-size: 100% 100%;
+    }
+    .ad-bg4{
+        background: url('../img/2_04.png') no-repeat;
+        background-size: 100% 100%;
+    }
 }
