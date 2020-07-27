@@ -244,7 +244,7 @@ module.exports = {
         // ES6.相关 //
         //////////////
         // 要求箭头函数体使用大括号
-        "arrow-body-style": 2,
+        "arrow-body-style": 0,
         // 非派生类不能调用super，派生类必须调用super，强制在子类构造函数中用super()调用父类构造函数，TypeScrip的编译器也会提示
         "constructor-super": 0,
         // 强制 generator 函数中 * 号前后使用一致的空格
@@ -294,7 +294,7 @@ module.exports = {
         //    default: [2, "all"] 全都需要{ }包围
         "curly": [2, "all"],
         "no-cond-assign": 2,//禁止在条件表达式中使用赋值语句
-        "no-console": 2,//禁止使用console
+        "no-console": 0,//禁止使用console
         "no-constant-condition": 2,//禁止在条件中使用常量表达式 if(true) if(1)
         "no-debugger": 2,//禁止使用debugger
         "no-delete-var": 2,//不能对var声明的变量使用delete操作符
@@ -373,7 +373,7 @@ module.exports = {
         "prefer-spread": 0,//首选展开运算而非 .apply()
         "prefer-reflect": 0,//首选Reflect的方法
         "quotes": [1, "single"],//引号类型 `` "" ''
-        "quote-props":[2, "always"],//对象字面量中的属性名是否强制双引号
+        "quote-props":[0, "always"],//对象字面量中的属性名是否强制双引号
         "radix": 2,//parseInt必须指定第二个参数
         "id-match": 0,//命名检测
         "semi": [2, "always"],//语句强制分号结尾
