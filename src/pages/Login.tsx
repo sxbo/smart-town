@@ -2,7 +2,7 @@ import React, {SFC} from 'react';
 import '../theme/style/Login.scss';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, KeyOutlined, ArrowRightOutlined } from '@ant-design/icons';
-// import logo from '../theme/img/logo.svg';
+import logo from '../theme/img/logo.svg';
 // import {Carousel} from 'antd';
 
 
@@ -21,6 +21,10 @@ const Login: SFC = () => {
     <>
       <div className="login-model">
         <div className="login-box">
+          <div className="logo-box">
+            <img src={logo} alt="logo"/>
+            <span>智慧小镇</span>
+          </div>
           <Form
             name="basic"
             initialValues={{ remember: true }}
@@ -30,26 +34,26 @@ const Login: SFC = () => {
             colon={false}>
             <Form.Item
               label={
-                <UserOutlined />
+                <UserOutlined className="user-icon"/>
               }
               name="username"
-              rules={[{ required: true, message: 'Please input your username!' }]}
+              rules={[{ required: true, message: '请输入用户名!' }]}
             >
               <Input />
             </Form.Item>
 
             <Form.Item
               label={
-                <KeyOutlined />
+                <KeyOutlined className="user-icon"/>
               }
               name="password"
-              rules={[{ required: true, message: 'Please input your password!' }]}
+              rules={[{ required: true, message: '请输入密码!' }]}
             >
               <Input.Password />
             </Form.Item>
 
             <Form.Item className="remeber-me" name="remember" valuePropName="checked">
-              <Checkbox>Remember me</Checkbox>
+              <Checkbox>记住我</Checkbox>
             </Form.Item>
 
             <Form.Item className="login-button-form-item">
