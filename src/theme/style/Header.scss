@@ -1,0 +1,42 @@
+
+.ant-layout-header{
+    background-color: #fff;
+    padding: 0 25px;
+}
+.smart-town-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .smart-town-header-l{
+        display: flex;
+        align-items: center;
+        .menu-op{
+            font-size: 20px;
+        }
+        .logo{
+            width: 200px;
+            height: 64px;
+            font-size: 17px;
+            font-family: 'Open Sans';
+            font-weight: 700;
+            img{
+                height: .6rem;
+                width: .6rem;
+                max-height: 65px;
+                max-width: 65rem;
+                margin-right: 15px;
+            }
+            .ant-btn-text:hover, .ant-btn-text:focus{
+                background: #fff;
+            }
+        }
+        .bell{
+            margin-right: 25px;
+            font-size: 20px;
+            .ant-badge-count, .ant-badge-dot, .ant-badge .ant-scroll-number-custom-component{
+                transform: translate(70%, -60%);
+            }
+        }
+    }
+}
+

@@ -1,0 +1,28 @@
+.site-layout-background{
+    .ant-menu-vertical .ant-menu-item::after, .ant-menu-vertical-left .ant-menu-item::after, .ant-menu-vertical-right .ant-menu-item::after, .ant-menu-inline .ant-menu-item::after{
+        border-right: 3px solid #00c292;
+    }
+
+    .ant-menu-item-selected{
+        color: #00c292;
+    }
+
+    .ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
+        color: #00c292;
+    }
+
+    .psn-menu{
+        color: #41434d;
+        clear: both;
+        display: block;
+        font-family: 'Open Sans';
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 50px;
+        padding: 0;
+        text-transform: uppercase;
+        &:hover{
+            color: rgba(0, 0, 0, 0.65);
+        }
+    }
+}
