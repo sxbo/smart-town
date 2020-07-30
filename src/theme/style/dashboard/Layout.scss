@@ -1,0 +1,26 @@
+.small-town-dashboard{
+    padding: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .data-board{
+        .ant-col {
+            height: 120px;
+            padding: 10px;
+            padding-top: 5px;
+        }
+    }
+
+    .epidemic-situation{
+        flex-grow: 3;
+    }
+
+    .gree-house{
+        flex-grow: 2;
+    }
+    .ant-col {
+        padding: 10px;
+    }
+}
+  
+ 
