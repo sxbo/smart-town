@@ -14,15 +14,19 @@ const DataCard: SFC<DataCardProp> = (props) => {
 
   return (
     <div className="card-box data-card">
-      <div>
-        {icon}
-      </div>
-      <div>
-        <div>
-          {num}
+      <div className="data-card-box">
+        <div className="icon-box">
+          {icon}
         </div>
-        <div>
-          {text}
+        <div className="data-text-box">
+          <div>
+            <div className="num-card-number">
+              {num}
+            </div>
+            <div className="num-card-text">
+              {text}
+            </div>
+          </div>
         </div>
       </div>
     </div>

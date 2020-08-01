@@ -2,18 +2,29 @@
     height: 100%;
     width: 100%;
     display: flex;
-    .icon-box{
+    align-items: center;
+    .data-card-box{
         display: flex;
         align-items: center;
-        justify-content: center;
-        width: 30%;
-        padding-bottom: 5px;
-    }
-
-    .data-text-box{
-        padding-top: 5px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        width: 100%;
+        .icon-box{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40%;
+        }
+    
+        .data-text-box{
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            .num-card-number{
+                font-size: 20px;
+                color: #455a64;
+            }
+            .num-card-text{
+                color: #99abb4;
+            }
+        }
     }
 }
