@@ -27,7 +27,22 @@
         }
     }
     .ant-menu-item{
-        padding-left: 35px !important;
         font-size: 16px;
+        text-align: center;
+    }
+
+    .ant-menu-item-selected a, .ant-menu-item-selected a:hover {
+        color: #00c292;
+    }
+    .ant-menu-item a {
+        color: rgba(0, 0, 0, 0.65);
+    }
+
+    .ant-menu-item a:hover {
+        color: #00c292;
+    }
+
+    .ant-menu-item-selected a{
+        color: #00c292;
     }
 }

@@ -1,14 +1,23 @@
 import React, {SFC} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import { Layout, Button, Menu, Dropdown, Avatar, Badge } from 'antd';
-import {BellOutlined, MenuFoldOutlined} from '@ant-design/icons';
+import {BellOutlined, MenuUnfoldOutlined, MenuFoldOutlined} from '@ant-design/icons';
 // MenuUnfoldOutlined
-import '../theme/style/Header.scss';
+import '../theme/style/components/Header.scss';
 import logo from '../theme/img/logo.svg';
-
+import { DashBoardActions } from '../features/dashboard';
+import {RootState} from '../store';
 const { Header } = Layout;
 
 
 const HerderBar:SFC = () => {
+
+  const dashboardState = useSelector((state: RootState) => ({menuCollapsed: state.dashboard.menuCollapsed}));
+  const dispatch = useDispatch();
+
+  const toggleCollapsed = () => {
+    dispatch({type: DashBoardActions.COLLAPSED_MENU});
+  };
 
   const menu = (
     <Menu>
@@ -37,8 +46,8 @@ const HerderBar:SFC = () => {
           <img src={logo} alt="logo"/>
           智慧小镇
         </div>
-        <Button type="text">
-          <MenuFoldOutlined className="menu-op"/>
+        <Button type="text" onClick={toggleCollapsed} className="menu-op-btn">
+          {React.createElement(dashboardState.menuCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
         </Button>
       </div>
       <div className="smart-town-header-l">

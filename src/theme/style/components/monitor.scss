@@ -1,0 +1,22 @@
+.monitor{
+    
+    .monitior-chart-box{
+        height: 80%;
+    }
+    .monitor-data-box{
+        height: 20%;
+        display: flex;
+        .monitor-total{
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .monitor-rate{
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

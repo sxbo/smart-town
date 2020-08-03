@@ -1,9 +1,9 @@
 import React, {SFC} from 'react';
-import '../../theme/style/common.scss';
+import '../theme/style/common.scss';
 import { StackedArea } from '@ant-design/charts';
 import { StackedAreaConfig } from '@ant-design/charts/es/stackedArea';
 
-const GreenHouseChart: SFC = () => {
+const MonitorRadarChart: SFC = () => {
 
   // const [data, setData] = useState([]);
 
@@ -51,6 +51,7 @@ const GreenHouseChart: SFC = () => {
     },
     smooth: true,
     responsive: true,
+    forceFit: true,
   };
 
   return (
@@ -61,4 +62,4 @@ const GreenHouseChart: SFC = () => {
 };
 
 
-export default GreenHouseChart;
+export default MonitorRadarChart;

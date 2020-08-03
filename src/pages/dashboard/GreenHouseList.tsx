@@ -1,9 +1,9 @@
 import React, {SFC} from 'react';
-import '../../theme/style/dashboard/common.scss';
+import '../../theme/style/common.scss';
 import { Table, Button } from 'antd';
 import {ColumnsType} from 'antd/es/table/interface';
 
-interface GreenHouse{
+export interface GreenHouse{
   key?: string
   name: string,
   address?: string,

@@ -1,4 +1,4 @@
-import '../../theme/style/dashboard/common.scss';
+import '../../theme/style/common.scss';
 import React, { SFC } from 'react';
 import './EpidemicSituationBar.scss';
 import { Bar } from '@ant-design/charts';

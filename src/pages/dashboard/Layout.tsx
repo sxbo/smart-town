@@ -8,11 +8,10 @@ import EpidemicSituationLine from './EpidemicSituationLine';
 import GreenHouseChart from './GreenHouseChart';
 import GreenHouseList from './GreenHouseList';
 import EpidemicSituationBar from './EpidemicSituationBar';
-import '../../theme/style/dashboard/common.scss';
+import '../../theme/style/common.scss';
 
 const DashBoard: SFC = () => {
 
- 
   const cardData: DataCardProp[] = [
     {icon: <DeploymentUnitOutlined style={{fontSize: '50px', color: '#00c292'}}/>, num: 123556, text: '智能大棚（个）'},
     {icon: <GoldOutlined style={{fontSize: '50px', color: '#ab8ce4'}}/>, num: 4568, text: '养殖场（个）'},

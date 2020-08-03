@@ -1,7 +1,7 @@
 import React, {SFC, ReactNode} from 'react';
 import PropTypes from 'prop-types';
 import './NumberCard.scss';
-import '../../theme/style/dashboard/common.scss';
+import '../../theme/style/common.scss';
 
 export interface DataCardProp{
     icon: ReactNode

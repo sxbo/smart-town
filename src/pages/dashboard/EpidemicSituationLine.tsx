@@ -1,4 +1,4 @@
-import '../../theme/style/dashboard/common.scss';
+import '../../theme/style/common.scss';
 import React, { SFC } from 'react';
 import { StackedArea } from '@ant-design/charts';
 import {StackedAreaConfig} from '@ant-design/charts/es/stackedArea';
