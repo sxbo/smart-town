@@ -2,7 +2,7 @@ import React, {SFC} from 'react';
 import { Row, Col } from 'antd';
 import '../../theme/style/common.scss';
 import '../../theme/style/greenhouse/layout.scss';
-import Monitor from '../../components/Monitor';
+import GreenHouseList from '../../components/GreenHouseList';
 
 const GreenHouse: SFC = () => {
 
@@ -15,21 +15,9 @@ const GreenHouse: SFC = () => {
 
   return (
     <div className="small-town-greenhouse">
-      <Row className="greehouse-up-box">
-        <Col xs={{ span: 24}} md={{ span: 8}} xl={{ span: 8}}>
-          <Monitor />
-        </Col>
-        <Col xs={{ span: 24}} md={{ span: 12}} xl={{ span: 12}}>
-        </Col>
-        <Col xs={{ span: 24}} md={{ span: 4}} xl={{ span: 4}}>
-        </Col>
-      </Row>
-      <Row className="greehouse-dwon-box">
-        <Col xs={{ span: 24}} md={{ span: 8}} xl={{ span: 8}}>
-        </Col>
-        <Col xs={{ span: 24}} md={{ span: 8}} xl={{ span: 8}}>
-        </Col>
-        <Col xs={{ span: 24}} md={{ span: 8}} xl={{ span: 8}}>
+      <Row>
+        <Col span={24}>
+          <GreenHouseList pagination={{pageSize: 5}}/>
         </Col>
       </Row>
     </div>

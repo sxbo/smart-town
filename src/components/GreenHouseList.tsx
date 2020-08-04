@@ -1,17 +1,25 @@
 import React, {SFC} from 'react';
-import '../../theme/style/common.scss';
-import { Table, Button } from 'antd';
+import '../theme/style/common.scss';
+import { Table, Button, Form, Input, Radio } from 'antd';
+import {TablePaginationConfig} from 'antd/es/table/interface';
 import {ColumnsType} from 'antd/es/table/interface';
 
 export interface GreenHouse{
   key?: string
   name: string,
   address?: string,
+  alarmNum?: number,
   monitorNum?: number
   manager: string
 }
 
-const GreenHouseList: SFC = () => {
+interface GreenHouseListProps{
+  pagination: false | TablePaginationConfig | undefined
+}
+
+const GreenHouseList: SFC<GreenHouseListProps> = (props) => {
+
+  const [form] = Form.useForm();
 
   const columns: ColumnsType<GreenHouse> = [
     {
@@ -24,6 +32,11 @@ const GreenHouseList: SFC = () => {
       title: '地址',
       dataIndex: 'address',
       key: 'address',
+    },
+    {
+      title: '告警次数',
+      key: 'alarmNum',
+      dataIndex: 'alarmNum',
     },
     {
       title: '管理者',
@@ -50,6 +63,7 @@ const GreenHouseList: SFC = () => {
       name: '1号大棚',
       manager: '李龙',
       address: '位置1',
+      alarmNum: 5,
       monitorNum: 3,
     },
     {
@@ -57,6 +71,7 @@ const GreenHouseList: SFC = () => {
       name: '2号大棚',
       manager: '陈梅',
       address: '位置2',
+      alarmNum: 10,
       monitorNum: 4,
     },
     {
@@ -64,19 +79,46 @@ const GreenHouseList: SFC = () => {
       name: '3号大棚',
       manager: '李龙',
       address: '位置3',
+      alarmNum: 1,
       monitorNum: 5,
     },
   ];
 
+
   return (
     <div className="card-box">
+      {props.pagination ?
+        <Form
+          layout="inline"
+          form={form}>
+          <Form.Item label="名称">
+            <Input placeholder="input placeholder" />
+          </Form.Item>
+          <Form.Item label="地址">
+            <Input placeholder="input placeholder" />
+          </Form.Item>
+          <Form.Item label="管理者">
+            <Input placeholder="input placeholder" />
+          </Form.Item>
+          <Form.Item name="layout">
+            <Radio.Group>
+              <Radio.Button value="horizontal">查询</Radio.Button>
+              <Radio.Button value="vertical">重置</Radio.Button>
+            </Radio.Group>
+          </Form.Item>
+        </Form> : ''
+      }
       <Table
         columns={columns}
         dataSource={data}
-        pagination={false}
+        pagination={props.pagination}
       />
     </div>
   );
+};
+
+GreenHouseList.defaultProps = {
+  pagination: false,
 };
 
 

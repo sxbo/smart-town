@@ -6,7 +6,7 @@ import { DeploymentUnitOutlined, GoldOutlined, VideoCameraOutlined, TrophyOutlin
 import {DataCardProp} from './NumberCard';
 import EpidemicSituationLine from './EpidemicSituationLine';
 import GreenHouseChart from './GreenHouseChart';
-import GreenHouseList from './GreenHouseList';
+import GreenHouseList from '../../components/GreenHouseList';
 import EpidemicSituationBar from './EpidemicSituationBar';
 import '../../theme/style/common.scss';
 
@@ -49,7 +49,7 @@ const DashBoard: SFC = () => {
       </Row>
       <Row className="gree-house">
         <Col xs={{ span: 24}} md={{ span: 12}} xl={{ span: 12}}>
-          <GreenHouseList/>
+          <GreenHouseList pagination={false}/>
         </Col>
         <Col xs={{ span: 24}} md={{ span: 12}} xl={{ span: 12}}>
           <GreenHouseChart/>
