@@ -1,5 +1,5 @@
 import React, {SFC} from 'react';
-import MonitorRadarChart from './MonitorRadarChart';
+import MonitorRadar from './MonitorRadar';
 import '../theme/style/components/monitor.scss';
 
 const Monitor: SFC = () => {
@@ -7,7 +7,7 @@ const Monitor: SFC = () => {
   return (
     <div className="card-box monitor">
       <div className="monitior-chart-box">
-        <MonitorRadarChart/>
+        <MonitorRadar/>
       </div>
       <div className="monitor-data-box">
         <div className="monitor-total">12315</div>
