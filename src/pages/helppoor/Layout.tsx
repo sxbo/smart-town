@@ -3,6 +3,9 @@ import { Tabs } from 'antd';
 import { EnvironmentOutlined, TeamOutlined, CopyOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';
 import VillagePoorBar from '../../components/VillagePoorBar';
+import PoorMap from '../../components/PoorMap';
+import OutPoorRateDonut from '../../components/OutPoorRateDonut';
+import OutPoorTrend from '../../components/OutPoorTrend';
 
 import '../../theme/style/helppoor/layout.scss';
 import '../../theme/style/common.scss';
@@ -15,7 +18,7 @@ const HelpPoor: SFC = () => {
     <Row>
       <Col span={24}>
         <div className="card-box help-poor">
-          <Tabs defaultActiveKey="2">
+          <Tabs defaultActiveKey="1">
             <TabPane
               tab={
                 <span>
@@ -27,6 +30,17 @@ const HelpPoor: SFC = () => {
               <Row>
                 <Col span={24}>
                   <VillagePoorBar/>
+                </Col>
+              </Row>
+              <Row>
+                <Col span={6}>
+                  <OutPoorRateDonut/>
+                </Col>
+                <Col span={12}>
+                  <PoorMap />
+                </Col>
+                <Col span={6}>
+                  <OutPoorTrend/>
                 </Col>
               </Row>
             </TabPane>
