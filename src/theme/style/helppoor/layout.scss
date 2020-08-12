@@ -1,7 +1,11 @@
-.ant-col {
-    padding: 10px;
-}
-
 .help-poor{
     padding: 10px;
+    height: 100%;
+    .help-poor-tab{
+        padding: 10px;
+        padding-top: 0;
+    }
+    .ant-col {
+        padding: 10px;
+    }
 }

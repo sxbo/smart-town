@@ -1,0 +1,13 @@
+.pagetitle{
+    height: 50px;
+    padding: 10px;
+    position: relative;
+    .title{
+        font-weight: bold;
+    }
+    .look-monitor{
+        position: absolute;
+        right: 50px;
+        bottom: 10px;
+    }
+}

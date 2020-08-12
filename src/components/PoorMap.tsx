@@ -8,6 +8,7 @@ const PoorMap: SFC = () => {
   useEffect(() => {
 
     const config: ISceneConfig = {
+      logoVisible: false,
       id: 'map',
       map: new GaodeMap({
         pitch: 0,
