@@ -3,6 +3,8 @@ import { ISceneConfig } from '@antv/l7/es';
 import { GaodeMap } from '@antv/l7-maps';
 import React, {SFC, useEffect} from 'react';
 
+import '../theme/style/components/PoorMap.scss';
+
 const PoorMap: SFC = () => {
 
   useEffect(() => {
@@ -36,7 +38,10 @@ const PoorMap: SFC = () => {
     });
   }, []);
 
-  return <div id="map"></div>;
+  return <div className="poormap">
+    <div className="title">范家镇扶贫地图</div>
+    <div id="map"></div>;
+  </div>;
 };
 
 

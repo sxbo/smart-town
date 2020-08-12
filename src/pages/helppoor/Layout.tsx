@@ -8,6 +8,7 @@ import OutPoorRateDonut from '../../components/OutPoorRateDonut';
 import OutPoorTrend from '../../components/OutPoorTrend';
 import PageTitle from '../../components/PageTitle';
 import HelpHistoryList from '../../components/HelpHistoryList';
+import PoorList from '../../components/PoorList';
 
 import '../../theme/style/helppoor/layout.scss';
 import '../../theme/style/common.scss';
@@ -66,7 +67,7 @@ const HelpPoor: SFC = () => {
                   </span>
                 }
                 key="3">
-                Tab 2
+                <PoorList pagination={{pageSize: 5}}/>
               </TabPane>
             </Tabs>
           </div>
