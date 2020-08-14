@@ -41,7 +41,7 @@ const GreenHouse: SFC = () => {
       <Row>
         <Col xs={{ span: 24}} md={{ span: 12}} xl={{ span: 12}}>
           <div className="card-box">
-            <MonitorRadar/>
+            <MonitorRadar title="1号大棚告警指标"/>
           </div>
         </Col>
         <Col xs={{ span: 24}} md={{ span: 12}} xl={{ span: 12}}>

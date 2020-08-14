@@ -7,7 +7,7 @@ const Monitor: SFC = () => {
   return (
     <div className="card-box monitor">
       <div className="monitior-chart-box">
-        <MonitorRadar/>
+        <MonitorRadar title="告警"/>
       </div>
       <div className="monitor-data-box">
         <div className="monitor-total">12315</div>

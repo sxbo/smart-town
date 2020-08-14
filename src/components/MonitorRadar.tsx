@@ -3,13 +3,20 @@ import '../theme/style/common.scss';
 import { Radar } from '@ant-design/charts';
 import { RadarConfig } from '@ant-design/charts/es/radar';
 
-const MonitorRadarChart: SFC = () => {
+interface MonitorRadarProp{
+  title: string;
+  data?: Array<Object>;
+}
+
+const MonitorRadarChart: SFC<MonitorRadarProp> = (props) => {
 
   // const [data, setData] = useState([]);
 
   // useEffect(() => {
   //   asyncFetch();
   // }, []);
+
+  const {title} = props;
 
   const data = [
     {
@@ -106,7 +113,7 @@ const MonitorRadarChart: SFC = () => {
   const config: RadarConfig = {
     title: {
       visible: true,
-      text: '1号大棚告警指标',
+      text: title,
     },
     data,
     angleField: 'item',

@@ -5,7 +5,7 @@ import React, {SFC, useEffect} from 'react';
 
 import '../theme/style/components/PoorMap.scss';
 
-const PoorMap: SFC = () => {
+const EpidemicMap: SFC = () => {
 
   useEffect(() => {
 
@@ -39,12 +39,12 @@ const PoorMap: SFC = () => {
   }, []);
 
   return <div className="poormap">
-    <div className="title">范家镇扶贫地图</div>
+    <div className="title">疫情地图</div>
     <div id="map"></div>
   </div>;
 };
 
 
-export default PoorMap;
+export default EpidemicMap;
 
 

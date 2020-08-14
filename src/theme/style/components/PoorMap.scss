@@ -1,13 +1,14 @@
 .poormap{
     padding: 10px;
-    height: 200px;
+    height: 100%;
     .title{
         height: 40px;
         line-height: 40px;
         font-weight: bold;
     }
+    #map{
+        position: relative;
+        height: calc(100% - 40px);
+    }
 }
 
-#map{
-    height: 360px;
-}
