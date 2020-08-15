@@ -7,7 +7,7 @@ import {DataCardProp} from './NumberCard';
 import EpidemicSituationLine from '../../components/EpidemicSituationLine';
 import GreenHouseChart from './GreenHouseChart';
 import GreenHouseList from '../../components/GreenHouseList';
-import EpidemicSituationBar from './EpidemicSituationBar';
+import EpidemicSituationBar from '../../components/EpidemicSituationBar';
 import '../../theme/style/common.scss';
 
 const DashBoard: SFC = () => {

@@ -39,7 +39,7 @@ const PoorMap: SFC = () => {
   }, []);
 
   return <div className="poormap">
-    <div className="title">范家镇扶贫地图</div>
+    <div className="title">扶贫地图</div>
     <div id="map"></div>
   </div>;
 };

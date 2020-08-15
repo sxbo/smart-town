@@ -3,6 +3,8 @@ import PageTitle from '../../components/PageTitle';
 import EpidemicList from '../../components/EpidemicList';
 import EpidemicMap from '../../components/EpidemicMap';
 import MonitorRadar from '../../components/MonitorRadar';
+import EpidemicStatusLine from '../../components/EpidemicStatusLine';
+import EpidemicSituationBar from '../../components/EpidemicSituationBar';
 
 import { Row, Col } from 'antd';
 import '../../theme/style/epidemic/layout.scss';
@@ -29,12 +31,12 @@ const EpidemicSituation: SFC = () => {
         </Col>
         <Col span={8}>
           <div className="card-box">
-            <EpidemicMap/>
+            <EpidemicStatusLine/>
           </div>
         </Col>
         <Col span={8}>
           <div className="card-box">
-            <EpidemicMap/>
+            <EpidemicSituationBar/>
           </div>
         </Col>
       </Row>
