@@ -16,7 +16,8 @@ export interface GreenHouse{
 
 interface GreenHouseListProps{
   pagination: false | TablePaginationConfig | undefined
-  lookup?: () => void
+  lookup?: () => void;
+  data: any;
 }
 
 const GreenHouseList: SFC<GreenHouseListProps> = (props) => {
@@ -66,32 +67,7 @@ const GreenHouseList: SFC<GreenHouseListProps> = (props) => {
     },
   ];
 
-  const data: GreenHouse[] = [
-    {
-      key: '1',
-      name: '1号大棚',
-      manager: '李龙',
-      address: '位置1',
-      alarmNum: 5,
-      monitorNum: 3,
-    },
-    {
-      key: '2',
-      name: '2号大棚',
-      manager: '陈梅',
-      address: '位置2',
-      alarmNum: 10,
-      monitorNum: 4,
-    },
-    {
-      key: '3',
-      name: '3号大棚',
-      manager: '李龙',
-      address: '位置3',
-      alarmNum: 1,
-      monitorNum: 5,
-    },
-  ];
+  const {data} = props;
 
 
   return (

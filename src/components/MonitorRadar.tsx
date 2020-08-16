@@ -5,7 +5,7 @@ import { RadarConfig } from '@ant-design/charts/es/radar';
 
 interface MonitorRadarProp{
   title: string;
-  data?: Array<Object>;
+  data?: any;
 }
 
 const MonitorRadarChart: SFC<MonitorRadarProp> = (props) => {
@@ -16,100 +16,8 @@ const MonitorRadarChart: SFC<MonitorRadarProp> = (props) => {
   //   asyncFetch();
   // }, []);
 
-  const {title} = props;
+  const {title, data} = props;
 
-  const data = [
-    {
-      item: 'Design',
-      user: 'a',
-      score: 70,
-    },
-    {
-      item: 'Development',
-      user: 'a',
-      score: 60,
-    },
-    {
-      item: 'Marketing',
-      user: 'a',
-      score: 60,
-    },
-    {
-      item: 'Marketing',
-      user: 'b',
-      score: 50,
-    },
-    {
-      item: 'Users',
-      user: 'a',
-      score: 40,
-    },
-    {
-      item: 'Users',
-      user: 'b',
-      score: 50,
-    },
-    {
-      item: 'Test',
-      user: 'a',
-      score: 60,
-    },
-    {
-      item: 'Test',
-      user: 'b',
-      score: 70,
-    },
-    {
-      item: 'Language',
-      user: 'a',
-      score: 70,
-    },
-    {
-      item: 'Language',
-      user: 'b',
-      score: 50,
-    },
-    {
-      item: 'Technology',
-      user: 'a',
-      score: 50,
-    },
-    {
-      item: 'Technology',
-      user: 'b',
-      score: 40,
-    },
-    {
-      item: 'Support',
-      user: 'a',
-      score: 30,
-    },
-    {
-      item: 'Support',
-      user: 'b',
-      score: 40,
-    },
-    {
-      item: 'Sales',
-      user: 'a',
-      score: 60,
-    },
-    {
-      item: 'Sales',
-      user: 'b',
-      score: 40,
-    },
-    {
-      item: 'UX',
-      user: 'a',
-      score: 50,
-    },
-    {
-      item: 'UX',
-      user: 'b',
-      score: 60,
-    },
-  ];
   const config: RadarConfig = {
     title: {
       visible: true,

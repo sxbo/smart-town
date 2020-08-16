@@ -6,8 +6,8 @@ import { DeploymentUnitOutlined, GoldOutlined, VideoCameraOutlined, TrophyOutlin
 import {DataCardProp} from './NumberCard';
 import EpidemicSituationLine from '../../components/EpidemicSituationLine';
 import GreenHouseChart from './GreenHouseChart';
-import GreenHouseList from '../../components/GreenHouseList';
 import EpidemicSituationBar from '../../components/EpidemicSituationBar';
+import MonitorRadar from '../../components/MonitorRadar';
 import '../../theme/style/common.scss';
 
 const DashBoard: SFC = () => {
@@ -35,6 +35,35 @@ const DashBoard: SFC = () => {
     { country: '全镇', date: '07-28', value: 1000 },
     { country: '全镇', date: '07-29', value: 200 },
     { country: '全镇', date: '07-30', value: 20 },
+  ];
+
+
+  const monitorRadarData = [
+    {
+      item: '大棚',
+      user: '全部告警',
+      score: 70,
+    },
+    {
+      item: '养殖',
+      user: '全部告警',
+      score: 60,
+    },
+    {
+      item: '疫情',
+      user: '全部告警',
+      score: 60,
+    },
+    {
+      item: '景区',
+      user: '全部告警',
+      score: 40,
+    },
+    {
+      item: '滑坡',
+      user: '全部告警',
+      score: 60,
+    },
   ];
 
   return (
@@ -66,10 +95,10 @@ const DashBoard: SFC = () => {
         </div>
       </Row>
       <Row className="gree-house">
-        <Col xs={{ span: 24}} md={{ span: 12}} xl={{ span: 12}}>
-          <GreenHouseList pagination={false}/>
+        <Col xs={{ span: 24}} md={{ span: 8}} xl={{ span: 8}}>
+          <div className="card-box"><MonitorRadar title="告警分布" data={monitorRadarData}/></div>
         </Col>
-        <Col xs={{ span: 24}} md={{ span: 12}} xl={{ span: 12}}>
+        <Col xs={{ span: 24}} md={{ span: 16}} xl={{ span: 16}}>
           <GreenHouseChart/>
         </Col>
       </Row>

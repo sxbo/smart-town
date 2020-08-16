@@ -12,6 +12,49 @@ import '../../theme/style/epidemic/layout.scss';
 
 const EpidemicSituation: SFC = () => {
 
+  const monitorRadarData = [
+    {
+      item: '大棚',
+      user: '全部告警',
+      score: 70,
+    },
+    {
+      item: '确诊',
+      user: '疫情监控',
+      score: 50,
+    },
+    {
+      item: '养殖',
+      user: '全部告警',
+      score: 60,
+    },
+    {
+      item: '疫情',
+      user: '全部告警',
+      score: 60,
+    },
+    {
+      item: '隔离',
+      user: '疫情监控',
+      score: 50,
+    },
+    {
+      item: '景区',
+      user: '全部告警',
+      score: 40,
+    },
+    {
+      item: '滑坡',
+      user: '全部告警',
+      score: 60,
+    },
+    {
+      item: '无症状',
+      user: '疫情监控',
+      score: 70,
+    },
+  ];
+
   return (
     <div className="epidemic">
       <PageTitle title="疫情监控"/>
@@ -26,7 +69,7 @@ const EpidemicSituation: SFC = () => {
         </Col>
         <Col span={8}>
           <div className="card-box">
-            <MonitorRadar title="疫情告警分布"/>
+            <MonitorRadar title="疫情告警分布" data={monitorRadarData}/>
           </div>
         </Col>
         <Col span={8}>

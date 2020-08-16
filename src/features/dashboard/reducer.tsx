@@ -5,7 +5,7 @@ export interface DashBoardState {
 }
 
 const initState: DashBoardState = {
-  menuCollapsed: true,
+  menuCollapsed: false,
 };
 
 const reducer = (state = initState, action: DashBoardAction) => {

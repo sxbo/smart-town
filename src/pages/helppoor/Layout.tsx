@@ -34,17 +34,19 @@ const HelpPoor: SFC = () => {
                 key="1">
                 <Row>
                   <Col span={24}>
+                    <PoorMap/>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={24}>
                     <VillagePoorBar/>
                   </Col>
                 </Row>
                 <Row>
-                  <Col span={6}>
+                  <Col span={8}>
                     <OutPoorRateDonut/>
                   </Col>
-                  <Col span={12}>
-                    <PoorMap />
-                  </Col>
-                  <Col span={6}>
+                  <Col span={16}>
                     <OutPoorTrend/>
                   </Col>
                 </Row>
