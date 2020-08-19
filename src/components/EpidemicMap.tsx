@@ -1,11 +1,17 @@
-import { Scene, ImageLayer } from '@antv/l7';
+import { Scene, PointLayer } from '@antv/l7';
 import { ISceneConfig } from '@antv/l7/es';
 import { GaodeMap } from '@antv/l7-maps';
 import React, {SFC, useEffect} from 'react';
+import {CENTER, townCoordinates as sourceData} from '../const/const';
 
 import '../theme/style/components/PoorMap.scss';
 
 const EpidemicMap: SFC = () => {
+
+  const layerSize = {
+    width: 20,
+    height: 20,
+  };
 
   useEffect(() => {
 
@@ -14,27 +20,35 @@ const EpidemicMap: SFC = () => {
       id: 'map',
       map: new GaodeMap({
         pitch: 0,
-        style: 'light',
-        center: [115.5268, 34.3628],
-        zoom: 7,
+        style: 'macaron',
+        center: [CENTER.x, CENTER.y],
+        zoom: 12.5,
       }),
     };
 
     const scene = new Scene(config);
 
     scene.on('loaded', () => {
-      const layer = new ImageLayer({});
-
-      layer.source(
-        'https://gw.alipayobjects.com/mdn/antv_site/afts/img/A*8SUaRr7bxNsAAAAAAAAAAABkARQnAQ',
-        {
+      const pointLayer = new PointLayer({})
+        .source(sourceData, {
           parser: {
-            type: 'image',
-            extent: [113.1277263548, 32.3464238863, 118.1365790452, 36.4786759137]
+            type: 'json',
+            x: 'longitude',
+            y: 'latitude',
           },
-        },
-      );
-      scene.addLayer(layer);
+        })
+        .shape('name', [
+          'circle',
+        ])
+        .size('unitPrice', [layerSize.width, layerSize.height])
+        .active(true)
+        .color('name', ['#5B8FF9', '#5CCEA1', '#5D7092', '#F6BD16', '#E86452'])
+        .style({
+          opacity: 0.5,
+          strokeWidth: 2,
+        });
+
+      scene.addLayer(pointLayer);
     });
   }, []);
 

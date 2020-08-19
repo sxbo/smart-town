@@ -8,7 +8,8 @@
     }
     #map{
         position: relative;
-        height: calc(100% - 40px);
+        // height: calc(100% - 40px);
+        height: 500px;
         min-height: 400px;
     }
 }
