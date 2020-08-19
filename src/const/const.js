@@ -1,3 +1,16 @@
+
+/**
+ * 范家镇中心坐标
+ */
+export const CENTER = {
+  x: 123.8923,
+  y: 34.2343,
+};
+
+
+/**
+ * 范家镇各村坐标
+ */
 export const townCoordinates = [
   {
     count: 2,
