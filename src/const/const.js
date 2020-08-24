@@ -1,4 +1,11 @@
 
+
+export const colors = {
+  primary: '#1890ff',
+  success: '#00c292',
+  danger: '#f64a4a',
+};
+
 /**
  * 范家镇中心坐标
  */

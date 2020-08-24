@@ -39,6 +39,10 @@ const BreedList: SFC<BreedListProps> = (props) => {
     setVisible(true);
   };
 
+  const closeEdit = () => {
+    setVisible(false);
+  };
+
   const columns: ColumnsType<Breed> = [
     {
       title: '名称',
@@ -76,8 +80,8 @@ const BreedList: SFC<BreedListProps> = (props) => {
       key: 'action',
       render: (text, record) => (
         <Space>
-          <Button type="primary" onClick={e => lookupClick(e, text, record)} size="small">查看监控</Button>
-          <Button type="ghost" onClick={e => editClick(e, text, record)} size="small">编辑</Button>
+          <Button type="dashed" onClick={e => lookupClick(e, text, record)} size="small">查看监控</Button>
+          <Button type="default" onClick={e => editClick(e, text, record)} size="small">编辑</Button>
           <Button type="ghost" onClick={e => lookupClick(e, text, record)} size="small">删除</Button>
         </Space>
       ),
@@ -113,7 +117,7 @@ const BreedList: SFC<BreedListProps> = (props) => {
         dataSource={data}
         pagination={props.pagination}
       />
-      <EditBreed visible={visible}/>
+      <EditBreed visible={visible} onCancel={closeEdit}/>
     </div>
   );
 };
