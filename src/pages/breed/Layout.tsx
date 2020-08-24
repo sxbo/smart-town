@@ -2,7 +2,7 @@ import React, {SFC, useState} from 'react';
 import { Row, Col } from 'antd';
 import '../../theme/style/common.scss';
 import '../../theme/style/greenhouse/layout.scss';
-import GreenHouseList from '../../components/GreenHouseList';
+import BreedList from '../../components/BreedList';
 import MonitorChoiceModel from '../../components/MonitorChoiceModel';
 import { MonitorObject } from '../../components/type';
 import MonitorRadar from '../../components/MonitorRadar';
@@ -10,7 +10,7 @@ import HumidityLine from '../../components/HumidityLine';
 import CO2Line from '../../components/CO2Line';
 import PageTitle from '../../components/PageTitle';
 import TemperatureLine from '../../components/TemperatureLine';
-import {GreenHouse as GreenHouseI} from '../../components/GreenHouseList';
+import { Breed} from '../../components/BreedList';
 
 const BreedHome: SFC = () => {
 
@@ -31,30 +31,33 @@ const BreedHome: SFC = () => {
     setmonitorChoiceModel(true);
   };
 
-  const greehouseData: GreenHouseI[] = [
+  const greehouseData: Breed[] = [
     {
-      key: '1',
+      id: '1',
       name: '养殖场1',
       manager: '李龙',
-      address: '位置1',
-      alarmNum: 5,
-      monitorNum: 3,
+      phone: '位置1',
+      type: '土豆',
+      volume: 300,
+      quota: 5000,
     },
     {
-      key: '2',
+      id: '2',
       name: '养殖场2',
-      manager: '陈梅',
-      address: '位置2',
-      alarmNum: 10,
-      monitorNum: 4,
+      manager: 'bala',
+      phone: '位置1',
+      type: '土豆',
+      volume: 3000,
+      quota: 50000,
     },
     {
-      key: '3',
+      id: '3',
       name: '养殖场3',
-      manager: '李龙',
-      address: '位置3',
-      alarmNum: 1,
-      monitorNum: 5,
+      manager: '李mei',
+      phone: '位置1',
+      type: '土豆',
+      volume: 5000,
+      quota: 10000,
     },
   ];
 
@@ -307,7 +310,7 @@ const BreedHome: SFC = () => {
       <PageTitle title="智能养殖"/>
       <Row>
         <Col span={24}>
-          <GreenHouseList lookup={lookUpMonitor} pagination={{pageSize: 5}} data={greehouseData}/>
+          <BreedList lookup={lookUpMonitor} pagination={{pageSize: 5}} data={greehouseData}/>
         </Col>
       </Row>
       <Row>

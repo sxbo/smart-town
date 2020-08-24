@@ -282,7 +282,7 @@ module.exports = {
         // 强制模块内的 import 排序
         "sort-imports": 0,
         // 要求或禁止模板字符串中的嵌入表达式周围空格的使用
-        "template-curly-spacing": 1,
+        "template-curly-spacing": 0,
         // 强制在 yield* 表达式中 * 周围使用空格
         "yield-star-spacing": 2,
         // if else while for do后面的代码块是否需要{ }包围，参数：

@@ -1,37 +1,45 @@
-import React, {SFC, MouseEvent} from 'react';
+import React, {SFC, MouseEvent, useState} from 'react';
 import '../theme/style/common.scss';
 import '../theme/style/components/greenHouseList.scss';
 import { Table, Button, Form, Input, Space } from 'antd';
 import {TablePaginationConfig} from 'antd/es/table/interface';
 import {ColumnsType} from 'antd/es/table/interface';
+import EditBreed from '../pages/breed/EditBreed';
 
-export interface GreenHouse{
-  key?: string
+export interface Breed{
+  id?: string
   name: string,
-  address?: string,
-  alarmNum?: number,
-  monitorNum?: number
-  manager: string
+  manager?: string,
+  phone?: string,
+  type?: string
+  volume?: number // 交易量
+  quota?: number // 交易额
 }
 
-interface GreenHouseListProps{
+interface BreedListProps{
   pagination: false | TablePaginationConfig | undefined
   lookup?: () => void;
   data: any;
 }
 
-const GreenHouseList: SFC<GreenHouseListProps> = (props) => {
+const BreedList: SFC<BreedListProps> = (props) => {
+
+  const [visible, setVisible] = useState(false);
 
   const [form] = Form.useForm();
 
-  const lookupClick = (e: MouseEvent, text: string, row: GreenHouse) => {
+  const lookupClick = (e: MouseEvent, text: string, row: Breed) => {
     console.log(e);
     console.log(text);
     console.log(row);
     props.lookup && props.lookup();
   };
 
-  const columns: ColumnsType<GreenHouse> = [
+  const editClick = (e: MouseEvent, text: string, row: Breed) => {
+    setVisible(true);
+  };
+
+  const columns: ColumnsType<Breed> = [
     {
       title: '名称',
       dataIndex: 'name',
@@ -39,31 +47,38 @@ const GreenHouseList: SFC<GreenHouseListProps> = (props) => {
       render: (text) => <a>{text}</a>,
     },
     {
-      title: '地址',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: '告警次数',
-      key: 'alarmNum',
-      dataIndex: 'alarmNum',
-    },
-    {
       title: '管理者',
       dataIndex: 'manager',
       key: 'manager',
     },
     {
-      title: '监控点位',
-      key: 'monitorNum',
-      dataIndex: 'monitorNum',
+      title: '联系方式',
+      key: 'phone',
+      dataIndex: 'phone',
+    },
+    {
+      title: '养殖种类',
+      dataIndex: 'type',
+      key: 'type',
+    },
+    {
+      title: '交易量',
+      key: 'volume',
+      dataIndex: 'volume',
+    },
+    {
+      title: '交易额',
+      key: 'quota',
+      dataIndex: 'quota',
     },
     {
       title: '操作',
       key: 'action',
       render: (text, record) => (
         <Space>
-          <Button type="ghost" onClick={e => lookupClick(e, text, record)} size="middle">查看</Button>
+          <Button type="primary" onClick={e => lookupClick(e, text, record)} size="small">查看监控</Button>
+          <Button type="ghost" onClick={e => editClick(e, text, record)} size="small">编辑</Button>
+          <Button type="ghost" onClick={e => lookupClick(e, text, record)} size="small">删除</Button>
         </Space>
       ),
     },
@@ -98,13 +113,14 @@ const GreenHouseList: SFC<GreenHouseListProps> = (props) => {
         dataSource={data}
         pagination={props.pagination}
       />
+      <EditBreed visible={visible}/>
     </div>
   );
 };
 
-GreenHouseList.defaultProps = {
+BreedList.defaultProps = {
   pagination: false,
 };
 
 
-export default GreenHouseList;
+export default BreedList;
