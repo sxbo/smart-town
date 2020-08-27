@@ -1,9 +1,10 @@
-import React, {SFC} from 'react';
+import React, {SFC, useEffect} from 'react';
 import '../theme/style/Login.scss';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, KeyOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import logo from '../theme/img/logo.svg';
 // import {Carousel} from 'antd';
+import axios from 'axios';
 
 
 const Login: SFC = () => {
@@ -15,6 +16,30 @@ const Login: SFC = () => {
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
+  };
+
+  useEffect(() => {
+    axios({
+      method: 'POST',
+      url: 'api/sys/login',
+      data: {username: 'xiaobo', password: 'xiaobo'},
+    }).then((resp) => {
+      console.log(resp);
+    }, (err) => {
+      console.log(err);
+    });
+  }, []);
+
+  const login = () => {
+    axios({
+      method: 'POST',
+      url: 'api/sys/login',
+      data: {username: 'jack', password: '123'},
+    }).then((resp) => {
+      console.log(resp);
+    }, (err) => {
+      console.log(err);
+    });
   };
 
   return (
@@ -57,7 +82,7 @@ const Login: SFC = () => {
             </Form.Item>
 
             <Form.Item className="login-button-form-item">
-              <Button className="login-btn" size="large" type="primary" htmlType="submit" shape="circle" icon={<ArrowRightOutlined />}>
+              <Button onClick={login} className="login-btn" size="large" type="primary" htmlType="submit" shape="circle" icon={<ArrowRightOutlined />}>
               </Button>
             </Form.Item>
           </Form>
