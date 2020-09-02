@@ -1,4 +1,4 @@
-import React, {SFC, useEffect} from 'react';
+import React, {SFC} from 'react';
 import '../theme/style/Login.scss';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, KeyOutlined, ArrowRightOutlined } from '@ant-design/icons';
@@ -11,36 +11,25 @@ const Login: SFC = () => {
 
 
   const onFinish = (values: any) => {
-    console.log('Success:', values);
+    const username: string = values.username;
+    const password: string = values.password;
+
+    axios({
+      method: 'POST',
+      url: 'api/sys/login',
+      data: {username: username.trim(), password: password.trim()},
+    }).then((resp) => {
+      console.log(resp);
+    }).catch((err) => {
+      console.log(err);
+    });
+
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
 
-  useEffect(() => {
-    axios({
-      method: 'POST',
-      url: 'api/sys/login',
-      data: {username: 'xiaobo', password: 'xiaobo'},
-    }).then((resp) => {
-      console.log(resp);
-    }, (err) => {
-      console.log(err);
-    });
-  }, []);
-
-  const login = () => {
-    axios({
-      method: 'POST',
-      url: 'api/sys/login',
-      data: {username: 'jack', password: '123'},
-    }).then((resp) => {
-      console.log(resp);
-    }, (err) => {
-      console.log(err);
-    });
-  };
 
   return (
     <>
@@ -82,7 +71,7 @@ const Login: SFC = () => {
             </Form.Item>
 
             <Form.Item className="login-button-form-item">
-              <Button onClick={login} className="login-btn" size="large" type="primary" htmlType="submit" shape="circle" icon={<ArrowRightOutlined />}>
+              <Button className="login-btn" size="large" type="primary" htmlType="submit" shape="circle" icon={<ArrowRightOutlined />}>
               </Button>
             </Form.Item>
           </Form>

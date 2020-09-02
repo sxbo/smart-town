@@ -59,7 +59,7 @@ module.exports = {
         // 参数： allowKeywords：true 使用保留字做属性名时，只能使用.方式取属性
         // false 使用保留字做属性名时, 只能使用[]方式取属性 e.g [2, {"allowKeywords": false}]
         // allowPattern: 当属性名匹配提供的正则表达式时，允许使用[]方式取值,否则只能用.号取值 e.g [2, {"allowPattern": "^[a-z]+(_[a-z]+)+$"}]
-        "dot-notation": [2, {"allowKeywords": false}],
+        "dot-notation": [0, {"allowKeywords": false}],
         // 必须使用全等，使用 === 替代 == allow-null允许null和undefined==
         "eqeqeq": [2, "allow-null"],
         // 要求 for-in 循环中有一个 if 语句
@@ -205,7 +205,7 @@ module.exports = {
         // 要求 return 语句之前有一空行
         "newline-before-return": 0,
         // 要求方法链中每个调用都有一个换行符
-        "newline-per-chained-call": 1,
+        "newline-per-chained-call": 0,
         // 禁用 continue 语句
         "no-continue": 0,
         // 禁止在代码行后使用内联注释

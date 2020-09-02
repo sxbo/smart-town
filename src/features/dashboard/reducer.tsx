@@ -1,4 +1,4 @@
-import {DashBoardAction, COLLAPSED_MENU} from './action';
+import {CollapsedMenuAction, COLLAPSED_MENU} from './action';
 
 export interface DashBoardState {
   menuCollapsed: boolean
@@ -8,7 +8,7 @@ const initState: DashBoardState = {
   menuCollapsed: false,
 };
 
-const reducer = (state = initState, action: DashBoardAction) => {
+const reducer = (state = initState, action: CollapsedMenuAction) => {
   switch (action.type) {
   case COLLAPSED_MENU:
     return {

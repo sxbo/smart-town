@@ -1,8 +1,8 @@
 export const COLLAPSED_MENU = 'COLLAPSED_MENU';
 
-export interface CollapsedMenuAction{
+export interface CollapsedMenu{
     type: typeof COLLAPSED_MENU
 }
 
 
-export type DashBoardAction = CollapsedMenuAction;
+export type CollapsedMenuAction = CollapsedMenu;

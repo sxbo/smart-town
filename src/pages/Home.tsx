@@ -8,14 +8,22 @@ import {PartyBuild} from './partybuild';
 import {ScenicMonitor} from './scenic';
 import HeaderBar from '../components/Header';
 import LeftMenu from '../components/LeftMenu';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import React from 'react';
 import { Layout } from 'antd';
 import '../theme/style/components/Home.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 const {Content} = Layout;
 
 
 const Home: React.FC = () => {
+  const { isLogin } = useSelector((state: RootState) => ({isLogin: state.login.isLogin}));
+  const token = localStorage.getItem('token');
+
+  if (!isLogin && !token){
+    return <Redirect to={{ pathname: '/login'}}/>;
+  }
   return (
     <Layout className="home-page">
       <HeaderBar/>
