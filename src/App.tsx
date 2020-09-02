@@ -7,8 +7,8 @@ import Home from './pages/Home';
 const App: SFC = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/" component={Login} exact></Route>
-      <Route path="/home" component={Home}></Route>
+      <Route path="/login" component={Login}></Route>
+      <Home/>
     </Switch>
   </BrowserRouter>
 );

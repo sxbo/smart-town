@@ -24,14 +24,14 @@ const Home: React.FC = () => {
         <Layout>
           <Content>
             <Switch>
-              <Route path="/home/dashboard" exact component={DashBoard}></Route>
-              <Route path="/home/breed" component={BreedHome}></Route>
-              <Route path="/home/epidemic" component={EpidemicSituation}></Route>
-              <Route path="/home/greenhouse" component={GreenHouse}></Route>
-              <Route path="/home/helppoor" component={HelpPoor}></Route>
-              <Route path="/home/landslide" component={Landslide}></Route>
-              <Route path="/home/partybuild" component={PartyBuild}></Route>
-              <Route path="/home/scenicmonitor" component={ScenicMonitor}></Route>
+              <Route path="/" exact component={DashBoard}></Route>
+              <Route path="/breed" component={BreedHome}></Route>
+              <Route path="/epidemic" component={EpidemicSituation}></Route>
+              <Route path="/greenhouse" component={GreenHouse}></Route>
+              <Route path="/helppoor" component={HelpPoor}></Route>
+              <Route path="/landslide" component={Landslide}></Route>
+              <Route path="/partybuild" component={PartyBuild}></Route>
+              <Route path="/scenicmonitor" component={ScenicMonitor}></Route>
             </Switch>
           </Content>
         </Layout>
