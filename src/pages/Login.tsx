@@ -1,14 +1,14 @@
-import React, {SFC} from 'react';
+import React, {SFC, useState} from 'react';
 import '../theme/style/Login.scss';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, KeyOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import logo from '../theme/img/logo.svg';
-// import {Carousel} from 'antd';
 import axios from 'axios';
 
 
 const Login: SFC = () => {
 
+  const [remind, setRemimnd] = useState('');
 
   const onFinish = (values: any) => {
     const username: string = values.username;
@@ -21,7 +21,8 @@ const Login: SFC = () => {
     }).then((resp) => {
       console.log(resp);
     }).catch((err) => {
-      console.log(err);
+      setRemimnd('网络错误！');
+      throw new Error(err);
     });
 
   };
