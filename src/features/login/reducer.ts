@@ -13,7 +13,7 @@ const reducer = (state = initState, action: LoginAction) => {
   case LOGIN:
     return {
       ...state,
-      isLogin: true,
+      isLogin: action.data,
     };
   default:
     return state;

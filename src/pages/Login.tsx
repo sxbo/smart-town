@@ -4,11 +4,16 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, KeyOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import logo from '../theme/img/logo.svg';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { LoginActions } from '../features/login';
 
 
 const Login: SFC = () => {
 
   const [remind, setRemimnd] = useState('');
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const onFinish = (values: any) => {
     const username: string = values.username;
@@ -18,8 +23,15 @@ const Login: SFC = () => {
       method: 'POST',
       url: 'api/sys/login',
       data: {username: username.trim(), password: password.trim()},
-    }).then((resp) => {
-      console.log(resp);
+    }).then((res) => {
+      if (res.data.status === 200){
+        dispatch({type: LoginActions.LOGIN, data: true});
+        localStorage.setItem('token', res.data.token);
+        setRemimnd('');
+        history.push('/');
+      } else {
+        setRemimnd(res.data.msg);
+      }
     }).catch((err) => {
       setRemimnd('网络错误！');
       throw new Error(err);
@@ -40,6 +52,9 @@ const Login: SFC = () => {
             <img src={logo} alt="logo"/>
             <span>智慧小镇</span>
           </div>
+          {
+            remind ? <div>{remind}</div> : ''
+          }
           <Form
             name="basic"
             initialValues={{ remember: true }}
