@@ -14,6 +14,8 @@ import { Layout } from 'antd';
 import '../theme/style/components/Home.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import DataScreen from './datascreen';
+import SystemSetting from './sysSeting';
 const {Content} = Layout;
 
 
@@ -33,6 +35,8 @@ const Home: React.FC = () => {
           <Content>
             <Switch>
               <Route path="/" exact component={DashBoard}></Route>
+              <Route path="/datascreen" component={DataScreen}></Route>
+              <Route path="/setting" component={SystemSetting}></Route>
               <Route path="/breed" component={BreedHome}></Route>
               <Route path="/epidemic" component={EpidemicSituation}></Route>
               <Route path="/greenhouse" component={GreenHouse}></Route>

@@ -12,6 +12,10 @@ import {
   AimOutlined,
   DeploymentUnitOutlined,
   GoldOutlined,
+  LinkOutlined,
+  FundProjectionScreenOutlined,
+  SettingOutlined,
+  DesktopOutlined,
 } from '@ant-design/icons';
 
 import '../theme/style/components/LeftMenu.scss';
@@ -31,18 +35,21 @@ const LeftMenu:SFC = () => {
         <Menu.Item key="1" icon={<HomeOutlined />}>
           <Link to="/">主页</Link>
         </Menu.Item>
-        <li className="ant-menu-item ant-menu-item-only-child psn-menu" >农业</li>
+        <Menu.Item key="14" icon={<FundProjectionScreenOutlined />}>
+          <Link to="/datascreen">数据大屏</Link>
+        </Menu.Item>
+        <Menu.Item key="15" icon={<SettingOutlined />}>
+          <Link to="/setting">系统设置</Link>
+        </Menu.Item>
         <Menu.Item key="3" icon={<DeploymentUnitOutlined />}>
           <Link to="/greenhouse">智能大棚</Link>
         </Menu.Item>
         <Menu.Item key="4" icon={<GoldOutlined />}>
           <Link to="/breed">智能养殖</Link>
         </Menu.Item>
-        <li className="ant-menu-item ant-menu-item-only-child psn-menu" >民生</li>
         <Menu.Item key="6" icon={<AimOutlined />}>
           <Link to="/helppoor">精准扶贫</Link>
         </Menu.Item>
-        <li className="ant-menu-item ant-menu-item-only-child psn-menu" >监控</li>
         <Menu.Item key="8" icon={<DotChartOutlined />}>
           <Link to="/epidemic">疫情监控</Link>
         </Menu.Item>
@@ -52,9 +59,14 @@ const LeftMenu:SFC = () => {
         <Menu.Item key="10" icon={<FallOutlined />}>
           <Link to="/landslide">山体滑坡</Link>
         </Menu.Item>
-        <li className="ant-menu-item ant-menu-item-only-child psn-menu" >党建</li>
         <Menu.Item key="12" icon={<StarOutlined />}>
           <Link to="/partybuild">智慧党建</Link>
+        </Menu.Item>
+        <Menu.Item key="16" icon={<DesktopOutlined />}>
+          <Link to="/partybuild">视频监控</Link>
+        </Menu.Item>
+        <Menu.Item key="13" icon={<LinkOutlined />}>
+          <a href="http://www.erp.900nong.com" target="_blank" rel="noopener noreferrer">农资监管</a>
         </Menu.Item>
       </Menu>
     </Sider>

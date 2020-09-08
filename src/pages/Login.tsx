@@ -25,10 +25,16 @@ const Login: SFC = () => {
       data: {username: username.trim(), password: password.trim()},
     }).then((res) => {
       if (res.data.status === 200){
-        dispatch({type: LoginActions.LOGIN, data: true});
-        localStorage.setItem('token', res.data.token);
-        setRemimnd('');
-        history.push('/');
+        const token = res.data.token;
+
+        if (token && token !== 'undefined'){
+          dispatch({type: LoginActions.LOGIN, data: true});
+          localStorage.setItem('token', res.data.token);
+          setRemimnd('');
+          history.push('/');
+        } else {
+          setRemimnd('无效的token！');
+        }
       } else {
         setRemimnd(res.data.msg);
       }
@@ -36,7 +42,6 @@ const Login: SFC = () => {
       setRemimnd('网络错误！');
       throw new Error(err);
     });
-
   };
 
   const onFinishFailed = (errorInfo: any) => {
