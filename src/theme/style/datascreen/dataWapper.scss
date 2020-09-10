@@ -1,0 +1,20 @@
+.screen-data-wapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .screen-data-title{
+        height: 220px;
+        background: linear-gradient(135deg, transparent 10px, yellow 0) top left,
+                    linear-gradient(-135deg, transparent 10px, yellow 0) top right,
+                    linear-gradient(-45deg, transparent 10px, yellow 0) bottom right,
+                    linear-gradient(45deg, transparent 10px, yellow 0) bottom left;
+        background-size: 50% 50%; // 实际上是用4个小图形拼出来的，表示每个小图形宽50%，高50%
+        background-repeat: no-repeat;
+        line-height: 20px;
+        padding-left: 15px;
+    }
+    .screen-data{
+        flex-grow: 1;
+    }
+}

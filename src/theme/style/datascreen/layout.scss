@@ -4,13 +4,16 @@
     .data-screen-wapper{
         display: flex;
         flex-direction: column;
+        background: rgba(0, 51, 102, 1.0);
+        color: #fff;
         .screen-head{
             display: flex;
             justify-content: center;
             align-items: center;
             .left-line{
                 width: 20%;
-                border-bottom: 2px solid darkcyan;
+                height: 0.02rem;
+                background-image: linear-gradient(to left, #02EDEB, transparent);
             }
             .screen-title{
                 font-size: .2rem;
@@ -20,13 +23,14 @@
             }
             .right-line{
                 width: 20%;
-                border-bottom: 2px solid darkcyan;
+                height: 0.02rem;
+                background-image: linear-gradient(to right, #02EDEB, transparent);
             }
             .circle{
-                width: 15px;
-                height: 15px;
+                width: .1rem;
+                height: .1rem;
                 border-radius: 50%;
-                background: chartreuse;
+                border: 0.02rem solid #02EDEB;
             }
         }
         .screen-body{
@@ -70,6 +74,9 @@
                 .screen-scenic-wapper{
                     flex-grow: 1;
                 }
+            }
+            .screen-padding{
+                padding: 10px;
             }
         }
     }

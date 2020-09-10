@@ -106,7 +106,7 @@ const BreedList: SFC<BreedListProps> = (props) => {
           <Form.Item label="管理者">
             <Input placeholder="请输入管理者" />
           </Form.Item>
-          <Form.Item name="layout">
+          <Form.Item>
             <Button value="horizontal">查询</Button>
             <Button value="vertical">重置</Button>
           </Form.Item>
@@ -116,6 +116,7 @@ const BreedList: SFC<BreedListProps> = (props) => {
         columns={columns}
         dataSource={data}
         pagination={props.pagination}
+        rowKey="id"
       />
       <EditBreed visible={visible} onCancel={closeEdit}/>
     </div>
