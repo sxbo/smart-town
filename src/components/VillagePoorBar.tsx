@@ -1,8 +1,14 @@
-import React, { SFC } from 'react';
+import React, { CSSProperties, SFC } from 'react';
 import { Column } from '@ant-design/charts';
 import { ColumnConfig } from '@ant-design/charts/es/column';
 
-const VillagePoorBar: SFC = () => {
+interface VillagePoorBarProp{
+  title?: string | undefined;
+  styleObj?: CSSProperties;
+  yAxisTitleStyle?: Object;
+}
+
+const VillagePoorBar: SFC<VillagePoorBarProp> = (props) => {
 
   const data = [
     {
@@ -67,21 +73,30 @@ const VillagePoorBar: SFC = () => {
     },
   ];
   const config: ColumnConfig = {
-    title: {
+    title: props.title ? {
       visible: true,
-      text: '范家镇贫困户统计',
-    },
+      text: props.title,
+    // eslint-disable-next-line no-undefined
+    } : undefined,
     forceFit: true,
     data,
     padding: 'auto',
     xField: 'type',
     yField: 'sales',
     meta: {
-      sales: { alias: '贫困户(户)' },
+      sales: { alias: '贫困户(户)'},
+    },
+    xAxis:{
+      title: {
+        text: '',
+      },
+    },
+    yAxis: {
+      title: props.yAxisTitleStyle,
     },
   };
 
-  return <Column {...config} />;
+  return <Column style={props.styleObj} {...config} />;
 };
 
 export default VillagePoorBar;

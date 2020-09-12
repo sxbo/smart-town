@@ -22,7 +22,7 @@ const EpidemicMap: SFC = () => {
         pitch: 0,
         style: 'macaron',
         center: [CENTER.x, CENTER.y],
-        zoom: 12.5,
+        zoom: 12,
       }),
     };
 

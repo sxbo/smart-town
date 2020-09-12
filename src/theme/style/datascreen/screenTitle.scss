@@ -1,5 +1,11 @@
 .screen-title-wapper{
     padding: 10px;
-    height: .2rem;
+    height: .4rem;
     padding-top: 0;
+    line-height: .4rem;
+    .screen-data-title{
+        height: .4rem;
+        line-height: .4rem;
+        text-align: center;
+    }
 }

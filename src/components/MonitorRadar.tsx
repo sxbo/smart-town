@@ -1,14 +1,18 @@
-import React, {SFC} from 'react';
+import React, {SFC, CSSProperties} from 'react';
 import '../theme/style/common.scss';
 import { Radar } from '@ant-design/charts';
 import { RadarConfig } from '@ant-design/charts/es/radar';
 
-interface MonitorRadarProp{
-  title: string;
+export interface ChartProp{
+  title?: string;
   data?: any;
+  styleObj?: CSSProperties
+  rediusAxisLabel?: Object;
+  angleAxixLabel?: Object;
+  legendTextStyle?: Object
 }
 
-const MonitorRadarChart: SFC<MonitorRadarProp> = (props) => {
+const MonitorRadarChart: SFC<ChartProp> = (props) => {
 
   // const [data, setData] = useState([]);
 
@@ -16,18 +20,28 @@ const MonitorRadarChart: SFC<MonitorRadarProp> = (props) => {
   //   asyncFetch();
   // }, []);
 
-  const {title, data} = props;
+  const {title, data, styleObj, rediusAxisLabel, angleAxixLabel, legendTextStyle} = props;
 
   const config: RadarConfig = {
-    title: {
+    forceFit: true,
+    padding: 'auto',
+    title: title ? {
       visible: true,
       text: title,
-    },
+    // eslint-disable-next-line no-undefined
+    } : undefined,
     data,
     angleField: 'item',
     radiusField: 'score',
     seriesField: 'user',
-    radiusAxis: { grid: { line: { type: 'line' } } },
+    radiusAxis: {
+      grid: {
+        line: {
+          type: 'line',
+        },
+      },
+      label: rediusAxisLabel,
+    },
     line: { visible: true },
     point: {
       visible: true,
@@ -36,10 +50,14 @@ const MonitorRadarChart: SFC<MonitorRadarProp> = (props) => {
     legend: {
       visible: true,
       position: 'bottom-center',
+      text: legendTextStyle,
+    },
+    angleAxis: {
+      label: angleAxixLabel,
     },
   };
 
-  return <Radar {...config}/>;
+  return <Radar style={styleObj} {...config}/>;
 };
 
 

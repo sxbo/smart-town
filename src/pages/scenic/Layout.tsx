@@ -92,7 +92,7 @@ const ScenicMonitor: SFC = () => {
         </Col>
         <Col span={24}>
           <div className="card-box">
-            <ScenicFlow/>
+            <ScenicFlow title="近四个月景区流量监控"/>
           </div>
         </Col>
       </Row>

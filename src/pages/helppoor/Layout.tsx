@@ -39,7 +39,7 @@ const HelpPoor: SFC = () => {
                 </Row>
                 <Row>
                   <Col span={24}>
-                    <VillagePoorBar/>
+                    <VillagePoorBar title="范家镇贫困户统计"/>
                   </Col>
                 </Row>
                 <Row>

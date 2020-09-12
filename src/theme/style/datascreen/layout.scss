@@ -4,7 +4,7 @@
     .data-screen-wapper{
         display: flex;
         flex-direction: column;
-        background: rgba(0, 51, 102, 1.0);
+        background: rgba(11, 43, 77, 1.0);
         color: #fff;
         .screen-head{
             display: flex;
@@ -37,17 +37,45 @@
             display: flex;
             flex-grow: 1;
             .screen-left-body{
+                width: 30%;
                 flex-grow: 1;
                 display: flex;
                 flex-direction: column;
                 .screen-monitor-wapper{
+                    height: 33.3%;
                     flex-grow: 1;
+                    .screen-monitor-shadow{
+                        display: flex;
+                        .s-chart-wapper{
+                            height: 100%;
+                            width: 33.3%;
+                            flex-grow: 1;
+                        }
+                    }
                 }
                 .screen-green-wapper{
+                    height: 33.3%;
                     flex-grow: 1;
+                    .screen-monitor-shadow{
+                        display: flex;
+                        .s-chart-wapper{
+                            height: 100%;
+                            width: 33.3%;
+                            flex-grow: 1;
+                        }
+                    }
                 }
                 .screen-breed-wapper{
+                    height: 33.3%;
                     flex-grow: 1;
+                    .screen-monitor-shadow{
+                        display: flex;
+                        .s-chart-wapper{
+                            height: 100%;
+                            width: 33.3%;
+                            flex-grow: 1;
+                        }
+                    }
                 }
             }
             .screen-midd-body{
@@ -56,23 +84,87 @@
                 flex-direction: column;
                 .screen-map-wapper{
                     height: 66.6%;
+                    width: 100%;
+                    position: relative;
+                    canvas{
+                        height: 100% !important;
+                        width: 100% !important;
+                        background: rgba(0, 51, 102, .6);
+                    }
+                    .l7-popup{
+                        visibility: visible;
+                        z-index: 8;
+                        transition: visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1) 0s, left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+                        background-color: rgb(255, 255, 255);
+                        box-shadow: rgb(174, 174, 174) 0px 0px 10px;
+                        border-radius: 3px;
+                        color: rgb(89, 89, 89);
+                        font-size: 12px;
+                        font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+                        opacity: 0.95;
+                        
+                    }
+                    .l7-popup-content{
+                        position: relative;
+                        background: #fff;
+                        border-radius: 3px;
+                        padding: 10px 10px 15px;
+                        pointer-events: auto;
+                        box-shadow: none;
+                    }
                 }
-                .screen-epidemic-wapper{
+                .screen-scenic-wapper{
                     flex-grow: 1;
+                    .screen-monitor-shadow{
+                        display: flex;
+                        .s-chart-wapper{
+                            height: 100%;
+                            width: 33.3%;
+                            flex-grow: 1;
+                        }
+                    }
                 }
             }
             .screen-right-body{
+                width: 30%;
                 flex-grow: 1;
                 display: flex;
                 flex-direction: column;
                 .screen-poor-wapper{
                     flex-grow: 1;
+                    height: 33.3%;
+                    .screen-monitor-shadow{
+                        display: flex;
+                        .s-chart-wapper{
+                            height: 100%;
+                            width: 33.3%;
+                            flex-grow: 1;
+                        }
+                    }
                 }
                 .screen-landslid-wapper{
+                    height: 33.3%;
                     flex-grow: 1;
+                    .screen-monitor-shadow{
+                        display: flex;
+                        .s-chart-wapper{
+                            height: 100%;
+                            width: 33.3%;
+                            flex-grow: 1;
+                        }
+                    }
                 }
-                .screen-scenic-wapper{
+                .screen-epidemic-wapper{
+                    height: 33.3%;
                     flex-grow: 1;
+                    .screen-monitor-shadow{
+                        display: flex;
+                        .s-chart-wapper{
+                            height: 100%;
+                            width: 33.3%;
+                            flex-grow: 1;
+                        }
+                    }
                 }
             }
             .screen-padding{
