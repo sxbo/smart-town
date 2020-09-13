@@ -1,7 +1,7 @@
 
 .ant-layout-header{
     background-color: #fff;
-    padding: 0 25px;
+    padding: 0 25px 0 0;
 }
 .smart-town-header{
     display: flex;
@@ -20,13 +20,12 @@
             font-size: 17px;
             font-family: 'Open Sans';
             font-weight: 700;
-            color: #99abb4;
+            text-align: center;
             img{
-                height: .6rem;
-                width: .6rem;
-                max-height: 65px;
-                max-width: 65rem;
-                margin-right: 15px;
+                height: 42px;
+                width: 85px;
+                max-height: 60px;
+                max-width: 122px;
             }
         }
         .menu-op-btn{

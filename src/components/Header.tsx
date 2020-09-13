@@ -4,7 +4,7 @@ import { Layout, Button, Menu, Dropdown, Avatar, Badge } from 'antd';
 import {BellOutlined, MenuUnfoldOutlined, MenuFoldOutlined} from '@ant-design/icons';
 // MenuUnfoldOutlined
 import '../theme/style/components/Header.scss';
-import logo from '../theme/img/logo.svg';
+import logo from '../theme/img/logo.png';
 import { DashBoardActions } from '../features/dashboard';
 import {RootState} from '../store';
 const { Header } = Layout;
@@ -44,7 +44,6 @@ const HerderBar:SFC = () => {
       <div className="smart-town-header-l">
         <div className="logo">
           <img src={logo} alt="logo"/>
-          智慧小镇
         </div>
         <Button type="text" onClick={toggleCollapsed} className="menu-op-btn">
           {React.createElement(dashboardState.menuCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}

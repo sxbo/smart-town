@@ -33,7 +33,7 @@ const LeftMenu:SFC = () => {
         defaultSelectedKeys={['1']}
         style={{ height: '100%', borderRight: 0 }}>
         <Menu.Item key="1" icon={<HomeOutlined />}>
-          <Link to="/">主页</Link>
+          <Link to="/">主页<span style={{visibility: 'hidden'}}>数据</span></Link>
         </Menu.Item>
         <Menu.Item key="14" icon={<FundProjectionScreenOutlined />}>
           <Link to="/datascreen">数据大屏</Link>

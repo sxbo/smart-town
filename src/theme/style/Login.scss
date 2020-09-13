@@ -1,32 +1,40 @@
 .login-model{
     min-height: 100vh;
     text-align: center;
-    background-color: #00c292;
+    background-image: url('../img/login.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: 0 0;
     vertical-align: middle;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
     .login-box{
-        border-radius: 2px;
+        border-radius: 5px;
         width: 4.5rem;
         background: #fff;
         padding: .2rem .5rem;
-        position: relative;
+        position: absolute;
+        right: 8%;
+        top: 26%;
+        box-shadow: 0 0 20px rgba(93, 137, 242, 1);
         .user-icon{
-           color: #8b8b8b;
+           color: #5d89f2;
            font-size: 20px;
         }
         .logo-box{
             text-align: start;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             img{
-                width: .5rem;
-                height: .5rem;
+                width: 0.81rem;
+                height: .4rem;
             }
             span{
                 margin-left: .15rem;
                 font-size: .15rem;
             }
+        }
+        .message-box{
+            padding: 0 0 5px;
+            color: #f74949;
         }
         .remeber-me{
             .ant-form-item-control-input-content{
@@ -39,14 +47,10 @@
         }
 
         .login-button-form-item{
-            position: absolute;
-            right: -25px;
-            top: calc(50% - 25px);
             .login-btn{
-                background-color: #00c292;
+                background-color: #5d89f2;
                 border: none;
-                width: 50px;
-                height: 50px;
+                width: 100%;
             }
         }
         .ant-input{
@@ -58,12 +62,26 @@
                 box-shadow: none;
             }
             &:hover{
-                border-color: #00c292;
+                border-color: #5d89f2;
             }
         }
         input{
             outline: none;
             border-width: 1px;
+            background-color: transparent;
+        }
+        input:-internal-autofill-previewed{
+            background-color: #fff !important;
+            transition: background-color 5000s ease-out 0.5s;
+        }
+
+        input:-internal-autofill-selected {
+            background-color: #fff !important;
+            transition: background-color 5000s ease-out 0.5s;
+        }
+        input:-webkit-autofill{
+            -webkit-box-shadow:0 0 0 1000px white inset !important;
+            box-shadow:0 0 0 1000px white inset !important;
         }
         .ant-input-affix-wrapper{
             border-top: none;
@@ -74,23 +92,23 @@
                 box-shadow: none;
             }
             &:hover{
-                border-color: #00c292;
+                border-color: #5d89f2;
             }
 
         }
         .ant-input:focus, .ant-input-focused{
-            border-color: #00c292;
+            border-color: #5d89f2;
         }
         .ant-input-affix-wrapper:focus, .ant-input-affix-wrapper-focused{
-            border-color: #00c292;
+            border-color: #5d89f2;
             border-right-width: 1px !important;
             outline: 0;
             -webkit-box-shadow: none;
             box-shadow: none;
         }
         .ant-checkbox-checked .ant-checkbox-inner{
-            background-color: #00c292;
-            border-color: #00c292;
+            background-color: #5d89f2;
+            border-color: #5d89f2;
         }
     }
 }

@@ -1,15 +1,15 @@
 .site-layout-background{
     box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
     .ant-menu-vertical .ant-menu-item::after, .ant-menu-vertical-left .ant-menu-item::after, .ant-menu-vertical-right .ant-menu-item::after, .ant-menu-inline .ant-menu-item::after{
-        border-right: 3px solid #00c292;
+        border-right: 3px solid #5d89f2;
     }
 
     .ant-menu-item-selected{
-        color: #00c292;
+        color: #5d89f2;
     }
 
     .ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
-        color: #00c292;
+        color: #5d89f2;
     }
 
     .psn-menu{
@@ -32,17 +32,17 @@
     }
 
     .ant-menu-item-selected a, .ant-menu-item-selected a:hover {
-        color: #00c292;
+        color: #5d89f2;
     }
     .ant-menu-item a {
         color: rgba(0, 0, 0, 0.65);
     }
 
     .ant-menu-item a:hover {
-        color: #00c292;
+        color: #5d89f2;
     }
 
     .ant-menu-item-selected a{
-        color: #00c292;
+        color: #5d89f2;
     }
 }

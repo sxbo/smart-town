@@ -1,3 +1,3 @@
-import DataScreen from './DataScreen';
+import ScreenPage from './ScreenPage';
 
-export default DataScreen;
+export default ScreenPage;

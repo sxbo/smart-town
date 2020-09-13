@@ -1,8 +1,8 @@
 import React, {SFC, useState} from 'react';
 import '../theme/style/Login.scss';
 import { Form, Input, Button, Checkbox } from 'antd';
-import { UserOutlined, KeyOutlined, ArrowRightOutlined } from '@ant-design/icons';
-import logo from '../theme/img/logo.svg';
+import { UserOutlined, KeyOutlined } from '@ant-design/icons';
+import logo from '../theme/img/logo.png';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -55,10 +55,10 @@ const Login: SFC = () => {
         <div className="login-box">
           <div className="logo-box">
             <img src={logo} alt="logo"/>
-            <span>智慧小镇</span>
+            <span>范家镇智慧系统</span>
           </div>
           {
-            remind ? <div>{remind}</div> : ''
+            remind ? <div className="message-box">{remind}</div> : ''
           }
           <Form
             name="basic"
@@ -92,8 +92,7 @@ const Login: SFC = () => {
             </Form.Item>
 
             <Form.Item className="login-button-form-item">
-              <Button className="login-btn" size="large" type="primary" htmlType="submit" shape="circle" icon={<ArrowRightOutlined />}>
-              </Button>
+              <Button className="login-btn" size="middle" type="primary" htmlType="submit" >登录</Button>
             </Form.Item>
           </Form>
         </div>
