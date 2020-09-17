@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {Row, Tabs, Col} from 'antd';
 import PageTitle from '../../components/PageTitle';
+import PermissionList from './PermissionList';
+import UserList from './UserList';
+import RoleList from './RoleList';
 import { TeamOutlined, KeyOutlined, IdcardOutlined } from '@ant-design/icons';
 import '../../theme/style/syssetting/layout.scss';
 import '../../theme/style/common.scss';
@@ -24,13 +27,13 @@ export default class SystemSetting extends Component {
             <div className="card-box setting-tab">
               <Tabs defaultActiveKey="1">
                 <TabPane tab={<span><TeamOutlined />用户管理</span>}key="1">
-                  用户管理
+                  <UserList/>
                 </TabPane>
                 <TabPane tab={<span><IdcardOutlined />角色管理</span>}key="2">
-                  角色管理
+                  <RoleList/>
                 </TabPane>
                 <TabPane tab={<span><KeyOutlined />权限管理</span>} key="3">
-                  权限管理
+                  <PermissionList/>
                 </TabPane>
               </Tabs>
             </div>
