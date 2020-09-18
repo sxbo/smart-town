@@ -1,0 +1,71 @@
+{
+    "page": {
+        "total": 4,
+        "page": 0,
+        "size": 50
+    },
+    "data": [
+        {
+            "deviceSerial": "E38123442",
+            "channelNo": 1,
+            "deviceName": "华原村会议室",
+            "liveAddress": "http://hls01open.ys7.com/openlive/8fe3399e995c4e58abd3af377735361d.m3u8",
+            "hdAddress": "http://hls01open.ys7.com/openlive/8fe3399e995c4e58abd3af377735361d.hd.m3u8",
+            "rtmp": "rtmp://rtmp01open.ys7.com/openlive/8fe3399e995c4e58abd3af377735361d",
+            "rtmpHd": "rtmp://rtmp01open.ys7.com/openlive/8fe3399e995c4e58abd3af377735361d.hd",
+            "flvAddress": "https://flvopen.ys7.com:9188/openlive/8fe3399e995c4e58abd3af377735361d.flv",
+            "hdFlvAddress": "https://flvopen.ys7.com:9188/openlive/8fe3399e995c4e58abd3af377735361d.hd.flv",
+            "status": 1,
+            "exception": 2,
+            "beginTime": 1597681205000,
+            "endTime": 1597681205000
+        },
+        {
+            "deviceSerial": "E57602229",
+            "channelNo": 1,
+            "deviceName": "人民公社",
+            "liveAddress": null,
+            "hdAddress": null,
+            "rtmp": null,
+            "rtmpHd": null,
+            "flvAddress": null,
+            "hdFlvAddress": null,
+            "status": 0,
+            "exception": 0,
+            "beginTime": 1597680719000,
+            "endTime": 1597680719000
+        },
+        {
+            "deviceSerial": "E38123742",
+            "channelNo": 1,
+            "deviceName": "上辛村会议室",
+            "liveAddress": "http://hls01open.ys7.com/openlive/8648f44795dc4846947822fae5d2effd.m3u8",
+            "hdAddress": "http://hls01open.ys7.com/openlive/8648f44795dc4846947822fae5d2effd.hd.m3u8",
+            "rtmp": "rtmp://rtmp01open.ys7.com/openlive/8648f44795dc4846947822fae5d2effd",
+            "rtmpHd": "rtmp://rtmp01open.ys7.com/openlive/8648f44795dc4846947822fae5d2effd.hd",
+            "flvAddress": "https://flvopen.ys7.com:9188/openlive/8648f44795dc4846947822fae5d2effd.flv",
+            "hdFlvAddress": "https://flvopen.ys7.com:9188/openlive/8648f44795dc4846947822fae5d2effd.hd.flv",
+            "status": 1,
+            "exception": 0,
+            "beginTime": 1597046015000,
+            "endTime": 1597046015000
+        },
+        {
+            "deviceSerial": "E53004117",
+            "channelNo": 1,
+            "deviceName": "南干村",
+            "liveAddress": "http://hls01open.ys7.com/openlive/a616ceb8b9ad4d5da6bb678539af6352.m3u8",
+            "hdAddress": "http://hls01open.ys7.com/openlive/a616ceb8b9ad4d5da6bb678539af6352.hd.m3u8",
+            "rtmp": "rtmp://rtmp01open.ys7.com/openlive/a616ceb8b9ad4d5da6bb678539af6352",
+            "rtmpHd": "rtmp://rtmp01open.ys7.com/openlive/a616ceb8b9ad4d5da6bb678539af6352.hd",
+            "flvAddress": "https://flvopen.ys7.com:9188/openlive/a616ceb8b9ad4d5da6bb678539af6352.flv",
+            "hdFlvAddress": "https://flvopen.ys7.com:9188/openlive/a616ceb8b9ad4d5da6bb678539af6352.hd.flv",
+            "status": 1,
+            "exception": 0,
+            "beginTime": 1597037974000,
+            "endTime": 1597037974000
+        }
+    ],
+    "code": "200",
+    "msg": "操作成功!"
+}

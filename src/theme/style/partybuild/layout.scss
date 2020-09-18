@@ -1,0 +1,15 @@
+.party-build{
+    padding: 10px;
+    height: 100%;
+    .party-build-content{
+        padding: 10px;
+        .content-item{
+            padding: 10px;
+            .orginization{
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

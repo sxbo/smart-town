@@ -24,6 +24,7 @@ const PageTitle: SFC<PageTitleProps> = (props) => {
           </div> :
           ''
       }
+      {props.children}
     </div>
   );
 };

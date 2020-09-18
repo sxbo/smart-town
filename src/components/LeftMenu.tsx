@@ -63,7 +63,7 @@ const LeftMenu:SFC = () => {
           <Link to="/partybuild">智慧党建</Link>
         </Menu.Item>
         <Menu.Item key="16" icon={<DesktopOutlined />}>
-          <Link to="/partybuild">视频监控</Link>
+          <Link to="/videomonitor">视频监控</Link>
         </Menu.Item>
         <Menu.Item key="13" icon={<LinkOutlined />}>
           <a href="http://www.erp.900nong.com" target="_blank" rel="noopener noreferrer">农资监管</a>

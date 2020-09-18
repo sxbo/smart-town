@@ -6,6 +6,7 @@ import {HelpPoor} from './helppoor';
 import {Landslide} from './landslide';
 import {PartyBuild} from './partybuild';
 import {ScenicMonitor} from './scenic';
+import {VideoMonitor} from './videoMonitor';
 import HeaderBar from '../components/Header';
 import LeftMenu from '../components/LeftMenu';
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -44,6 +45,7 @@ const Home: React.FC = () => {
               <Route path="/landslide" component={Landslide}></Route>
               <Route path="/partybuild" component={PartyBuild}></Route>
               <Route path="/scenicmonitor" component={ScenicMonitor}></Route>
+              <Route path="/videomonitor" component={VideoMonitor}></Route>
             </Switch>
           </Content>
         </Layout>
