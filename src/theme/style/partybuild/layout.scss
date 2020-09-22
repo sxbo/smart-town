@@ -2,12 +2,14 @@
     padding: 10px;
     height: 100%;
     .party-build-content{
+        background-color: #fff;
         padding: 10px;
         .content-item{
             padding: 10px;
+            padding-top: 0;
             .orginization{
                 display: flex;
-                justify-content: space-between;
+                justify-content: flex-end;
                 margin-bottom: 10px;
             }
         }

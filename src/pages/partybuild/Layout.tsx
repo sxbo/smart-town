@@ -1,59 +1,69 @@
 import React, {SFC} from 'react';
-import {Button, Table, Space} from 'antd';
+import {Tabs} from 'antd';
 import PageTitle from '../../components/PageTitle';
+
 import '../../theme/style/partybuild/layout.scss';
 import '../../theme/style/common.scss';
+import Orginization from './Orginization';
+import Video from './Video';
+
+const { TabPane } = Tabs;
+
 
 const PartyBuild: SFC = () => {
 
-  const columns = [
-    {
-      title: '名字',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: '部门',
-      key: 'idNum',
-      dataIndex: 'idNum',
-    },
-    {
-      title: '创建时间',
-      dataIndex: 'belongVillage',
-      key: 'belongVillage',
-    },
-    {
-      title: '联系方式',
-      key: 'contact',
-      dataIndex: 'contact',
-    },
-    {
-      title: '操作',
-      key: 'action',
-      render: (text: any, record: any) => (
-        <Space>
-          <Button type="default" onClick={() => {console.log(text, record);}} size="small">编辑</Button>
-          <Button type="ghost" size="small">删除</Button>
-        </Space>
-      ),
-    },
-  ];
 
   return (
     <div className="party-build">
       <PageTitle title="智慧党建"></PageTitle>
       <div className="party-build-content">
-        <div className="card-box content-item">
-          <div className="orginization">
-            <div>组织管理</div>
-            <div>
-              <Button size="middle">新建党员</Button>
-            </div>
-          </div>
-          <div>
-            <Table columns={columns} dataSource={[]}/>
-          </div>
-        </div>
+        <Tabs defaultActiveKey="1">
+          <TabPane
+            tab={
+              <span>
+                组织管理
+              </span>
+            }
+            key="1">
+            <Orginization />
+          </TabPane>
+          <TabPane
+            tab={
+              <span>
+                视频
+              </span>
+            }
+            key="2">
+            <Video />
+          </TabPane>
+          <TabPane
+            tab={
+              <span>
+                跑马灯
+              </span>
+            }
+            key="3">
+            <Orginization />
+          </TabPane>
+          <TabPane
+            tab={
+              <span>
+                动态
+              </span>
+            }
+            key="4">
+            <Orginization />
+          </TabPane>
+          <TabPane
+            tab={
+              <span>
+                广告
+              </span>
+            }
+            key="5">
+            <Orginization />
+          </TabPane>
+        </Tabs>
       </div>
     </div>
   );
