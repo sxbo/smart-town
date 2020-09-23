@@ -1,27 +1,16 @@
 import React, {Component} from 'react';
 import {Button, Table, Space} from 'antd';
-import NewMember from './newMember';
 
 const columns = [
   {
-    title: '名字',
-    dataIndex: 'name',
-    key: 'name',
+    title: '标题',
+    dataIndex: 'title',
+    key: 'title',
   },
   {
-    title: '部门',
-    key: 'idNum',
-    dataIndex: 'idNum',
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'belongVillage',
-    key: 'belongVillage',
-  },
-  {
-    title: '联系方式',
-    key: 'contact',
-    dataIndex: 'contact',
+    title: '链接',
+    key: 'link',
+    dataIndex: 'link',
   },
   {
     title: '操作',
@@ -36,12 +25,12 @@ const columns = [
 ];
 
 
-interface OrginizationState{
+interface HorseRaceLampState{
   newMemberVisible: boolean;
 }
 
 
-export default class Orginization extends Component<any, OrginizationState> {
+export default class HorseRaceLamp extends Component<any, HorseRaceLampState> {
 
   // title, link
   constructor(props: any){
@@ -68,15 +57,9 @@ export default class Orginization extends Component<any, OrginizationState> {
   render(){
     return (
       <div className="content-item">
-        <div className="orginization">
-          <div>
-            <Button size="middle" onClick={this.openNewMember}>新建党员</Button>
-          </div>
-        </div>
         <div>
           <Table columns={columns} dataSource={[]}/>
         </div>
-        <NewMember newMemberVisble={this.state.newMemberVisible} close={this.closeNewMember}/>
       </div>
     );
   }

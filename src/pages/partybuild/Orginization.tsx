@@ -59,7 +59,7 @@ export default class Orginization extends Component<any, OrginizationState> {
   closeNewMember = () => {
     // eslint-disable-next-line no-invalid-this
     this.setState({
-      newMemberVisible: true,
+      newMemberVisible: false,
     });
   };
 

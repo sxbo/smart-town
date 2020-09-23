@@ -1,28 +1,23 @@
 import React, {Component} from 'react';
 import {Button, Table, Space} from 'antd';
-import NewMember from './newMember';
 
 const columns = [
   {
-    title: '名字',
-    dataIndex: 'name',
-    key: 'name',
+    title: '标题',
+    dataIndex: 'title',
+    key: 'title',
   },
   {
-    title: '部门',
-    key: 'idNum',
-    dataIndex: 'idNum',
+    title: '链接',
+    key: 'link',
+    dataIndex: 'link',
   },
   {
-    title: '创建时间',
-    dataIndex: 'belongVillage',
-    key: 'belongVillage',
+    title: '背景',
+    key: 'cover',
+    dataIndex: 'cover',
   },
-  {
-    title: '联系方式',
-    key: 'contact',
-    dataIndex: 'contact',
-  },
+
   {
     title: '操作',
     key: 'action',
@@ -30,17 +25,18 @@ const columns = [
       <Space>
         <Button type="default" onClick={() => {console.log(text, record);}} size="small">编辑</Button>
         <Button type="ghost" size="small">删除</Button>
+        <Button type="ghost" size="small">上传背景</Button>
       </Space>
     ),
   },
 ];
 
 
-interface OrginizationState{
+interface AdvertisementState{
   newMemberVisible: boolean;
 }
 
-export default class Orginization extends Component<any, OrginizationState> {
+export default class Advertisement extends Component<any, AdvertisementState> {
   // 标题，连接，cover，操作
   constructor(props: any){
     super(props);
@@ -68,13 +64,12 @@ export default class Orginization extends Component<any, OrginizationState> {
       <div className="content-item">
         <div className="orginization">
           <div>
-            <Button size="middle" onClick={this.openNewMember}>新建党员</Button>
+            <Button size="middle" onClick={this.openNewMember}>新建广告</Button>
           </div>
         </div>
         <div>
           <Table columns={columns} dataSource={[]}/>
         </div>
-        <NewMember newMemberVisble={this.state.newMemberVisible} close={this.closeNewMember}/>
       </div>
     );
   }

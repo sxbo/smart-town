@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Button} from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
+
 import '../../theme/style/partybuild/video.scss';
-import cover from '../../theme/img/login.jpg';
+import cover from '../../theme/img/vedio.svg';
 
 export interface VideoObj{
   title: string;
@@ -26,7 +28,12 @@ export default class VideoItem extends Component<VideoItemPro, any> {
     return (
       <div className="video-item card-box">
         <div className="video-title-box">
-          <img src={cover} alt="cover" className="video-cover"></img>
+          <div className="video-cover">
+            <div className="video-hover">
+              <span><DeleteOutlined/></span>
+            </div>
+            <img src={cover} alt="cover" ></img>
+          </div>
           <div className="video-title">{this.props.video.title}</div>
         </div>
         <div className="upload-box">

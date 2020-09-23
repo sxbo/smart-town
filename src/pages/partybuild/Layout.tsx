@@ -6,6 +6,9 @@ import '../../theme/style/partybuild/layout.scss';
 import '../../theme/style/common.scss';
 import Orginization from './Orginization';
 import Video from './Video';
+import Advertisement from './Advertisement';
+import Dynamic from './Dynamic';
+import HorseRaceLamp from './HorseRaceLamp';
 
 const { TabPane } = Tabs;
 
@@ -43,7 +46,7 @@ const PartyBuild: SFC = () => {
               </span>
             }
             key="3">
-            <Orginization />
+            <HorseRaceLamp/>
           </TabPane>
           <TabPane
             tab={
@@ -52,7 +55,7 @@ const PartyBuild: SFC = () => {
               </span>
             }
             key="4">
-            <Orginization />
+            <Dynamic/>
           </TabPane>
           <TabPane
             tab={
@@ -61,7 +64,7 @@ const PartyBuild: SFC = () => {
               </span>
             }
             key="5">
-            <Orginization />
+            <Advertisement/>
           </TabPane>
         </Tabs>
       </div>

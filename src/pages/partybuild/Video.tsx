@@ -4,34 +4,35 @@ import React, {Component} from 'react';
 import {Button, Row, Col} from 'antd';
 import '../../theme/style/partybuild/video.scss';
 import VideoItem, {VideoObj} from './VideoItem';
+import NewVideo from './newVideo';
 
 interface VideoState{
-  newMemberVisible: boolean;
+  newVedioVisble: boolean;
 }
 
 const videos: VideoObj[] = [
   {
-    cover: '../../theme/img/login.jpg',
+    cover: '../../theme/img/vedio.svg',
     title: '党建学习第一期视频',
     playLink: '',
   },
   {
-    cover: '../../theme/img/login.jpg',
+    cover: '../../theme/img/vedio.svg',
     title: '党建学习第一期视频',
     playLink: '',
   },
   {
-    cover: '../../theme/img/login.jpg',
+    cover: '../../theme/img/vedio.svg',
     title: '党建学习第一期视频',
     playLink: '',
   },
   {
-    cover: '../../theme/img/login.jpg',
+    cover: '../../theme/img/vedio.svg',
     title: '党建学习第一期视频',
     playLink: '',
   },
   {
-    cover: '../../theme/img/login.jpg',
+    cover: '../../theme/img/vedio.svg',
     title: '党建学习第一期视频',
     playLink: '',
   },
@@ -42,21 +43,21 @@ export default class Video extends Component<any, VideoState> {
   constructor(props: any){
     super(props);
     this.state = {
-      newMemberVisible: false,
+      newVedioVisble: false,
     };
   }
 
-  openNewMember = () => {
+  openUploadVedio = () => {
     // eslint-disable-next-line no-invalid-this
     this.setState({
-      newMemberVisible: true,
+      newVedioVisble: true,
     });
   };
 
-  closeNewMember = () => {
+  closeUploadVedio = () => {
     // eslint-disable-next-line no-invalid-this
     this.setState({
-      newMemberVisible: true,
+      newVedioVisble: false,
     });
   };
 
@@ -86,9 +87,10 @@ export default class Video extends Component<any, VideoState> {
   render(){
     return (
       <div className="content-item">
+        <NewVideo newVedioVisble={this.state.newVedioVisble} close={this.closeUploadVedio}/>
         <div className="orginization">
           <div>
-            <Button size="middle" onClick={this.openNewMember}>上传视频</Button>
+            <Button size="middle" onClick={this.openUploadVedio}>上传视频</Button>
           </div>
         </div>
         {

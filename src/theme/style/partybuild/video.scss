@@ -1,5 +1,6 @@
 .video-item{
     display: flex;
+    min-width: 315px;
     .video-title-box{
         display: flex;
         flex-direction: column;
@@ -9,11 +10,31 @@
         .video-cover{
             height: 150px;
             width: 150px;
-            background-image: url('../../img/login.jpg');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            background-position: 0, 0;
+            box-sizing: border-box;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            img{
+                height: 150px;
+                width: 150px;
+            }
+            .video-hover{
+                position: absolute;
+                height: 150px;
+                width: 150px;
+                color: transparent;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 18px;
+                &:hover{
+                    transition: all .3s;
+                    background-color: rgba(0,0,0,.5);
+                    color: #fff;
+                }
+            }
         }
+       
         .video-title{
             text-align: center;
             font-weight: bold;
