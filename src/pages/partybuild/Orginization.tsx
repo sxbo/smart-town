@@ -72,7 +72,7 @@ export default class Orginization extends Component<any, OrginizationState> {
           </div>
         </div>
         <div>
-          <Table columns={columns} dataSource={[]}/>
+          <Table columns={columns} dataSource={[]} rowKey={(record, index) => `${index}`}/>
         </div>
         <NewMember newMemberVisble={this.state.newMemberVisible} close={this.closeNewMember}/>
       </div>

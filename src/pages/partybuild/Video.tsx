@@ -69,11 +69,11 @@ export default class Video extends Component<any, VideoState> {
     }
     return <>
       {
-        videoArr.map((videoItems) => {
-          return <Row>
+        videoArr.map((videoItems, videoItemindex) => {
+          return <Row key={`${videoItemindex}`}>
             {
-              videoItems.map((video: VideoObj) => {
-                return <Col xs={{ span: 24}} md={{ span: 12}} xl={{ span: 6}} style={{padding: '10px'}}>
+              videoItems.map((video: VideoObj, index) => {
+                return <Col key={`${index}`} xs={{ span: 24}} md={{ span: 12}} xl={{ span: 6}} style={{padding: '10px'}}>
                   <VideoItem video={video}/>
                 </Col>;
               })

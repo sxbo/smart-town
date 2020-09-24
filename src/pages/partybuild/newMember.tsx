@@ -26,7 +26,6 @@ class NewMember extends Component<NewMemberPro> {
       wrapperCol: { span: 14 },
     };
 
-    // mp4,flv,f4v,webm,m4v,mov,3gp,3g2,rm,rmvb,wmv,avi,asf,mpg,mpeg,mpe,ts,div,dv,divx,vob,dat,mkv,swf,lavf,cpk,dirac,ram,qt,fli,flc,mod,
     return <Modal
       title="新建党员"
       visible={this.props.newMemberVisble}
