@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-invalid-this */
 import React, {Component} from 'react';
 import {Button, Table, Space, Modal} from 'antd';
-import EditHorseRaceLamp from './EditHorseRaceLamp';
+import NewHorseRaceLamp from './NewHorseRaceLamp';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+
 
 const {confirm} = Modal;
 
@@ -58,11 +60,9 @@ export default class HorseRaceLamp extends Component<any, HorseRaceLampState> {
         title: '标题',
         dataIndex: 'title',
         key: 'title',
-      },
-      {
-        title: '链接',
-        key: 'link',
-        dataIndex: 'link',
+        render: (text: any) => {
+          return <a>{text}</a>;
+        },
       },
       {
         title: '操作',
@@ -84,10 +84,15 @@ export default class HorseRaceLamp extends Component<any, HorseRaceLampState> {
 
     return (
       <div className="content-item">
+        <div className="orginization">
+          <div>
+            <Button size="middle" type="primary">新建</Button>
+          </div>
+        </div>
         <div>
           <Table columns={columns} dataSource={data} rowKey={(record, index) => `${index}`}/>
         </div>
-        <EditHorseRaceLamp visible={this.state.visible} close={this.closeEditModel}/>
+        <NewHorseRaceLamp visible={this.state.visible} close={this.closeEditModel}/>
       </div>
     );
   }

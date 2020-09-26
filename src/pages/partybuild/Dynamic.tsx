@@ -65,6 +65,7 @@ export default class Dynamic extends Component<any, DynamicState> {
           <Space>
             <Button type="default" onClick={() => {console.log(text, record);}} size="small">编辑</Button>
             <Button type="ghost" size="small">删除</Button>
+            <Button type="ghost" size="small">上传Icon</Button>
           </Space>
         ),
       },

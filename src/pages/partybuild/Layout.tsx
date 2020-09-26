@@ -33,7 +33,7 @@ const PartyBuild: SFC = () => {
           <TabPane
             tab={
               <span>
-                视频
+                视频学习
               </span>
             }
             key="2">
