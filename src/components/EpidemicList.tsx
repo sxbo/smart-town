@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {SFC} from 'react';
 import { Table, Button, Form, Input } from 'antd';
 import {TablePaginationConfig} from 'antd/es/table/interface';

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-unused-vars */
 import React, {SFC, MouseEvent, useState} from 'react';
 import '../theme/style/common.scss';
 import '../theme/style/components/greenHouseList.scss';

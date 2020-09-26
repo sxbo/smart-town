@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button} from 'antd';
-import {FullscreenOutlined, FullscreenExitOutlined} from '@ant-design/icons';
-
+import {FullscreenOutlined} from '@ant-design/icons';
+// FullscreenExitOutlined
 import BackShadow from './BackShadow';
 import ScreenTitle from './ScreenTitle';
 import MonitorRadar from '../../components/MonitorRadar';

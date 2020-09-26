@@ -60,9 +60,16 @@ export default class HorseRaceLamp extends Component<any, HorseRaceLampState> {
         title: '标题',
         dataIndex: 'title',
         key: 'title',
+        width: '30%',
         render: (text: any) => {
           return <a>{text}</a>;
         },
+      },
+      {
+        title: '类型',
+        dataIndex: 'type',
+        key: 'type',
+        width: '30%',
       },
       {
         title: '操作',
@@ -77,9 +84,9 @@ export default class HorseRaceLamp extends Component<any, HorseRaceLampState> {
     ];
 
     const data = [
-      {title: '冬天来了，秋天还会远吗', link: 'http:fanjiazhen.com/home/pcture'},
-      {title: '习近平在联合国辩论会上的演讲', link: 'http:fanjiazhen.com/home/pcture'},
-      {title: '花覅就看见工行卡', link: 'http:fanjiazhen.com/home/pcture'},
+      {title: '冬天来了，秋天还会远吗', type: '首页'},
+      {title: '习近平在联合国辩论会上的演讲', type: '党建'},
+      {title: '花覅就看见工行卡', type: '首页'},
     ];
 
     return (

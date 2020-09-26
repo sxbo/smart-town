@@ -6,7 +6,7 @@
 /* eslint-disable newline-after-var */
 /* eslint-disable no-template-curly-in-string */
 import React, {Component} from 'react';
-import { Modal, Form, Input} from 'antd';
+import { Modal, Form, Input, Select} from 'antd';
 import { FormInstance } from 'antd/lib/form/Form';
 import {RichEditor} from 'ppfish';
 import 'ppfish/es/components/RichEditor/style/index.less';
@@ -14,12 +14,12 @@ import 'ppfish/es/components/RichEditor/style/index.less';
 // import { UploadOutlined } from '@ant-design/icons';
 
 
-interface EditHorseRaceLampPro{
+interface NewDynamicPro{
   visible: boolean;
   close: () => void;
 }
 
-export default class NewHorseRaceLamp extends Component<EditHorseRaceLampPro, any> {
+export default class NewDynamic extends Component<NewDynamicPro, any> {
   formRef: React.RefObject<FormInstance>;
   toolbar: (string[] | { align: string; }[] | { list: string; }[] | { script: string; }[] | { indent: string; }[] | { direction: string; }[])[];
   editorRef: React.RefObject<FormInstance>;
@@ -75,8 +75,14 @@ export default class NewHorseRaceLamp extends Component<EditHorseRaceLampPro, an
         <Form.Item name={['horseRaceLamp', 'title']} label="标题" rules={[{ required: true, message: '标题是必填字段!' }]}>
           <Input />
         </Form.Item>
-        <Form.Item name={['horseRaceLamp', 'link']} label="链接">
+        <Form.Item name={['horseRaceLamp', 'secondTitle']} label="副标题">
           <Input />
+        </Form.Item>
+        <Form.Item name={['horseRaceLamp', 'type']} label="类型">
+          <Select defaultValue="home">
+              <Select.Option value="home">首页</Select.Option>
+              <Select.Option value="partyBuild">党建</Select.Option>
+          </Select>
         </Form.Item>
         <Form.Item label="内容">
           <RichEditor ref={this.editorRef}

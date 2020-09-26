@@ -1,12 +1,13 @@
+/* eslint-disable no-invalid-this */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {Component} from 'react';
 import {Button, Table, Space} from 'antd';
-import NewMember from './newMember';
 import coverImg from '../../theme/img/login.jpg';
+import NewDynamic from './NewDynamic';
 
 interface DynamicState{
-  newMemberVisible: boolean;
+  newDynamicVisible: boolean;
 }
 
 export default class Dynamic extends Component<any, DynamicState> {
@@ -14,23 +15,28 @@ export default class Dynamic extends Component<any, DynamicState> {
   constructor(props: any){
     super(props);
     this.state = {
-      newMemberVisible: false,
+      newDynamicVisible: false,
     };
   }
 
-  openNewMember = () => {
+  openNewDynamic = () => {
     // eslint-disable-next-line no-invalid-this
     this.setState({
-      newMemberVisible: true,
+      newDynamicVisible: true,
     });
   };
 
-  closeNewMember = () => {
+  closeNewDynamic = () => {
     // eslint-disable-next-line no-invalid-this
     this.setState({
-      newMemberVisible: true,
+      newDynamicVisible: false,
     });
   };
+
+  editDynamic = (record: any) => {
+    console.log(record);
+    this.openNewDynamic();
+  }
 
   render(){
 
@@ -39,6 +45,7 @@ export default class Dynamic extends Component<any, DynamicState> {
         title: '标题',
         dataIndex: 'title',
         key: 'title',
+        width: '25%',
         render: (text: any) => {
           return <>
             <a>
@@ -51,43 +58,44 @@ export default class Dynamic extends Component<any, DynamicState> {
       {
         title: '副标题',
         key: 'secondTitle',
+        width: '25%',
         dataIndex: 'secondTitle',
       },
       {
-        title: '链接',
-        dataIndex: 'link',
-        key: 'link',
+        title: '类型',
+        dataIndex: 'type',
+        key: 'type',
       },
       {
         title: '操作',
         key: 'action',
         render: (text: any, record: any) => (
           <Space>
-            <Button type="default" onClick={() => {console.log(text, record);}} size="small">编辑</Button>
+            <Button type="default" onClick={() => this.editDynamic(record)} size="small">编辑</Button>
             <Button type="ghost" size="small">删除</Button>
-            <Button type="ghost" size="small">上传Icon</Button>
+            <Button type="ghost" size="small">上传背景</Button>
           </Space>
         ),
       },
     ];
 
     const data = [
-      {title: '冬天来了，秋天还会远吗', secondTitle: 'aa454sd45fas45ad223', link: 'http:fanjiazhen.com/home/pcture'},
-      {title: '习近平在联合国辩论会上的演讲', secondTitle: 'aa454sd45fas45ad223', link: 'http:fanjiazhen.com/home/pcture'},
-      {title: '花覅就看见工行卡', secondTitle: 'aa454sd45fas45ad223', link: 'http:fanjiazhen.com/home/pcture'},
+      {title: '冬天来了，秋天还会远吗', secondTitle: 'aa454sd45fas45ad223', type: '动态'},
+      {title: '习近平在联合国辩论会上的演讲', secondTitle: 'aa454sd45fas45ad223', type: '新闻资讯'},
+      {title: '花覅就看见工行卡', secondTitle: 'aa454sd45fas45ad223', type: '动态'},
     ];
 
     return (
       <div className="content-item">
         <div className="orginization">
           <div>
-            <Button size="middle" onClick={this.openNewMember}>新增动态</Button>
+            <Button size="middle" onClick={this.openNewDynamic}>新增动态</Button>
           </div>
         </div>
         <div>
           <Table columns={columns} dataSource={data} rowKey={(record, index) => `${index}`}/>
         </div>
-        <NewMember newMemberVisble={this.state.newMemberVisible} close={this.closeNewMember}/>
+        <NewDynamic visible={this.state.newDynamicVisible} close={this.closeNewDynamic}/>
       </div>
     );
   }
