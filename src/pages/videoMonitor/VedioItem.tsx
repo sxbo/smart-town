@@ -80,7 +80,7 @@ export default class VideoItem extends Component<VideoItemPro, any> {
       url: this.props.video.rtmp,
       deviceSerial: this.props.video.deviceSerial,
       channelNo: this.props.video.channelNo,
-      template: 'standard', // simple - 极简版;standard-标准版;security - 安防版(预览回放);voice-语音版；  
+      template: 'standard', // simple - 极简版;standard-标准版;security - 安防版(预览回放);voice-语音版；
       // 视频上方头部控件
       // header: ['capturePicture','save','zoom'],            // 如果templete参数不为simple,该字段将被覆盖
       // // 视频下方底部控件
