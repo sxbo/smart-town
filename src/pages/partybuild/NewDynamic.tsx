@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable indent */
 /* eslint-disable quotes */
@@ -6,10 +7,12 @@
 /* eslint-disable newline-after-var */
 /* eslint-disable no-template-curly-in-string */
 import React, {Component} from 'react';
-import { Modal, Form, Input, Select} from 'antd';
+import { Modal, Form, Input, Select, message} from 'antd';
 import { FormInstance } from 'antd/lib/form/Form';
 import {RichEditor} from 'ppfish';
 import 'ppfish/es/components/RichEditor/style/index.less';
+import {DynamicType} from '../../const/const';
+import axios from 'axios';
 
 // import { UploadOutlined } from '@ant-design/icons';
 
@@ -17,22 +20,23 @@ import 'ppfish/es/components/RichEditor/style/index.less';
 interface NewDynamicPro{
   visible: boolean;
   close: () => void;
+  createSuccess?: () => void;
 }
 
 export default class NewDynamic extends Component<NewDynamicPro, any> {
   formRef: React.RefObject<FormInstance>;
   toolbar: (string[] | { align: string; }[] | { list: string; }[] | { script: string; }[] | { indent: string; }[] | { direction: string; }[])[];
-  editorRef: React.RefObject<FormInstance>;
+  editorRef: React.RefObject<any>;
   constructor(props: any) {
     super(props);
     this.formRef = React.createRef<FormInstance>();
-    this.editorRef = React.createRef<FormInstance>();
+    this.editorRef = React.createRef<any>();
     this.toolbar = [
       ['bold', 'italic', 'underline', 'link'], ['color', 'background'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean', 'formatPainter'],
     ];
 
     this.state = {
-      img: '',
+      content: '',
     };
   }
 
@@ -42,17 +46,35 @@ export default class NewDynamic extends Component<NewDynamicPro, any> {
   }
 
   handleOk = () => {
-    this.formRef.current?.validateFields();
+    this.formRef.current?.validateFields().then(data => {
+      const dynamicOpt = data.dynamic;
+      const content = this.state.content;
+      dynamicOpt.content = content;
+      axios({
+        method: 'POST',
+        url: 'api/spb/addDynamicInformation',
+        data: dynamicOpt,
+      }).then((res) => {
+        if (res.data.status === 200){
+          this.setState({content: ''});
+          this.props.createSuccess?.();
+          this.formRef.current?.resetFields();
+        } else {
+          message.error('操作失败');
+        }
+      }).catch(() => {
+        message.error('新建失败');
+      });
+    });
   }
   handleCancel = () => {
+    this.setState({content: ''});
+    this.formRef.current?.resetFields();
     this.props.close();
   }
 
   onChange = (content: any, delta: any, source: any, editor: any) => {
-    console.log('content: ', content);
-    console.log('delta: ', delta);
-    console.log('source: ', source);
-    console.log('editor: ', editor.getHTML());
+    this.setState({content: content});
   }
 
 
@@ -64,7 +86,7 @@ export default class NewDynamic extends Component<NewDynamicPro, any> {
     };
 
     return <Modal
-      title="编辑"
+      title="新建动态"
       visible={this.props.visible}
       onOk={this.handleOk}
       onCancel={this.handleCancel}
@@ -72,23 +94,24 @@ export default class NewDynamic extends Component<NewDynamicPro, any> {
       cancelText="取消"
       width="800px">
       <Form ref={this.formRef} name="nest-messages" {...layout}>
-        <Form.Item name={['horseRaceLamp', 'title']} label="标题" rules={[{ required: true, message: '标题是必填字段!' }]}>
+        <Form.Item name={['dynamic', 'title']} label="标题" rules={[{ required: true, message: '标题是必填字段!' }]}>
           <Input />
         </Form.Item>
-        <Form.Item name={['horseRaceLamp', 'secondTitle']} label="副标题">
+        <Form.Item name={['dynamic', 'subTitle']} label="副标题">
           <Input />
         </Form.Item>
-        <Form.Item name={['horseRaceLamp', 'type']} label="类型">
-          <Select defaultValue="home">
-              <Select.Option value="home">首页</Select.Option>
-              <Select.Option value="partyBuild">党建</Select.Option>
+        <Form.Item name={['dynamic', 'type']} label="类型" rules={[{ required: true, message: '动态类型是必选字段' }]}>
+          <Select>
+            {
+              DynamicType.map((type, index) => <Select.Option key={`${index}`} value={type.type}>{type.label}</Select.Option>)
+            }
           </Select>
         </Form.Item>
         <Form.Item label="内容">
           <RichEditor ref={this.editorRef}
           toolbar={this.toolbar}
           onChange={this.onChange}
-          value=""
+          value={this.state.content}
           />
         </Form.Item>
       </Form>

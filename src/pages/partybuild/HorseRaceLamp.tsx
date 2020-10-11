@@ -1,16 +1,28 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable newline-after-var */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-invalid-this */
 import React, {Component} from 'react';
-import {Button, Table, Space, Modal} from 'antd';
+import {Button, Table, Space, Modal, message} from 'antd';
 import NewHorseRaceLamp from './NewHorseRaceLamp';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import {HorseType, colors} from '../../const/const';
+import EditHorseRaceLamp from './EditHorceRaceLamp';
 
 
 const {confirm} = Modal;
 
+export enum HorseOptMpde{
+  create,
+  update
+}
+
 interface HorseRaceLampState{
   visible: boolean;
-  horseRaceLamp: any
+  horseRaceLamp: any;
+  hrls: [];
+  editVisible: boolean;
 }
 
 
@@ -21,34 +33,91 @@ export default class HorseRaceLamp extends Component<any, HorseRaceLampState> {
     super(props);
     this.state = {
       visible: false,
+      editVisible: false,
       horseRaceLamp: {},
+      hrls: [],
     };
   }
 
-  closeEditModel = () => {
-    // eslint-disable-next-line no-invalid-this
+  componentDidMount(){
+    this.getHRLs();
+  }
+
+  createClicked = () => {
+    this.setState({
+      visible: true,
+    });
+  }
+
+  getHRLs = () => {
+    axios({
+      method: 'GET',
+      url: 'api/spb/getAllHorseRaceLamp',
+    }).then((res) => {
+      if (res.data.status === 200){
+        const data = res.data.data || [];
+        this.setState({
+          hrls: data,
+        });
+      } else {
+        this.setState({
+          hrls: [],
+        });
+      }
+    }).catch(() => {
+      this.setState({
+        hrls: [],
+      });
+    });
+  }
+
+  closeCreateModel = () => {
     this.setState({
       visible: false,
     });
   };
 
+  closeEditModel = () => {
+    this.setState({
+      editVisible: false,
+    });
+  };
+
+  createSuccessCall = () => {
+    this.getHRLs();
+    this.closeCreateModel();
+  }
+
+  editSuccessCall = () => {
+    this.getHRLs();
+    this.closeEditModel();
+  }
+
   editHorseRaceLamp = (record: any) => {
     this.setState({
-      visible: true,
+      editVisible: true,
       horseRaceLamp: record,
     });
   }
 
-  deleteHorseRaceLamp = () => {
+  deleteHorseRaceLamp = (horseRaceLamp: any) => {
     confirm({
       title: '删除',
       icon: <ExclamationCircleOutlined />,
       content: '确认删除？',
-      onOk() {
-        console.log('OK');
-      },
-      onCancel() {
-        console.log('Cancel');
+      onOk: () => {
+        axios({
+          method: 'DELETE',
+          url: `api/spb/delHorseRaceLamp/${horseRaceLamp.id}`,
+        }).then((res) => {
+          if (res.data.status === 200){
+            this.getHRLs();
+          } else {
+            message.error('删除失败');
+          }
+        }).catch(() => {
+          message.error('删除失败');
+        });
       },
     });
   }
@@ -70,6 +139,10 @@ export default class HorseRaceLamp extends Component<any, HorseRaceLampState> {
         dataIndex: 'type',
         key: 'type',
         width: '30%',
+        render: (type: number) => {
+          const find = HorseType.find(item => item.type == type);
+          return find?.label;
+        },
       },
       {
         title: '操作',
@@ -77,29 +150,26 @@ export default class HorseRaceLamp extends Component<any, HorseRaceLampState> {
         render: (text: any, record: any) => (
           <Space>
             <Button type="default" onClick={() => this.editHorseRaceLamp(record)} size="small">编辑</Button>
-            <Button type="ghost" size="small" onClick={this.deleteHorseRaceLamp}>删除</Button>
+            <Button type="ghost" size="small" style={{color: colors.danger}} onClick={() => this.deleteHorseRaceLamp(record)}>删除</Button>
           </Space>
         ),
       },
     ];
 
-    const data = [
-      {title: '冬天来了，秋天还会远吗', type: '首页'},
-      {title: '习近平在联合国辩论会上的演讲', type: '党建'},
-      {title: '花覅就看见工行卡', type: '首页'},
-    ];
+    const {hrls, horseRaceLamp} = this.state;
 
     return (
       <div className="content-item">
         <div className="orginization">
           <div>
-            <Button size="middle" type="primary">新建</Button>
+            <Button size="middle" type="primary" onClick={this.createClicked}>新建</Button>
           </div>
         </div>
         <div>
-          <Table columns={columns} dataSource={data} rowKey={(record, index) => `${index}`}/>
+          <Table columns={columns} dataSource={hrls} rowKey='id'/>
         </div>
-        <NewHorseRaceLamp visible={this.state.visible} close={this.closeEditModel}/>
+        <NewHorseRaceLamp createSuccess={this.createSuccessCall} visible={this.state.visible} close={this.closeCreateModel}/>
+        <EditHorseRaceLamp horseRaceLamp={horseRaceLamp} editSuccess={this.editSuccessCall} visible={this.state.editVisible} close={this.closeEditModel}/>
       </div>
     );
   }

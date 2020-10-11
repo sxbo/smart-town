@@ -126,6 +126,7 @@ const EpidemicList: SFC<GreenHouseListProps> = (props) => {
         columns={columns}
         dataSource={data}
         pagination={props.pagination}
+        rowKey="id"
       />
     </div>
   );

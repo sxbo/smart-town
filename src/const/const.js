@@ -1,6 +1,49 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-magic-numbers */
 
+export const jopType = [
+  {
+    jobType: 1,
+    label: '党务书记',
+  },
+  {
+    jobType: 2,
+    label: '普通党员',
+  },
+];
+
+export const HorseType = [
+  {
+    type: 1,
+    label: '首页',
+  },
+  {
+    type: 2,
+    label: '党建',
+  },
+];
+
+export const DynamicType = [
+  {
+    type: 1,
+    label: '动态',
+  },
+  {
+    type: 2,
+    label: '新闻资讯',
+  },
+];
+
+export const idCardType = [
+  {
+    idCardType: 1,
+    label: '正式党员',
+  },
+  {
+    idCardType: 2,
+    label: '普通成员',
+  },
+];
 
 export const colors = {
   primary: '#1890ff',

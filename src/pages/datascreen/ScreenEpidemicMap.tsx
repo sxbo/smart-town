@@ -1,12 +1,14 @@
-import {
+/* eslint-disable import/first */
+/* eslint-disable newline-after-var */
+
+import * as React from 'react';
+const {
   LayerEvent,
   AMapScene,
   PointLayer,
   Popup,
 
-} from '@antv/l7-react';
-import * as React from 'react';
-
+} = require('@antv/l7-react');
 import {CENTER, epidemicData} from '../../const/const';
 
 interface ScreenEpidemicMapState{

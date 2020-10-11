@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-empty-function */
 /* eslint-disable no-invalid-this */
 /* eslint-disable newline-after-var */
@@ -5,6 +6,7 @@
 import React, {Component} from 'react';
 import { Modal, Upload, message, Button} from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 interface NewVideoPro{
   newVedioVisble: boolean;
@@ -18,19 +20,49 @@ class NewVideo extends Component<NewVideoPro> {
   handleCancel = () => {
     this.props.close();
   }
-  render() {
 
-    const props = {
+  ceateStudyInformation = (stydyInfo: any) => {
+    axios({
+      method: 'PUT',
+      url: 'api/spb/updateMemberOrganizations',
+      data: stydyInfo,
+    }).then((res) => {
+      if (res.data.status === 200){
+        // this.props.createSuccess();
+        this.setState({
+          loading: false,
+        });
+      } else {
+        message.error('操作失败');
+      }
+    }).catch(() => {
+      message.error('操作失败');
+    });
+  }
+
+
+  render() {
+    const uploadProps = {
       name: 'file',
-      action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+      action: 'api/upload/uploadVideo',
       headers: {
         authorization: 'authorization-text',
       },
-      onChange(info: any) {
+      onChange: (info: any) => {
+        if (info.file.status !== 'uploading') {
+          this.setState({
+            loading: true,
+          });
+          message.info('正在上传，请稍后！', 1);
+        }
         if (info.file.status === 'done') {
-          message.success(`${info.file.name}上传成功!`);
+          // info?.file?.response?.imgUrl;
+          console.log(info);
         } else if (info.file.status === 'error') {
-          message.error(`${info.file.name}上传失败!`);
+          this.setState({
+            loading: false,
+          });
+          message.info('上传失败！');
         }
       },
     };
@@ -43,7 +75,7 @@ class NewVideo extends Component<NewVideoPro> {
       onCancel={this.handleCancel}
       okText="确认"
       cancelText="取消">
-      <Upload {...props} accept=".mp4,.flv,.f4v,.webm,.m4v,.mov,.3gp,.3g2,.rm,.rmvb,.wmv,.avi,.asf,.mpg,.mpeg,.mpe,.ts,.div,.dv,.divx,.vob,.dat,.mkv,.swf,.lavf,.cpk,.dirac,.ram,.qt,.fli,.flc,.mod">
+      <Upload {...uploadProps} accept=".mp4,.flv,.f4v,.webm,.m4v,.mov,.3gp,.3g2,.rm,.rmvb,.wmv,.avi,.asf,.mpg,.mpeg,.mpe,.ts,.div,.dv,.divx,.vob,.dat,.mkv,.swf,.lavf,.cpk,.dirac,.ram,.qt,.fli,.flc,.mod">
         <Button icon={<UploadOutlined />}>点击上传视频</Button>
       </Upload>
     </Modal>;

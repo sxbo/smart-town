@@ -1,12 +1,23 @@
+/* eslint-disable max-len */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-magic-numbers */
+/* eslint-disable no-invalid-this */
+/* eslint-disable newline-after-var */
 /* eslint-disable no-unused-vars */
 import React, {Component} from 'react';
-import {Button, Table, Space} from 'antd';
+import {Button, Table, Space, Spin, Modal, message} from 'antd';
+import axios from 'axios';
+import {HorseType, colors} from '../../const/const';
+import NewAdvertise from './NewAdvertise';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 import coverImg from '../../theme/img/login.jpg';
 
 
 interface AdvertisementState{
-  newMemberVisible: boolean;
+  newVisible: boolean;
+  advertises: [];
+  loading: boolean;
 }
 
 export default class Advertisement extends Component<any, AdvertisementState> {
@@ -14,33 +25,106 @@ export default class Advertisement extends Component<any, AdvertisementState> {
   constructor(props: any){
     super(props);
     this.state = {
-      newMemberVisible: false,
+      newVisible: false,
+      advertises: [],
+      loading: false,
     };
+  }
+
+  componentDidMount() {
+    this.getAdvertises();
+  }
+
+  getAdvertises = () => {
+    axios({
+      method: 'GET',
+      url: 'api/spb/getAllAdvertisement',
+    }).then((res) => {
+      if (res.data.status === 200){
+        const data = res.data.data || [];
+        this.setState({
+          advertises: data,
+        });
+      } else {
+        this.setState({
+          advertises: [],
+        });
+      }
+    }).catch(() => {
+      this.setState({
+        advertises: [],
+      });
+    });
   }
 
   openNewMember = () => {
     // eslint-disable-next-line no-invalid-this
     this.setState({
-      newMemberVisible: true,
+      newVisible: true,
     });
   };
 
-  closeNewMember = () => {
+  closeNewAdvertise = () => {
     // eslint-disable-next-line no-invalid-this
     this.setState({
-      newMemberVisible: true,
+      newVisible: false,
     });
   };
+
+  createSuccessCall = () => {
+    this.closeNewAdvertise();
+    this.getAdvertises();
+  }
+
+  uploadSuccessCall = () => {
+    this.setState({
+      loading: false,
+    });
+  }
+
+  beforeUploadCall = () => {
+    this.setState({
+      loading: true,
+    });
+  }
+
+  uploadFailCall = () => {
+    this.setState({
+      loading: false,
+    });
+  }
+
+  deleteAdvertise = (advertise: any) => {
+    Modal.confirm({
+      title: '删除广告',
+      icon: <ExclamationCircleOutlined />,
+      content: '确认删除？',
+      onOk: () => {
+        axios({
+          method: 'DELETE',
+          url: `api/spb/delAdvertisement/${advertise.id}`,
+        }).then((res) => {
+          if (res.data.status === 200){
+            this.getAdvertises();
+          } else {
+            message.error('删除失败');
+          }
+        }).catch(() => {
+          message.error('删除失败');
+        });
+      },
+    });
+  }
 
   render(){
     const columns = [
       {
         title: '背景图',
-        dataIndex: 'cover',
-        key: 'cover',
+        dataIndex: 'imageUrl',
+        key: 'imageUrl',
         width: '30%',
-        render: () => {
-          return <img style={{width: '150', height: '100px'}} src={coverImg} alt="cover"/>;
+        render: (text: any, record: any) => {
+          return <img style={{width: '150', height: '100px'}} src={record.imageUrl || coverImg} alt="cover"/>;
         },
       },
       {
@@ -48,36 +132,43 @@ export default class Advertisement extends Component<any, AdvertisementState> {
         key: 'type',
         width: '30%',
         dataIndex: 'type',
+        render: (type: number) => {
+          const find = HorseType.find(item => item.type == type);
+          return find?.label;
+        },
+      },
+      {
+        title: '链接',
+        key: 'link',
+        width: '30%',
+        dataIndex: 'link',
       },
       {
         title: '操作',
         key: 'action',
         render: (text: any, record: any) => (
           <Space>
-            <Button type="ghost" size="small">删除</Button>
+            <Button type="ghost" size="small" style={{color: colors.danger}} onClick={() => this.deleteAdvertise(record)}>删除</Button>
           </Space>
         ),
       },
     ];
 
-    const data = [
-      {coverLink: 'https://conm/as', type: '党建'},
-      {coverLink: 'https://conm/as', type: '首页'},
-      {coverLink: 'https://conm/as', type: '党建'},
-      {coverLink: 'https://conm/as', type: '首页'},
-    ];
-
+    const {advertises, loading, newVisible} = this.state;
     return (
-      <div className="content-item">
-        <div className="orginization">
-          <div>
-            <Button size="middle" onClick={this.openNewMember}>新建广告</Button>
+      <Spin tip="正在上传，请稍后" spinning={loading} delay={500}>
+        <div className="content-item">
+          <div className="orginization">
+            <div>
+              <Button type="primary" size="middle" onClick={this.openNewMember}>新建广告</Button>
+            </div>
           </div>
+          <div>
+            <Table columns={columns} dataSource={advertises} rowKey="id"/>
+          </div>
+          <NewAdvertise uploadSuccess={this.uploadSuccessCall} uploadFail={this.uploadFailCall} visible={newVisible} beforeUpload={this.beforeUploadCall} createSuccess={this.createSuccessCall} close={this.closeNewAdvertise} />
         </div>
-        <div>
-          <Table columns={columns} dataSource={data} rowKey={(record, index) => `${index}`}/>
-        </div>
-      </div>
+      </Spin>
     );
   }
 }
