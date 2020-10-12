@@ -32,21 +32,9 @@ export default class VideoItem extends Component<VideoItemPro, any> {
   renderDeviceStatus = (statusCode: any) => {
     switch (statusCode) {
     case 0:
-      return '正常';
+      return '不在线';
     case 1:
-      return '设备不在线';
-    case 2:
-      return '设备开启视频加密';
-    case 3:
-      return '设备删除';
-    case 4:
-      return '设备失效';
-    case 5:
-      return '未绑定';
-    case 6:
-      return '账户下流量已超出';
-    case 7:
-      return '设备接入限制';
+      return '在线';
     default:
       break;
     }
@@ -55,13 +43,9 @@ export default class VideoItem extends Component<VideoItemPro, any> {
   renderAddressStatus = (statusCode: any) => {
     switch (statusCode) {
     case 0:
-      return '未使用或直播已关闭';
+      return '否';
     case 1:
-      return '使用中';
-    case 2:
-      return '已过期';
-    case 3:
-      return '直播已暂停';
+      return '是';
     default:
       break;
     }
@@ -77,10 +61,10 @@ export default class VideoItem extends Component<VideoItemPro, any> {
     this.playr = new EZUIKit.EZUIKitPlayer({
       id: 'video-container', // 视频容器ID
       accessToken: this.props.accessToken,
-      url: this.props.video.rtmp,
+      url: 'ezopen://open.ys7.com/' + this.props.video.deviceSerial + '/' + this.props.video.channelNo + '.hd.live',
       deviceSerial: this.props.video.deviceSerial,
       channelNo: this.props.video.channelNo,
-      template: 'standard', // simple - 极简版;standard-标准版;security - 安防版(预览回放);voice-语音版；
+      template: 'security', // simple - 极简版;standard-标准版;security - 安防版(预览回放);voice-语音版；
       // 视频上方头部控件
       // header: ['capturePicture','save','zoom'],            // 如果templete参数不为simple,该字段将被覆盖
       // // 视频下方底部控件
@@ -94,7 +78,7 @@ export default class VideoItem extends Component<VideoItemPro, any> {
       capturePictureCallBack: (data: any) => console.log('截图成功回调', data),
       fullScreenCallBack: (data: any) => console.log('全屏回调', data),
       getOSDTimeCallBack: (data: any) => console.log('获取OSDTime回调', data),
-      width:600,
+      width:651,
       height:400,
     });
   }
@@ -110,13 +94,13 @@ export default class VideoItem extends Component<VideoItemPro, any> {
             </div>
             <img src={this.props.video.cover || cover} alt="cover" ></img>
           </div>
-          <div className="video-title">{this.props.video.deviceName}</div>
+          <div className="video-title">{this.props.video.channelName}</div>
         </div>
         <div className="desc-box">
           <div>设备序列：<span>{this.props.video.deviceSerial}</span></div>
           <div>设备通道：<span>{this.props.video.channelNo}</span></div>
-          <div>设备状态：<span>{this.renderDeviceStatus(this.props.video.exception)}</span></div>
-          <div>地址状态：<span>{this.renderAddressStatus(this.props.video.status)}</span></div>
+          <div>设备状态：<span>{this.renderDeviceStatus(this.props.video.status)}</span></div>
+          <div>是否加密：<span>{this.renderAddressStatus(this.props.video.isEncrypt)}</span></div>
         </div>
       </div>
     );

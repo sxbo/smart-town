@@ -10,14 +10,17 @@
     .login-box{
         border-radius: 5px;
         width: 4.5rem;
-        background: #fff;
-        padding: .2rem .5rem;
+        background: transparent;
+        background-image: url('../img/login-box.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-position: 0 0;
+        padding: .5rem .5rem;
         position: absolute;
-        right: 8%;
-        top: 26%;
-        box-shadow: 0 0 20px rgba(93, 137, 242, 1);
+        right: calc(50% - 2.25rem);
+        top: 31%;
         .user-icon{
-           color: #5d89f2;
+           color: #04c0d5;
            font-size: 20px;
         }
         .logo-box{
@@ -37,9 +40,9 @@
             color: #f74949;
         }
         .remeber-me{
+            color: #fff !important;
             .ant-form-item-control-input-content{
                 flex: none;
-                margin-left: 35px;
             }
         }
         .ant-form-item{
@@ -48,67 +51,23 @@
 
         .login-button-form-item{
             .login-btn{
-                background-color: #5d89f2;
+                background-color: rgba(4, 192, 213, .5);
                 border: none;
                 width: 100%;
             }
         }
-        .ant-input{
-            border-top: none;
-            border-left: none;
-            border-right: none;
-            border-radius: 0;
-            &:focus{
-                box-shadow: none;
-            }
-            &:hover{
-                border-color: #5d89f2;
-            }
+        .ant-input-affix-wrapper{
+            background-color: transparent;
+            border: 1px solid #04c0d5;
         }
         input{
-            outline: none;
-            border-width: 1px;
             background-color: transparent;
-        }
-        input:-internal-autofill-previewed{
-            background-color: #fff !important;
-            transition: background-color 5000s ease-out 0.5s;
+            color: #fff;
         }
 
-        input:-internal-autofill-selected {
-            background-color: #fff !important;
-            transition: background-color 5000s ease-out 0.5s;
-        }
-        input:-webkit-autofill{
-            -webkit-box-shadow:0 0 0 1000px white inset !important;
-            box-shadow:0 0 0 1000px white inset !important;
-        }
-        .ant-input-affix-wrapper{
-            border-top: none;
-            border-left: none;
-            border-right: none;
-            border-radius: 0;
-            &:focus{
-                box-shadow: none;
-            }
-            &:hover{
-                border-color: #5d89f2;
-            }
-
-        }
-        .ant-input:focus, .ant-input-focused{
-            border-color: #5d89f2;
-        }
-        .ant-input-affix-wrapper:focus, .ant-input-affix-wrapper-focused{
-            border-color: #5d89f2;
-            border-right-width: 1px !important;
-            outline: 0;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-        }
-        .ant-checkbox-checked .ant-checkbox-inner{
-            background-color: #5d89f2;
-            border-color: #5d89f2;
+        .ant-checkbox-checked .ant-checkbox-inner {
+            background-color: #04c0d5;
+            border-color: #04c0d5;
         }
     }
 }

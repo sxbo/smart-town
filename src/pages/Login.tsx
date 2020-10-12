@@ -2,7 +2,6 @@ import React, {SFC, useState} from 'react';
 import '../theme/style/Login.scss';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, KeyOutlined } from '@ant-design/icons';
-import logo from '../theme/img/logo.png';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -53,10 +52,6 @@ const Login: SFC = () => {
     <>
       <div className="login-model">
         <div className="login-box">
-          <div className="logo-box">
-            <img src={logo} alt="logo"/>
-            <span>范家镇智慧系统</span>
-          </div>
           {
             remind ? <div className="message-box">{remind}</div> : ''
           }
@@ -68,27 +63,21 @@ const Login: SFC = () => {
             labelAlign={'right'}
             colon={false}>
             <Form.Item
-              label={
-                <UserOutlined className="user-icon"/>
-              }
               name="username"
               rules={[{ required: true, message: '请输入用户名!' }]}
             >
-              <Input />
+              <Input autoComplete="off" prefix={<UserOutlined className="user-icon"/>}/>
             </Form.Item>
 
             <Form.Item
-              label={
-                <KeyOutlined className="user-icon"/>
-              }
               name="password"
               rules={[{ required: true, message: '请输入密码!' }]}
             >
-              <Input.Password />
+              <Input.Password autoComplete="off" prefix={<KeyOutlined className="user-icon"/>}/>
             </Form.Item>
 
             <Form.Item className="remeber-me" name="remember" valuePropName="checked">
-              <Checkbox>记住我</Checkbox>
+              <Checkbox style={{color: '#fff'}}>记住密码</Checkbox>
             </Form.Item>
 
             <Form.Item className="login-button-form-item">

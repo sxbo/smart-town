@@ -4,7 +4,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable handle-callback-err */
 import React, {Component} from 'react';
-import {Row, Col} from 'antd';
+import {Row, Col, Pagination, Spin } from 'antd';
 import axios from 'axios';
 import PageTitle from '../../components/PageTitle';
 import '../../theme/style/videomonitor/layout.scss';
@@ -22,26 +22,47 @@ class VideoLayout extends Component<any, any> {
       url: '',
       channelNo: '',
       deviceSerial: '',
+      total: 0,
+      currentPage: 1,
+      loading: false,
     };
   }
 
   componentDidMount() {
+    const url = 'api/videos?pageSize=12&pageStart=0';
+    this.getVedios(url);
+  }
+
+  getVedios = (url: string) => {
+    this.setState({loading: true});
     axios({
       method: 'GET',
-      url: 'api/videos',
+      url: url,
     }).then((res) => {
       if (res.data.status === 200){
         const vedios = res.data.data.data || [];
         this.setState({
           vedios: vedios,
           accessToken: res.data.accessToken,
+          total: res.data?.data?.page?.total || 0,
+          loading: false,
         });
       }
     }).catch((err) => {
       this.setState({
         vedios: [],
+        loading: false,
       });
     });
+  }
+
+  onPageChange = (page: any, pageSize: any) => {
+    this.setState({
+      currentPage: page,
+    });
+    const pageStart = page - 1;
+    const url = `api/videos?pageSize=12&pageStart=${pageStart}`;
+    this.getVedios(url);
   }
 
   openPlayCall = (url: any, channelNo: any, deviceSerial: any) => {
@@ -87,13 +108,20 @@ class VideoLayout extends Component<any, any> {
 
     return (
       <div className="vedio-monitor">
-        <PageTitle title="视屏监控"></PageTitle>
-        <div className="videos-content">
-          {
-            this.renderVideos()
-          }
-        </div>
-        <PlayModal close={this.closePlay} visible={playModalVisible} url={url} channelNo={channelNo} deviceSerial={deviceSerial}/>
+        <Spin tip="正在加载" spinning={this.state.loading}>
+          <PageTitle title="视屏监控"></PageTitle>
+          <div style={{padding: '10px'}}>
+            <div className="videos-content">
+              {
+                this.renderVideos()
+              }
+              <div style={{textAlign: 'right'}}>
+                <Pagination onChange={this.onPageChange} current={this.state.currentPage} pageSize={12} total={this.state.total} showSizeChanger={false}/>
+              </div>
+            </div>
+          </div>
+          <PlayModal close={this.closePlay} visible={playModalVisible} url={url} channelNo={channelNo} deviceSerial={deviceSerial}/>
+        </Spin>
       </div>
     );
   }
