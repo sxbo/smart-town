@@ -1,48 +1,60 @@
+/* eslint-disable no-magic-numbers */
+/* eslint-disable newline-after-var */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-vars */
-import React, {SFC, MouseEvent, useState} from 'react';
+import React, {SFC, MouseEvent} from 'react';
 import '../theme/style/common.scss';
 import '../theme/style/components/greenHouseList.scss';
-import { Table, Button, Form, Input, Space } from 'antd';
+import { Table, Button, Form, Input, Space, Modal, message } from 'antd';
 import {TablePaginationConfig} from 'antd/es/table/interface';
 import {ColumnsType} from 'antd/es/table/interface';
-import EditBreed from '../pages/breed/EditBreed';
+import {colors} from '../const/const';
+import {ExclamationCircleOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 export interface Breed{
   id?: string
   name: string,
-  manager?: string,
+  manage?: string,
   phone?: string,
-  type?: string
-  volume?: number // 交易量
-  quota?: number // 交易额
+  breedingSpecies?: string
+  tradingVolume?: number // 交易量
+  turnover?: number // 交易额
 }
 
 interface BreedListProps{
   pagination: false | TablePaginationConfig | undefined
-  lookup?: () => void;
   data: any;
+  deleteSuccess:() => void;
 }
 
 const BreedList: SFC<BreedListProps> = (props) => {
 
-  const [visible, setVisible] = useState(false);
 
   const [form] = Form.useForm();
 
-  const lookupClick = (e: MouseEvent, text: string, row: Breed) => {
-    console.log(e);
-    console.log(text);
-    console.log(row);
-    props.lookup && props.lookup();
-  };
+  const deleteClicked = (e: MouseEvent, text: string, row: Breed) => {
+    const id = row.id;
+    Modal.confirm({
+      title: '删除养殖数据',
+      icon: <ExclamationCircleOutlined />,
+      content: '确认删除？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        axios({
+          method: 'DELETE',
+          url: `api/breed/${id}`,
+        }).then((res) => {
+          if (res.data.status === 200){
+            props.deleteSuccess();
+          } else {
+            message.error('操作失败');
+          }
+        });
+      },
+    });
 
-  const editClick = (e: MouseEvent, text: string, row: Breed) => {
-    setVisible(true);
-  };
-
-  const closeEdit = () => {
-    setVisible(false);
   };
 
   const columns: ColumnsType<Breed> = [
@@ -54,8 +66,8 @@ const BreedList: SFC<BreedListProps> = (props) => {
     },
     {
       title: '管理者',
-      dataIndex: 'manager',
-      key: 'manager',
+      dataIndex: 'manage',
+      key: 'manage',
     },
     {
       title: '联系方式',
@@ -64,27 +76,25 @@ const BreedList: SFC<BreedListProps> = (props) => {
     },
     {
       title: '养殖种类',
-      dataIndex: 'type',
-      key: 'type',
+      dataIndex: 'breedingSpecies',
+      key: 'breedingSpecies',
     },
     {
       title: '交易量',
-      key: 'volume',
-      dataIndex: 'volume',
+      key: 'tradingVolume',
+      dataIndex: 'tradingVolume',
     },
     {
       title: '交易额',
-      key: 'quota',
-      dataIndex: 'quota',
+      key: 'turnover',
+      dataIndex: 'turnover',
     },
     {
       title: '操作',
       key: 'action',
       render: (text, record) => (
         <Space>
-          <Button type="dashed" onClick={e => lookupClick(e, text, record)} size="small">查看监控</Button>
-          <Button type="default" onClick={e => editClick(e, text, record)} size="small">编辑</Button>
-          <Button type="ghost" onClick={e => lookupClick(e, text, record)} size="small">删除</Button>
+          <Button style={{color: colors.danger}} onClick={e => deleteClicked(e, text, record)} size="small">删除</Button>
         </Space>
       ),
     },
@@ -120,7 +130,6 @@ const BreedList: SFC<BreedListProps> = (props) => {
         pagination={props.pagination}
         rowKey="id"
       />
-      <EditBreed visible={visible} onCancel={closeEdit}/>
     </div>
   );
 };

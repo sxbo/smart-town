@@ -1,15 +1,25 @@
+/* eslint-disable no-else-return */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
+/* eslint-disable newline-after-var */
+/* eslint-disable no-magic-numbers */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {SFC} from 'react';
-import { Table, Button, Form, Input } from 'antd';
+import React, {SFC, useState, useEffect} from 'react';
+import { Table, Button, Form, Input, Modal, message } from 'antd';
 import {TablePaginationConfig} from 'antd/es/table/interface';
 import {ColumnsType} from 'antd/es/table/interface';
+import axios from 'axios';
+import {ExclamationCircleOutlined } from '@ant-design/icons';
+import {colors} from '../const/const';
 
 export interface EpidemicPeople{
+  id?: string;
   name: string;
-  belongVillage: string;
-  idNum?: string;
-  recordTime?: string
-  status: string
+  village: string;
+  idCard?: string;
+  createTime?: string
+  state: string
+  sexType: string;
 }
 
 interface GreenHouseListProps{
@@ -19,81 +29,107 @@ interface GreenHouseListProps{
 const EpidemicList: SFC<GreenHouseListProps> = (props) => {
 
   const [form] = Form.useForm();
+  const [epidemics, setEpidemics] = useState<EpidemicPeople[]>([]);
 
+  const getEpidemics = () => {
+    axios({
+      method: 'GET',
+      url: 'api/epidemicSurveillance',
+    }).then((res) => {
+      if (res.data.status === 200){
+        const data: EpidemicPeople[] = res.data.data || [];
+        setEpidemics(data);
+      } else {
+        setEpidemics([]);
+      }
+    }).catch(() => {
+      setEpidemics([]);
+    });
+  };
+
+  useEffect(() => {
+    getEpidemics();
+  }, []);
+
+  const deleteClicked = (text: string, row: EpidemicPeople) => {
+    const id = row.id;
+    Modal.confirm({
+      title: '删除疫情防控数据',
+      icon: <ExclamationCircleOutlined />,
+      content: '确认删除？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        axios({
+          method: 'DELETE',
+          url: `api/epidemicSurveillance/${id}`,
+        }).then((res) => {
+          if (res.data.status === 200){
+            getEpidemics();
+          } else {
+            message.error('操作失败');
+          }
+        });
+      },
+    });
+  };
   const columns: ColumnsType<EpidemicPeople> = [
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: '性别',
+      dataIndex: 'sexType',
+      key: 'sexType',
+      render: (code: any) => {
+        if (code == 1){
+          return '男';
+        } else {
+          return '女';
+        }
+      },
     },
     {
       title: '身份证',
-      key: 'idNum',
-      dataIndex: 'idNum',
+      key: 'idCard',
+      dataIndex: 'idCard',
     },
     {
       title: '所属村',
-      dataIndex: 'belongVillage',
-      key: 'belongVillage',
+      dataIndex: 'village',
+      key: 'village',
     },
     {
       title: '登记时间',
-      dataIndex: 'recordTime',
-      key: 'recordTime',
+      dataIndex: 'createTime',
+      key: 'createTime',
     },
     {
       title: '状态',
-      key: 'status',
-      dataIndex: 'status',
+      key: 'state',
+      dataIndex: 'state',
+      render: (code: any) => {
+        if (code == '1') {
+          return '确诊';
+        } else if (code == '2'){
+          return '治愈';
+        } else if (code == '3'){
+          return '隔离';
+        } else {
+          return '无症状';
+        }
+      },
+    },
+    {
+      title: '操作',
+      key: 'option',
+      render: (text: any, record: any) => {
+        return <Button size="middle" style={{color: colors.danger}} onClick={e => deleteClicked(text, record)}>删除</Button>;
+      },
     },
   ];
-
-  const data: EpidemicPeople[] = [
-    {
-      name: '张三',
-      belongVillage: '营田村',
-      idNum: '12348967623612234442',
-      recordTime: '2019-02-19',
-      status: '已确诊',
-    },
-    {
-      name: '王五',
-      belongVillage: '下幸村',
-      idNum: '61272378766761179900',
-      recordTime: '2019-03-22',
-      status: '隔离中',
-    },
-    {
-      name: '陈晨',
-      belongVillage: '上幸村',
-      idNum: '61270238897877866126',
-      recordTime: '2019-01-20',
-      status: '治愈',
-    },
-    {
-      name: '张三',
-      belongVillage: '营田村',
-      idNum: '12348967623612234442',
-      recordTime: '2019-02-19',
-      status: '已确诊',
-    },
-    {
-      name: '王五',
-      belongVillage: '下幸村',
-      idNum: '61272378766761179900',
-      recordTime: '2019-03-22',
-      status: '隔离中',
-    },
-    {
-      name: '陈晨',
-      belongVillage: '上幸村',
-      idNum: '61270238897877866126',
-      recordTime: '2019-01-20',
-      status: '治愈',
-    },
-  ];
-
 
   return (
     <div className="card-box green-house-list">
@@ -124,7 +160,7 @@ const EpidemicList: SFC<GreenHouseListProps> = (props) => {
       }
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={epidemics}
         pagination={props.pagination}
         rowKey="id"
       />

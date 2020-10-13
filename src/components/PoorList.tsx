@@ -1,14 +1,21 @@
-import React, {SFC} from 'react';
-import { Table, Button, Form, Input } from 'antd';
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-magic-numbers */
+/* eslint-disable newline-after-var */
+import React, {SFC, useState, useEffect} from 'react';
+import { Table, Button, Form, Input, Modal, message } from 'antd';
 import {TablePaginationConfig} from 'antd/es/table/interface';
 import {ColumnsType} from 'antd/es/table/interface';
+import axios from 'axios';
+import {colors} from '../const/const';
+import {ExclamationCircleOutlined } from '@ant-design/icons';
 
 export interface PoorPeople{
+  id?: string;
   name: string;
-  belongVillage: string;
-  idNum?: string;
-  perIncome?: string
-  contact: string
+  village: string;
+  idCard?: string;
+  outputValue?: string
+  phone: string
 }
 
 interface GreenHouseListProps{
@@ -17,58 +24,84 @@ interface GreenHouseListProps{
 
 const PoorList: SFC<GreenHouseListProps> = (props) => {
 
+  const [poors, setPoors] = useState<PoorPeople[]>([]);
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    getPoors();
+  }, []);
+
+  const getPoors = () => {
+    axios({
+      method: 'GET',
+      url: 'api/poor',
+    }).then((res) => {
+      if (res.data.status === 200){
+        const data: PoorPeople[] = res.data.data || [];
+        setPoors(data);
+      } else {
+        setPoors([]);
+      }
+    }).catch(() => {
+      setPoors([]);
+    });
+  };
+
+  const deleteClicked = (text: string, row: PoorPeople) => {
+    const id = row.id;
+    Modal.confirm({
+      title: '删除贫困户数据',
+      icon: <ExclamationCircleOutlined />,
+      content: '确认删除？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        axios({
+          method: 'DELETE',
+          url: `api/poor/${id}`,
+        }).then((res) => {
+          if (res.data.status === 200){
+            getPoors();
+          } else {
+            message.error('操作失败');
+          }
+        });
+      },
+    });
+  };
 
   const columns: ColumnsType<PoorPeople> = [
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <a>{text}</a>,
     },
     {
       title: '身份证',
-      key: 'idNum',
-      dataIndex: 'idNum',
+      key: 'idCard',
+      dataIndex: 'idCard',
     },
     {
       title: '所属村',
-      dataIndex: 'belongVillage',
-      key: 'belongVillage',
+      dataIndex: 'village',
+      key: 'village',
     },
     {
       title: '人均收入',
-      dataIndex: 'perIncome',
-      key: 'perIncome',
+      dataIndex: 'outputValue',
+      key: 'outputValue',
     },
     {
       title: '联系方式',
-      key: 'contact',
-      dataIndex: 'contact',
-    },
-  ];
-
-  const data: PoorPeople[] = [
-    {
-      name: '张三',
-      belongVillage: '营田村',
-      idNum: '12348967623612234442',
-      perIncome: '5000',
-      contact: '13888888888',
+      key: 'phone',
+      dataIndex: 'phone',
     },
     {
-      name: '王五',
-      belongVillage: '下幸村',
-      idNum: '61272378766761179900',
-      perIncome: '10000',
-      contact: '136666666666',
-    },
-    {
-      name: '陈晨',
-      belongVillage: '上幸村',
-      idNum: '61270238897877866126',
-      perIncome: '8000',
-      contact: '139000000000',
+      title: '操作',
+      key: 'option',
+      render: (text: any, record: any) => {
+        return <Button size="middle"type="ghost" style={{color: colors.danger}} onClick={e => deleteClicked(text, record)}>删除</Button>;
+      },
     },
   ];
 
@@ -96,7 +129,7 @@ const PoorList: SFC<GreenHouseListProps> = (props) => {
       }
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={poors}
         pagination={props.pagination}
       />
     </div>

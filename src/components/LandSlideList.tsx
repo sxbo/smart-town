@@ -1,13 +1,21 @@
-import React, {SFC} from 'react';
-import { Table, Button, Form, Input } from 'antd';
+/* eslint-disable newline-after-var */
+/* eslint-disable no-magic-numbers */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, {SFC, useState, useEffect} from 'react';
+import { Table, Button, Form, Input, Modal, message } from 'antd';
 import {TablePaginationConfig} from 'antd/es/table/interface';
 import {ColumnsType} from 'antd/es/table/interface';
+import {colors} from '../const/const';
+import axios from 'axios';
+import {ExclamationCircleOutlined } from '@ant-design/icons';
 
 export interface LandSlide{
-  monitorAddress: string; // 监控点
-  monitor: number; // 监控数目
-  charge?: string; // 负责人
-  contact?: string; // 负责人联系方式
+  id?: string;
+  address: string; // 监控点
+  alarmNum: number; // 监控数目
+  personCharge?: string; // 负责人
+  phone?: string; // 负责人联系方式
 }
 
 interface GreenHouseListProps{
@@ -15,57 +23,80 @@ interface GreenHouseListProps{
 }
 
 const LandSlideList: SFC<GreenHouseListProps> = (props) => {
-
+  const [lanSlides, setLanSlides] = useState<LandSlide[]>([]);
   const [form] = Form.useForm();
+
+
+  const getLanSlides = () => {
+    axios({
+      method: 'GET',
+      url: 'api/landslide',
+    }).then((res) => {
+      if (res.data.status === 200){
+        const data: LandSlide[] = res.data.data || [];
+        setLanSlides(data);
+      } else {
+        setLanSlides([]);
+      }
+    }).catch(() => {
+      setLanSlides([]);
+    });
+  };
+
+  useEffect(() => {
+    getLanSlides();
+  }, []);
+
+  const deleteClicked = (text: string, row: LandSlide) => {
+    const id = row.id;
+    Modal.confirm({
+      title: '删除山体滑坡数据',
+      icon: <ExclamationCircleOutlined />,
+      content: '确认删除？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        axios({
+          method: 'DELETE',
+          url: `api/landslide/${id}`,
+        }).then((res) => {
+          if (res.data.status === 200){
+            getLanSlides();
+          } else {
+            message.error('操作失败');
+          }
+        });
+      },
+    });
+  };
 
   const columns: ColumnsType<LandSlide> = [
     {
       title: '山体点',
-      dataIndex: 'monitorAddress',
-      key: 'monitorAddress',
-    },
-    {
-      title: '监控数目',
-      key: 'monitor',
-      dataIndex: 'monitor',
+      dataIndex: 'address',
+      key: 'address',
     },
     {
       title: '负责人',
-      dataIndex: 'charge',
-      key: 'charge',
+      dataIndex: 'personCharge',
+      key: 'personCharge',
     },
     {
       title: '联系方式',
-      dataIndex: 'contact',
-      key: 'contact',
+      dataIndex: 'phone',
+      key: 'phone',
+    },
+    {
+      title: '告警数',
+      key: 'alarmNum',
+      dataIndex: 'alarmNum',
     },
     {
       title: '操作',
       key: 'action',
-      render: () => (
-        <Button type="ghost" size="middle">查看</Button>
+      render: (text: any, record: any) => (
+        <Button size="middle" style={{color: colors.danger}} onClick={e => deleteClicked(text, record)}>删除</Button>
       ),
-    },
-  ];
-
-  const data: LandSlide[] = [
-    {
-      monitorAddress: '营田村营田山',
-      charge: '陈龙',
-      monitor: 3,
-      contact: '13888888888',
-    },
-    {
-      monitorAddress: '上幸村上幸山盘山路',
-      charge: '李梅',
-      monitor: 5,
-      contact: '13888888888',
-    },
-    {
-      monitorAddress: '莆田村莆田山鞍山路',
-      charge: '万阳',
-      monitor: 3,
-      contact: '13888888888',
     },
   ];
 
@@ -90,7 +121,7 @@ const LandSlideList: SFC<GreenHouseListProps> = (props) => {
       }
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={lanSlides}
         pagination={props.pagination}
       />
     </div>

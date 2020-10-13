@@ -1,9 +1,12 @@
-import React, {SFC, useState} from 'react';
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-magic-numbers */
+/* eslint-disable newline-after-var */
+import React, {SFC, useState, useEffect} from 'react';
 import { Row, Col } from 'antd';
 import '../../theme/style/common.scss';
 import '../../theme/style/greenhouse/layout.scss';
 import GreenHouseList from '../../components/GreenHouseList';
-import MonitorChoiceModel from '../../components/MonitorChoiceModel';
 import { MonitorObject } from '../../components/type';
 import MonitorRadar from '../../components/MonitorRadar';
 import HumidityLine from '../../components/HumidityLine';
@@ -11,10 +14,11 @@ import CO2Line from '../../components/CO2Line';
 import PageTitle from '../../components/PageTitle';
 import TemperatureLine from '../../components/TemperatureLine';
 import {GreenHouse as GreenHouseI} from '../../components/GreenHouseList';
+import axios from 'axios';
 
 const GreenHouse: SFC = () => {
 
-  const [monitorChoiceModelVisable, setmonitorChoiceModel] = useState(false);
+  const [greehouseData, setgreehouseData] = useState([]);
 
   const monitors: MonitorObject[] = [
     {id: '1'},
@@ -23,40 +27,12 @@ const GreenHouse: SFC = () => {
     {id: '3'},
   ];
 
-  const closeMonitorChoiceModel = () => {
-    setmonitorChoiceModel(false);
+  /**
+   * 删除大棚成功
+   */
+  const deleteSuccess = () => {
+    getGreenhouses();
   };
-
-  const lookUpMonitor = () => {
-    setmonitorChoiceModel(true);
-  };
-
-  const greehouseData: GreenHouseI[] = [
-    {
-      key: '1',
-      name: '1号大棚',
-      manager: '李龙',
-      address: '位置1',
-      alarmNum: 5,
-      monitorNum: 3,
-    },
-    {
-      key: '2',
-      name: '2号大棚',
-      manager: '陈梅',
-      address: '位置2',
-      alarmNum: 10,
-      monitorNum: 4,
-    },
-    {
-      key: '3',
-      name: '3号大棚',
-      manager: '李龙',
-      address: '位置3',
-      alarmNum: 1,
-      monitorNum: 5,
-    },
-  ];
 
   const co2LineData = [
     {
@@ -302,12 +278,32 @@ const GreenHouse: SFC = () => {
     },
   ];
 
+  const getGreenhouses = () => {
+    axios({
+      method: 'GET',
+      url: 'api/greenhouse',
+    }).then((res) => {
+      if (res.data.status === 200){
+        const data = res.data.data || [];
+        setgreehouseData(data);
+      } else {
+        setgreehouseData([]);
+      }
+    }).catch(() => {
+      setgreehouseData([]);
+    });
+  };
+
+  useEffect(() => {
+    getGreenhouses();
+  }, []);
+
   return (
     <div className="small-town-greenhouse">
       <PageTitle title="智能大棚"/>
       <Row>
         <Col span={24}>
-          <GreenHouseList lookup={lookUpMonitor} pagination={{pageSize: 5}} data={greehouseData}/>
+          <GreenHouseList deleteSuccess={deleteSuccess} pagination={{pageSize: 5}} data={greehouseData}/>
         </Col>
       </Row>
       <Row>
@@ -330,7 +326,6 @@ const GreenHouse: SFC = () => {
           <div className="card-box"><TemperatureLine data={temperatureLineData} title="1号大棚温度指标趋势"/></div>
         </Col>
       </Row>
-      <MonitorChoiceModel monitors={monitors} visible={monitorChoiceModelVisable} close={closeMonitorChoiceModel}/>
     </div>
   );
 };

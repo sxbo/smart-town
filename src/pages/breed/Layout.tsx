@@ -1,65 +1,45 @@
-import React, {SFC, useState} from 'react';
+/* eslint-disable no-magic-numbers */
+/* eslint-disable newline-after-var */
+import React, {SFC, useState, useEffect} from 'react';
 import { Row, Col } from 'antd';
 import '../../theme/style/common.scss';
 import '../../theme/style/greenhouse/layout.scss';
 import BreedList from '../../components/BreedList';
-import MonitorChoiceModel from '../../components/MonitorChoiceModel';
-import { MonitorObject } from '../../components/type';
 import MonitorRadar from '../../components/MonitorRadar';
 import HumidityLine from '../../components/HumidityLine';
 import CO2Line from '../../components/CO2Line';
 import PageTitle from '../../components/PageTitle';
 import TemperatureLine from '../../components/TemperatureLine';
-import { Breed} from '../../components/BreedList';
+import axios from 'axios';
 
 const BreedHome: SFC = () => {
 
-  const [monitorChoiceModelVisable, setmonitorChoiceModel] = useState(false);
+  const [breedsData, setBreedsData] = useState([]);
 
-  const monitors: MonitorObject[] = [
-    {id: '1'},
-    {id: '4'},
-    {id: '2'},
-    {id: '3'},
-  ];
+  useEffect(() => {
+    getBreeds();
+  }, []);
 
-  const closeMonitorChoiceModel = () => {
-    setmonitorChoiceModel(false);
+  const getBreeds = () => {
+    axios({
+      method: 'GET',
+      url: 'api/breed',
+    }).then((res) => {
+      if (res.data.status === 200){
+        const data = res.data.data || [];
+        setBreedsData(data);
+      } else {
+        setBreedsData([]);
+      }
+    }).catch(() => {
+      setBreedsData([]);
+    });
   };
 
-  const lookUpMonitor = () => {
-    setmonitorChoiceModel(true);
+  const deleteSuccess = () => {
+    getBreeds();
   };
 
-  const greehouseData: Breed[] = [
-    {
-      id: '1',
-      name: '养殖场1',
-      manager: '李龙',
-      phone: '位置1',
-      type: '土豆',
-      volume: 300,
-      quota: 5000,
-    },
-    {
-      id: '2',
-      name: '养殖场2',
-      manager: 'bala',
-      phone: '位置1',
-      type: '土豆',
-      volume: 3000,
-      quota: 50000,
-    },
-    {
-      id: '3',
-      name: '养殖场3',
-      manager: '李mei',
-      phone: '位置1',
-      type: '土豆',
-      volume: 5000,
-      quota: 10000,
-    },
-  ];
 
   const co2LineData = [
     {
@@ -310,7 +290,7 @@ const BreedHome: SFC = () => {
       <PageTitle title="智能养殖"/>
       <Row>
         <Col span={24}>
-          <BreedList lookup={lookUpMonitor} pagination={{pageSize: 5}} data={greehouseData}/>
+          <BreedList deleteSuccess={deleteSuccess} pagination={{pageSize: 5}} data={breedsData}/>
         </Col>
       </Row>
       <Row>
@@ -333,7 +313,6 @@ const BreedHome: SFC = () => {
           <div className="card-box"><TemperatureLine data={temperatureLineData} title="养殖场1温度指标趋势"/></div>
         </Col>
       </Row>
-      <MonitorChoiceModel monitors={monitors} visible={monitorChoiceModelVisable} close={closeMonitorChoiceModel}/>
     </div>
   );
 };

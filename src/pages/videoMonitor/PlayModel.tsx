@@ -10,7 +10,7 @@ export default class PlayModal extends Component<any>{
   };
 
   render () {
-    return <Modal onCancel={this.closePlayModal} onOk={this.closePlayModal} title="播放" width={650} getContainer={false} forceRender visible={this.props.visible}>
+    return <Modal okText="确认" cancelText="取消" onCancel={this.closePlayModal} onOk={this.closePlayModal} title="播放" width={650} getContainer={false} forceRender visible={this.props.visible}>
       <div id="video-container" ></div>
     </Modal>;
   }

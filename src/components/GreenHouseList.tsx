@@ -1,11 +1,16 @@
+/* eslint-disable newline-after-var */
 import React, {SFC, MouseEvent} from 'react';
 import '../theme/style/common.scss';
 import '../theme/style/components/greenHouseList.scss';
-import { Table, Button, Form, Input, Space } from 'antd';
+import { Table, Button, Form, Input, Space, Modal, message } from 'antd';
 import {TablePaginationConfig} from 'antd/es/table/interface';
 import {ColumnsType} from 'antd/es/table/interface';
+import {colors} from '../const/const';
+import {ExclamationCircleOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 export interface GreenHouse{
+  id?: number;
   key?: string
   name: string,
   address?: string,
@@ -16,7 +21,7 @@ export interface GreenHouse{
 
 interface GreenHouseListProps{
   pagination: false | TablePaginationConfig | undefined
-  lookup?: () => void;
+  deleteSuccess: () => void;
   data: any;
 }
 
@@ -24,11 +29,27 @@ const GreenHouseList: SFC<GreenHouseListProps> = (props) => {
 
   const [form] = Form.useForm();
 
-  const lookupClick = (e: MouseEvent, text: string, row: GreenHouse) => {
-    console.log(e);
-    console.log(text);
-    console.log(row);
-    props.lookup && props.lookup();
+  const deleteClicked = (e: MouseEvent, text: string, row: GreenHouse) => {
+    const id = row.id;
+    Modal.confirm({
+      title: '删除大棚数据',
+      icon: <ExclamationCircleOutlined />,
+      content: '确认删除？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        axios({
+          method: 'DELETE',
+          url: `api/greenhouse/${id}`,
+        }).then((res) => {
+          if (res.data.status === 200){
+            props.deleteSuccess();
+          } else {
+            message.error('操作失败');
+          }
+        });
+      },
+    });
   };
 
   const columns: ColumnsType<GreenHouse> = [
@@ -36,7 +57,6 @@ const GreenHouseList: SFC<GreenHouseListProps> = (props) => {
       title: '名称',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <a>{text}</a>,
     },
     {
       title: '地址',
@@ -45,25 +65,20 @@ const GreenHouseList: SFC<GreenHouseListProps> = (props) => {
     },
     {
       title: '告警次数',
-      key: 'alarmNum',
-      dataIndex: 'alarmNum',
+      key: 'monitorNum',
+      dataIndex: 'monitorNum',
     },
     {
       title: '管理者',
-      dataIndex: 'manager',
-      key: 'manager',
-    },
-    {
-      title: '监控点位',
-      key: 'monitorNum',
-      dataIndex: 'monitorNum',
+      dataIndex: 'manage',
+      key: 'manage',
     },
     {
       title: '操作',
       key: 'action',
       render: (text, record) => (
         <Space>
-          <Button type="ghost" onClick={e => lookupClick(e, text, record)} size="middle">查看</Button>
+          <Button type="ghost" style={{color: colors.danger}} onClick={e => deleteClicked(e, text, record)} size="middle">删除</Button>
         </Space>
       ),
     },

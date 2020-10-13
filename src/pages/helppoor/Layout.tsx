@@ -17,6 +17,7 @@ const { TabPane } = Tabs;
 
 const HelpPoor: SFC = () => {
 
+
   return (
     <div className="help-poor">
       <PageTitle title="精准扶贫"/>

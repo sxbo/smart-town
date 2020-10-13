@@ -1,14 +1,21 @@
-import React, {SFC} from 'react';
-import { Table, Button, Form, Input } from 'antd';
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-magic-numbers */
+/* eslint-disable newline-after-var */
+import React, {SFC, useState, useEffect} from 'react';
+import { Table, Button, Form, Input, Modal, message } from 'antd';
 import {TablePaginationConfig} from 'antd/es/table/interface';
 import {ColumnsType} from 'antd/es/table/interface';
+import axios from 'axios';
+import {ExclamationCircleOutlined } from '@ant-design/icons';
+import {colors} from '../const/const';
 
 export interface Scenic{
-  name: string;
+  id: string;
+  scenicspotName: string;
   address: string;
-  charge?: string; // 负责人
-  contact?: string;
-  monitor: number;
+  personCharge?: string; // 负责人
+  personPhone?: string;
+  alarmNum: number;
 }
 
 interface GreenHouseListProps{
@@ -16,14 +23,57 @@ interface GreenHouseListProps{
 }
 
 const ScenicList: SFC<GreenHouseListProps> = (props) => {
-
   const [form] = Form.useForm();
+  const [scenics, setScenic] = useState<Scenic[]>([]);
+
+  useEffect(() => {
+    getScenics();
+  }, []);
+
+  const getScenics = () => {
+    axios({
+      method: 'GET',
+      url: 'api/scenicSpot',
+    }).then((res) => {
+      if (res.data.status === 200){
+        const data: Scenic[] = res.data.data || [];
+        setScenic(data);
+      } else {
+        setScenic([]);
+      }
+    }).catch(() => {
+      setScenic([]);
+    });
+  };
+
+  const deleteClicked = (text: string, row: Scenic) => {
+    const id = row.id;
+    Modal.confirm({
+      title: '删除景点数据',
+      icon: <ExclamationCircleOutlined />,
+      content: '确认删除？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        axios({
+          method: 'DELETE',
+          url: `api/scenicSpot/${id}`,
+        }).then((res) => {
+          if (res.data.status === 200){
+            getScenics();
+          } else {
+            message.error('操作失败');
+          }
+        });
+      },
+    });
+  };
 
   const columns: ColumnsType<Scenic> = [
     {
       title: '景区名称',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'scenicspotName',
+      key: 'scenicspotName',
     },
     {
       title: '景区地址',
@@ -32,49 +82,25 @@ const ScenicList: SFC<GreenHouseListProps> = (props) => {
     },
     {
       title: '景区负责人',
-      dataIndex: 'charge',
-      key: 'charge',
+      dataIndex: 'personCharge',
+      key: 'personCharge',
     },
     {
       title: '联系方式',
-      dataIndex: 'contact',
-      key: 'contact',
+      dataIndex: 'personPhone',
+      key: 'personPhone',
     },
     {
-      title: '监控数目',
-      key: 'monitor',
-      dataIndex: 'monitor',
+      title: '告警数',
+      key: 'alarmNum',
+      dataIndex: 'alarmNum',
     },
     {
       title: '操作',
       key: 'action',
-      render: () => (
-        <Button type="ghost" size="middle">查看</Button>
+      render: (text: any, record: any) => (
+        <Button size="middle" style={{color: colors.danger}} onClick={e => deleteClicked(text, record)}>删除</Button>
       ),
-    },
-  ];
-
-  const data: Scenic[] = [
-    {
-      name: '营田景区',
-      address: '营田村',
-      charge: '陈龙',
-      monitor: 3,
-      contact: '13888888888',
-    },
-    {
-      name: '上幸村景区',
-      address: '上幸村',
-      charge: '李梅',
-      monitor: 5,
-      contact: '13888888888',
-    },
-    {
-      name: '莆田景点',
-      address: '营田村',
-      charge: '万阳',
-      monitor: 3,
-      contact: '13888888888',
     },
   ];
 
@@ -102,7 +128,7 @@ const ScenicList: SFC<GreenHouseListProps> = (props) => {
       }
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={scenics}
         pagination={props.pagination}
       />
     </div>

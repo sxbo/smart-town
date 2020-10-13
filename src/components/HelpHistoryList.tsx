@@ -1,15 +1,24 @@
-import React, {SFC} from 'react';
-import { Table, Button, Form, Input } from 'antd';
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-magic-numbers */
+/* eslint-disable newline-after-var */
+import React, {SFC, useState, useEffect} from 'react';
+import { Table, Button, Form, Input, Modal, message } from 'antd';
 import {TablePaginationConfig} from 'antd/es/table/interface';
 import {ColumnsType} from 'antd/es/table/interface';
+import axios from 'axios';
+import {ExclamationCircleOutlined } from '@ant-design/icons';
+import {colors} from '../const/const';
 
 export interface HelpHistory{
-  helpObject: string;
-  belongVillage: string;
-  head?: string;
-  belongProject?: string,
-  helpTime?: string
-  status: string
+  id?: number;
+  helpObj: string;
+  village: string;
+  personCharge: string; // 负责人
+  helpProject?: string; // 帮扶项目
+  createTime?: string; // 帮扶时间
+  poorState?: string; // 贫困状态
+  helpNum: string; // 帮扶数量
 }
 
 interface GreenHouseListProps{
@@ -19,68 +28,94 @@ interface GreenHouseListProps{
 const HelpHistoryList: SFC<GreenHouseListProps> = (props) => {
 
   const [form] = Form.useForm();
+  const [helpPoorRecords, setRecords] = useState<HelpHistory[]>([]);
+
+
+  const getRecords = () => {
+    axios({
+      method: 'GET',
+      url: 'api/povertyAlleviationRecord',
+    }).then((res) => {
+      if (res.data.status === 200){
+        const data: HelpHistory[] = res.data.data || [];
+        setRecords(data);
+      } else {
+        setRecords([]);
+      }
+    }).catch(() => {
+      setRecords([]);
+    });
+  };
+
+  useEffect(() => {
+    getRecords();
+  }, []);
+
+  const deleteClicked = (text: string, row: HelpHistory) => {
+    const id = row.id;
+    Modal.confirm({
+      title: '删除扶贫记录',
+      icon: <ExclamationCircleOutlined />,
+      content: '确认删除？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        axios({
+          method: 'DELETE',
+          url: `api/povertyAlleviationRecord/${id}`,
+        }).then((res) => {
+          if (res.data.status === 200){
+            getRecords();
+          } else {
+            message.error('操作失败');
+          }
+        });
+      },
+    });
+  };
 
   const columns: ColumnsType<HelpHistory> = [
     {
       title: '帮扶对象',
-      dataIndex: 'helpObject',
-      key: 'helpObject',
-      render: (text) => <a>{text}</a>,
+      dataIndex: 'helpObj',
+      key: 'helpObj',
     },
     {
       title: '所属村',
-      dataIndex: 'belongVillage',
-      key: 'belongVillage',
+      dataIndex: 'village',
+      key: 'village',
     },
     {
       title: '负责人',
-      key: 'head',
-      dataIndex: 'head',
+      key: 'personCharge',
+      dataIndex: 'personCharge',
     },
     {
       title: '所属项目',
-      dataIndex: 'belongProject',
-      key: 'belongProject',
+      dataIndex: 'helpProject',
+      key: 'helpProject',
     },
     {
       title: '帮扶时间',
-      key: 'helpTime',
-      dataIndex: 'helpTime',
+      key: 'createTime',
+      dataIndex: 'createTime',
     },
     {
       title: '当前贫困状态',
-      key: 'status',
-      dataIndex: 'status',
+      key: 'poorState',
+      dataIndex: 'poorState',
+      render: (text: any) => {
+        return text == '1' ? '已脱贫' : '未脱贫';
+      },
+    },
+    {
+      title: '操作',
+      key: 'option',
+      render: (text: any, record: any) => {
+        return <Button size="middle" style={{color: colors.danger}} onClick={e => deleteClicked(text, record)}>删除</Button>;
+      },
     },
   ];
-
-  const data: HelpHistory[] = [
-    {
-      helpObject: '张三',
-      belongVillage: '营田村',
-      head: '陈梅',
-      belongProject: '231扶贫项目',
-      helpTime: '2019-12-30',
-      status: '已脱贫',
-    },
-    {
-      helpObject: '王五',
-      belongVillage: '下幸村',
-      head: '李龙',
-      belongProject: '123扶贫项目',
-      helpTime: '2018-12-01',
-      status: '已脱贫',
-    },
-    {
-      helpObject: '陈晨',
-      belongVillage: '上幸村',
-      head: '李梅',
-      belongProject: '223扶贫项目',
-      helpTime: '2020-08-01',
-      status: '未脱贫',
-    },
-  ];
-
 
   return (
     <div className="card-box green-house-list">
@@ -111,7 +146,7 @@ const HelpHistoryList: SFC<GreenHouseListProps> = (props) => {
       }
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={helpPoorRecords}
         pagination={props.pagination}
       />
     </div>
@@ -121,6 +156,5 @@ const HelpHistoryList: SFC<GreenHouseListProps> = (props) => {
 HelpHistoryList.defaultProps = {
   pagination: false,
 };
-
 
 export default HelpHistoryList;
