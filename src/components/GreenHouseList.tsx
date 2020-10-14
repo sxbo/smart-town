@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable newline-after-var */
 import React, {SFC, MouseEvent} from 'react';
 import '../theme/style/common.scss';

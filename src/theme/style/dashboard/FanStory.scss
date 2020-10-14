@@ -1,0 +1,58 @@
+.fan-story{
+    padding: 10px;
+    .title-box{
+        display: flex;
+        align-items: center;
+        .title-icon{
+            display: inline-block;
+            width: 5px;
+            background-color: #5d89f2;
+            height: 16px;
+            margin-right: 10px;
+        }
+    }
+    .fan-content{
+        display: flex;
+        .rotation-box{
+            padding: 10px;
+            padding-left: 0;
+            .rotation{
+                height: 120px;
+                width: 120px;
+                .ant-carousel .slick-dots{
+                    margin-right: 0;
+                    margin-left: 0;
+                }
+            }
+            .rotation-title-box{
+                margin-top: 10px;
+                width: 120px;
+                .rotation-title{
+                    font-weight: bold;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .rotation-time{
+                    margin-top: 5px;
+                    color: #b1b1b1;
+                }
+                .rotation-content{
+                    color: #b1b1b1;
+                    height: 30px;
+                    overflow: hidden;
+                }
+            }
+        }
+        .story-list-box{
+            font-weight: bold;
+            width: calc(100% - 120px);
+            .story-link{
+                cursor: pointer;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+}

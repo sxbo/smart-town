@@ -1,0 +1,32 @@
+.advertise{
+    .advertise-content{
+        height: 100%;
+        color: #fff;
+        text-align: center;
+        background: #364d79;
+    }
+    .ant-carousel{
+        height: 100%;
+        .ant-carousel .slick-slider{
+            height: 100%;
+            .slick-list{
+                height: 100%;
+                .slick-track{
+                    height: 100%;
+                    .slick-slide div{
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+    .ant-carousel .slick-list {
+        height: 100%;
+    }
+    .ant-carousel .slick-track{
+        height: 100%;
+    }
+    .ant-carousel .slick-slide div{
+        height: 100%;
+    }
+}

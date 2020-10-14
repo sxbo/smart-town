@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {SFC} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { Layout, Button, Menu, Dropdown, Avatar, Badge } from 'antd';
-import {BellOutlined, MenuUnfoldOutlined, MenuFoldOutlined} from '@ant-design/icons';
+import {BellOutlined, MenuUnfoldOutlined, MenuFoldOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
 // MenuUnfoldOutlined
 import '../theme/style/components/Header.scss';
 import logo from '../theme/img/logo.png';
@@ -33,6 +34,17 @@ const HerderBar:SFC = () => {
     </Menu>
   );
 
+  const peopleMenu = (
+    <Menu>
+      <Menu.Item icon={<LogoutOutlined />}>
+        退出
+      </Menu.Item>
+      <Menu.Item icon={<SettingOutlined/>}>
+        系统设置
+      </Menu.Item>
+    </Menu>
+  );
+
   const user: string = 'U';
   const colorlist: Array<string> = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
   const range: number = 5;
@@ -55,7 +67,7 @@ const HerderBar:SFC = () => {
             <BellOutlined />
           </Badge>
         </Dropdown>
-        <Dropdown overlay={menu} placement="bottomCenter">
+        <Dropdown overlay={peopleMenu} placement="bottomCenter">
           <Avatar style={{ backgroundColor: color, verticalAlign: 'middle' }} size="small">
             {user}
           </Avatar>
