@@ -17,6 +17,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import DataScreen from './datascreen';
 import SystemSetting from './sysSeting';
+import FarmProduct from './farmProduct/FarmProduct';
+import Convenient from './convenient/Convenient';
 const {Content} = Layout;
 
 
@@ -46,6 +48,8 @@ const Home: React.FC = () => {
               <Route path="/partybuild" component={PartyBuild}></Route>
               <Route path="/scenicmonitor" component={ScenicMonitor}></Route>
               <Route path="/videomonitor" component={VideoMonitor}></Route>
+              <Route path="/farmProduct" component={FarmProduct}></Route>
+              <Route path="/convenient" component={Convenient}></Route>
             </Switch>
           </Content>
         </Layout>

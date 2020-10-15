@@ -1,8 +1,11 @@
 .fan-story{
     padding: 10px;
+    display: flex;
+    flex-direction: column;
     .title-box{
         display: flex;
         align-items: center;
+        font-size: 17px;
         .title-icon{
             display: inline-block;
             width: 5px;
@@ -13,12 +16,14 @@
     }
     .fan-content{
         display: flex;
+        flex-grow: 1;
+        overflow: hidden;
         .rotation-box{
             padding: 10px;
             padding-left: 0;
             .rotation{
-                height: 120px;
-                width: 120px;
+                height: 1rem;
+                width: 1rem;
                 .ant-carousel .slick-dots{
                     margin-right: 0;
                     margin-left: 0;
@@ -26,7 +31,9 @@
             }
             .rotation-title-box{
                 margin-top: 10px;
-                width: 120px;
+                width: 1rem;
+                display: flex;
+                flex-direction: column;
                 .rotation-title{
                     font-weight: bold;
                     white-space: nowrap;
@@ -39,14 +46,15 @@
                 }
                 .rotation-content{
                     color: #b1b1b1;
-                    height: 30px;
                     overflow: hidden;
+                    flex-grow: 1;
                 }
             }
         }
         .story-list-box{
             font-weight: bold;
-            width: calc(100% - 120px);
+            width: calc(100% - 1rem);
+            flex-grow: 1;
             .story-link{
                 cursor: pointer;
                 white-space: nowrap;

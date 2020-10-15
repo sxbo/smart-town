@@ -357,8 +357,6 @@ module.exports = {
         "camelcase": 2,//强制驼峰法命名
         "func-names": 0,//函数表达式必须有名字
         "id-length": 0,//变量名长度
-        //缩进风格
-        "indent": [1, 2],
         //声明时必须赋初值
         "init-declarations": 0,
         "key-spacing": [0, { "beforeColon": false, "afterColon": true }],//对象字面量中冒号的前后空格

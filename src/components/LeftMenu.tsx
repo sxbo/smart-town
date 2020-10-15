@@ -49,7 +49,7 @@ const LeftMenu:SFC = () => {
             <Link to="/breed">智能养殖</Link>
           </Menu.Item>
           <Menu.Item key="6" icon={<DeploymentUnitOutlined />}>
-            <Link to="/greenhouse">智能大棚</Link>
+            <Link to="/farmProduct">农副产品</Link>
           </Menu.Item>
           <Menu.Item key="7" icon={<LinkOutlined />}>
             <a href="http://www.erp.900nong.com" target="_blank" rel="noopener noreferrer">农资监管</a>
@@ -74,7 +74,7 @@ const LeftMenu:SFC = () => {
             <Link to="/helppoor">精准扶贫</Link>
           </Menu.Item>
           <Menu.Item key="14" icon={<AimOutlined />}>
-            <Link to="/helppoor">便民服务</Link>
+            <Link to="/convenient">便民服务</Link>
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.Item key="12" icon={<StarOutlined />}>
