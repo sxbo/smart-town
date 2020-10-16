@@ -28,7 +28,7 @@ const LeftMenu:SFC = () => {
 
   return (
     <Sider collapsed={dashboardState.menuCollapsed} width={200} className="site-layout-background">
-      <Menu
+      <Menu  className="leftbg"
         mode="inline"
         defaultSelectedKeys={['1']}
         style={{ height: '100%', borderRight: 0 }}>
@@ -38,10 +38,8 @@ const LeftMenu:SFC = () => {
         <Menu.Item key="2" icon={<FundProjectionScreenOutlined />}>
           <Link to="/datascreen">数据大屏</Link>
         </Menu.Item>
-        <Menu.Item key="3" icon={<SettingOutlined />}>
-          <Link to="/setting">系统设置</Link>
-        </Menu.Item>
-        <Menu.SubMenu key="sub1" icon={<DeploymentUnitOutlined/>} title="农业">
+       
+        <Menu.SubMenu key="sub1" icon={<DeploymentUnitOutlined/>} title="农业" >
           <Menu.Item key="4" icon={<DeploymentUnitOutlined />}>
             <Link to="/greenhouse">智能大棚</Link>
           </Menu.Item>
@@ -78,8 +76,16 @@ const LeftMenu:SFC = () => {
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.Item key="12" icon={<StarOutlined />}>
-          <Link to="/partybuild">智慧党建</Link>
+          <Link to="/partyshow">智慧党建</Link>
         </Menu.Item>
+      <Menu.SubMenu key="sub4" icon={<DeploymentUnitOutlined/>} title="数据管理">
+         <Menu.Item key="3" icon={<SettingOutlined />}>
+            <Link to="/setting">系统设置</Link>
+         </Menu.Item>
+         <Menu.Item key="15" icon={<AimOutlined />}>
+            <Link to="/partybuild">新闻动态</Link>
+          </Menu.Item>
+        </Menu.SubMenu>
       </Menu>
     </Sider>
   );

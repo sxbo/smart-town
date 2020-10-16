@@ -1,23 +1,21 @@
-/* eslint-disable no-magic-numbers */
 /* eslint-disable no-unused-vars */
 /* eslint-disable newline-after-var */
 /* eslint-disable no-invalid-this */
 import React, {Component} from 'react';
 import { Row, Col, List, Carousel } from 'antd';
-import {withRouter} from 'react-router-dom';
-import '../../theme/style/dashboard/Layout.scss';
+import '../../theme/style/partyshow/Layout1.scss';
 import DynamicViewModal from '../../components/DynamicViewModal';
 // import { DeploymentUnitOutlined, GoldOutlined, VideoCameraOutlined, TrophyOutlined } from '@ant-design/icons';
 import '../../theme/style/common.scss';
-import '../../theme/style/dashboard/FanStory.scss';
-import '../../theme/style/dashboard/Advertise.scss';
-import '../../theme/style/dashboard/Party.scss';
-import '../../theme/style/dashboard/FarmProduct.scss';
-import '../../theme/style/dashboard/NewInfo.scss';
-import '../../theme/style/dashboard/PoorRule.scss';
+import '../../theme/style/partyshow/FanStory1.scss';
+import '../../theme/style/partyshow/Advertise1.scss';
+import '../../theme/style/partyshow/Party1.scss';
+import '../../theme/style/partyshow/FarmProduct1.scss';
+import '../../theme/style/partyshow/NewInfo1.scss';
+import '../../theme/style/partyshow/PoorRule1.scss';
 
 
-class DashBoard extends Component<any, any> {
+export default class PartyShow extends Component<any, any> {
 
   constructor(props: any){
     super(props);
@@ -43,15 +41,6 @@ class DashBoard extends Component<any, any> {
     this.setState({
       viewModalVisible: true,
       dynamic: dynamic,
-    });
-  }
-
-  jumpToMoreinfo = (pageType: any) => {
-    this.props.history.push({
-      pathname: '/moreinfo',
-      state: {
-        pageType: pageType,
-      },
     });
   }
 
@@ -89,7 +78,7 @@ class DashBoard extends Component<any, any> {
       <div className="small-town-dashboard" style={{height: boxHeight}}>
         <Row className="data-board fanstory-adver-pr">
           <Col xs={{ span: 24}} md={{ span: 24}} xl={{ span: 6}}>
-            <div className="card-box fan-story">
+            <div className="card-box fan-story1">
               <div className="title-box">
                 <span></span>
                 <span></span>
@@ -126,7 +115,7 @@ class DashBoard extends Component<any, any> {
                     size="small"
                     bordered={false}
                     dataSource={data}
-                    renderItem={item => <List.Item><div onClick={this.viewDynamic} className="story-link">· {item}</div></List.Item>}/>
+                    renderItem={item => <List.Item><div className="story-link">· {item}</div></List.Item>}/>
                 </div>
               </div>
             </div>
@@ -147,7 +136,7 @@ class DashBoard extends Component<any, any> {
             </div>
           </Col>
           <Col xs={{ span: 24}} md={{ span: 24}} xl={{ span: 6}}>
-            <div className="card-box poor-rule">
+            <div className="card-box poor-rule1">
               <div className="title-box">
                 <span></span>
                 <span></span>
@@ -167,14 +156,14 @@ class DashBoard extends Component<any, any> {
         </Row>
         <Row className="row-party-news-far">
           <Col xs={{ span: 24}} md={{ span: 24}} xl={{ span: 8}}>
-            <div className="card-box party-content">
+            <div className="card-box party-content1">
               <div className="title-box">
                 <div className="title-icon-text">
                   <span></span>
                   <span></span>
                 </div>
                 <div>
-                  <span onClick={this.jumpToMoreinfo} className="spancolor">更多 &gt;&gt;</span>
+                  <span className="spancolor">更多 &gt;&gt;</span>
                 </div>
               </div>
               <div className="imgply-news-box">
@@ -192,6 +181,7 @@ class DashBoard extends Component<any, any> {
                   </Carousel>
                 </div>
                 <div className="little-new-news">
+                 
                   <div>
                     <List
                       size="small"
@@ -207,7 +197,7 @@ class DashBoard extends Component<any, any> {
             </div>
           </Col>
           <Col xs={{ span: 24}} md={{ span: 24}} xl={{ span: 8}}>
-            <div className="card-box news-information">
+            <div className="card-box news-information1">
               <div className="title-box">
                 <div className="title-icon-text">
                   <span></span>
@@ -230,7 +220,7 @@ class DashBoard extends Component<any, any> {
             </div>
           </Col>
           <Col xs={{ span: 24}} md={{ span: 24}} xl={{ span: 8}}>
-            <div className="card-box farm-product">
+            <div className="card-box farm-product1">
               <div className="title-box">
                 <div className="title-icon-text">
                   <span></span>
@@ -290,5 +280,3 @@ class DashBoard extends Component<any, any> {
     );
   }
 }
-
-export default withRouter(DashBoard);

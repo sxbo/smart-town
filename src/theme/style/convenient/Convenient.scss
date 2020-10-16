@@ -1,0 +1,15 @@
+.convenient-box{
+    padding: 10px;
+    .convenient-search-box{
+        padding: 10px;
+        .search-list{
+            padding: 10px;
+            .search-box{
+                display: flex;
+            }
+            .list-box{
+                padding-top: 10px;
+            }
+        }
+    }
+}

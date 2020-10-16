@@ -15,7 +15,7 @@ const PageTitle: SFC<PageTitleProps> = (props) => {
   const {title, lookMonitor} = props;
 
   return (
-    <div className="card-box pagetitle">
+    <div className="pagetitle">
       <div className="title">{title}</div>
       {
         lookMonitor ?

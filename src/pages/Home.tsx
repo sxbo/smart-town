@@ -1,3 +1,4 @@
+import {PartyShow} from './partyshow';
 import {DashBoard} from './dashboard';
 import {BreedHome} from './breed';
 import {EpidemicSituation} from './epidemic';
@@ -19,6 +20,7 @@ import DataScreen from './datascreen';
 import SystemSetting from './sysSeting';
 import FarmProduct from './farmProduct/FarmProduct';
 import Convenient from './convenient/Convenient';
+import MoreInfoList from './dashboard/MoreInfoList';
 const {Content} = Layout;
 
 
@@ -50,6 +52,8 @@ const Home: React.FC = () => {
               <Route path="/videomonitor" component={VideoMonitor}></Route>
               <Route path="/farmProduct" component={FarmProduct}></Route>
               <Route path="/convenient" component={Convenient}></Route>
+              <Route path="/moreinfo" component={MoreInfoList}></Route>
+              <Route path="/partyshow" exact component={PartyShow}></Route>
             </Switch>
           </Content>
         </Layout>
