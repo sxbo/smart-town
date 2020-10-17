@@ -17,6 +17,9 @@
                 background-color: #68d8fe;
             }
         }
+        .tab-type-checked{
+            background-color: #68d8fe;
+        }
     }
     .products-content{
         padding-top: 10px;
@@ -25,9 +28,17 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
             img{
                 width: 150px;
                 height: 150px;
+            }
+            .product-img-title-title{
+                overflow: hidden;
+                cursor: pointer;
+                &:hover{
+                    color: #68d8fe;
+                }
             }
         }
     }

@@ -15,11 +15,11 @@ export const jopType = [
 export const HorseType = [
   {
     type: 1,
-    label: '首页',
+    label: '党建',
   },
   {
     type: 2,
-    label: '党建',
+    label: '首页',
   },
 ];
 

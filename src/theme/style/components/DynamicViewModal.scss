@@ -1,4 +1,8 @@
 .dynamic-view-model{
+    overflow: auto;
+    img{
+        width: 100%;
+    }
     .title-box{
         text-align: center;
         font-weight: bold;
@@ -11,5 +15,8 @@
         border: .5px solid #dfdfdf;
         text-align: center;
         border-radius: 3px;
+    }
+    .dynamic-view-content{
+        padding-top: 10px;
     }
 }

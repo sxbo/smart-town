@@ -1,3 +1,6 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable newline-after-var */
+/* eslint-disable no-magic-numbers */
 /* eslint-disable quotes */
 /* eslint-disable no-invalid-this */
 /* eslint-disable indent */
@@ -11,6 +14,7 @@ export default class DynamicViewModal extends Component<any, any> {
 		this.props.close();
 	}
 
+
 	render() {
     return <Modal
 		title={this.props.title}
@@ -19,12 +23,12 @@ export default class DynamicViewModal extends Component<any, any> {
 		visible={this.props.visible}
 		footer={<div><Button size="middle" onClick={this.closeModal}>关闭</Button></div>}>
 			<div className="dynamic-view-model">
-				<div className="title-box">娃娃水电费按时</div>
+				<div className="title-box">{this.props.dynamic.title}</div>
 				<div className="publish-time-click-box">
-					<span style={{marginRight: '20px'}}>发布时间： 2020.09.26</span>
-					<span>点击数量： 23</span>
+					<span style={{marginRight: '20px'}}>发布时间： {this.props.dynamic.createTime}</span>
+					<span>点击数量： {this.props.dynamic.clickedNum}</span>
 				</div>
-				<div dangerouslySetInnerHTML={{__html: "<h2>hello world!</h2>"}}>
+				<div className="dynamic-view-content" dangerouslySetInnerHTML={{__html: this.props.dynamic.content}}>
 				</div>
 			</div>
 		</Modal>;

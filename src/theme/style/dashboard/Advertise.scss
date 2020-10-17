@@ -1,9 +1,38 @@
 .advertise{
+    position: relative;
     .advertise-content{
         height: 100%;
         color: #fff;
         text-align: center;
         background: #364d79;
+        img{
+            height: 100%;
+            width: 100%;
+        }
+    }
+    .advertise-to-prev{
+        width: 30px;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        background-color: rgba(0,0,0,.5);
+        color: #fff;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .advertise-to-next{
+        width: 30px;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        background-color: rgba(0,0,0,.5);
+        color: #fff;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .ant-carousel{
         height: 100%;

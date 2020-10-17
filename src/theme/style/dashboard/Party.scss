@@ -19,6 +19,12 @@
                 margin-right: 10px;
             }
         }*/
+        .more{
+            cursor: pointer;
+            &:hover{
+                color: #66d8fd;
+            }
+        }
     }
     
       .spancolor{
@@ -34,11 +40,46 @@
         .imgply-box{
             width: 40%;
             height: 100%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            position: relative;
             .advertise-content{
                 height: 100%;
                 color: #fff;
                 text-align: center;
                 background: #364d79;
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .imgply-box-pages{
+                position: absolute;
+                width: 100%;
+                bottom: 10px;
+                display: flex;
+                justify-content: flex-end;
+                z-index: 1000;
+                .imgply-box-pages-partyPage{
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                    text-align: center;
+                    margin-bottom: 5px;
+                    margin-right: 5px;
+                    background-color: rgba(0,0,0,.2);
+                    color: #fff;
+                }
+                .imgply-box-pages-partyPage-checked{
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                    text-align: center;
+                    margin-bottom: 5px;
+                    margin-right: 5px;
+                    background-color: rgba(0,0,0,.5);
+                    color: #fff;
+                }
             }
             .ant-carousel{
                 height: 100%;
@@ -73,6 +114,9 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                &:hover{
+                    color: #66d8fd;
+                }
             }
             .date-box{
                 color: #b1b1b1;
