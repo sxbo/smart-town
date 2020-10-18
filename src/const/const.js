@@ -1,5 +1,29 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-magic-numbers */
+// 0、个人诉求', '1、民意诉求', '2、业务诉求', '3、政策咨询', '4、业务办理
+
+export const appeals = [
+  {
+    type: 0,
+    label: '个人诉求',
+  },
+  {
+    type: 1,
+    label: '民意诉求',
+  },
+  {
+    type: 2,
+    label: '业务诉求',
+  },
+  {
+    type: 3,
+    label: '政策咨询',
+  },
+  {
+    type: 4,
+    label: '业务办理',
+  },
+];
 
 export const jopType = [
   {

@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-magic-numbers */
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable indent */
@@ -11,7 +13,6 @@ import { Modal, Form, Input, Select, message} from 'antd';
 import { FormInstance } from 'antd/lib/form/Form';
 import {RichEditor} from 'ppfish';
 import 'ppfish/es/components/RichEditor/style/index.less';
-import {DynamicType} from '../../const/const';
 import axios from 'axios';
 
 // import { UploadOutlined } from '@ant-design/icons';
@@ -21,6 +22,8 @@ interface NewDynamicPro{
   visible: boolean;
   close: () => void;
   createSuccess?: () => void;
+  types: any[];
+  title: string;
 }
 
 export default class NewDynamic extends Component<NewDynamicPro, any> {
@@ -50,23 +53,58 @@ export default class NewDynamic extends Component<NewDynamicPro, any> {
       const dynamicOpt = data.dynamic;
       const content = this.state.content;
       dynamicOpt.content = content;
-      axios({
-        method: 'POST',
-        url: 'api/spb/addDynamicInformation',
-        data: dynamicOpt,
-      }).then((res) => {
-        if (res.data.status === 200){
-          this.setState({content: ''});
-          this.props.createSuccess?.();
-          this.formRef.current?.resetFields();
-        } else {
-          message.error('操作失败');
-        }
-      }).catch(() => {
-        message.error('新建失败');
-      });
+      const {types} = this.props;
+      const type = types.find(item => item.id == dynamicOpt.type);
+      dynamicOpt.type = type;
+      const user = JSON.parse(localStorage.getItem('user') || '');
+      if (user.username){
+        dynamicOpt.userName = user.username;
+      }
+      const {title} = this.props;
+      if (title == '新建动态'){
+        this.createDynamic(dynamicOpt);
+      } else {
+        this.createFarmProduct(dynamicOpt);
+      }
     });
   }
+
+  createDynamic = (dynamic: any) => {
+    axios({
+      method: 'POST',
+      url: 'api/spb/addDynamicInformation',
+      data: dynamic,
+    }).then((res) => {
+      if (res.data.status === 200){
+        this.setState({content: ''});
+        this.props.createSuccess?.();
+        this.formRef.current?.resetFields();
+      } else {
+        message.error('操作失败');
+      }
+    }).catch(() => {
+      message.error('新建失败');
+    });
+  }
+
+  createFarmProduct = (dynamic: any) => {
+    axios({
+      method: 'POST',
+      url: 'api/spb/addFarmProduct',
+      data: dynamic,
+    }).then((res) => {
+      if (res.data.status === 200){
+        this.setState({content: ''});
+        this.props.createSuccess?.();
+        this.formRef.current?.resetFields();
+      } else {
+        message.error('操作失败');
+      }
+    }).catch(() => {
+      message.error('新建失败');
+    });
+  }
+
   handleCancel = () => {
     this.setState({content: ''});
     this.formRef.current?.resetFields();
@@ -85,8 +123,10 @@ export default class NewDynamic extends Component<NewDynamicPro, any> {
       wrapperCol: { span: 18 },
     };
 
+    const {types, title} = this.props;
+
     return <Modal
-      title="新建动态"
+      title={title}
       visible={this.props.visible}
       onOk={this.handleOk}
       onCancel={this.handleCancel}
@@ -103,7 +143,7 @@ export default class NewDynamic extends Component<NewDynamicPro, any> {
         <Form.Item name={['dynamic', 'type']} label="类型" rules={[{ required: true, message: '动态类型是必选字段' }]}>
           <Select>
             {
-              DynamicType.map((type, index) => <Select.Option key={`${index}`} value={type.type}>{type.label}</Select.Option>)
+              types.map((type, index) => <Select.Option key={`${index}`} value={type.id}>{type.type}</Select.Option>)
             }
           </Select>
         </Form.Item>

@@ -1,17 +1,138 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-magic-numbers */
+/* eslint-disable no-invalid-this */
 /* eslint-disable no-unused-vars */
 /* eslint-disable newline-after-var */
 /* eslint-disable indent */
 import React, {Component} from 'react';
 import '../../theme/style/convenient/Convenient.scss';
 import PageTitle from '../../components/PageTitle';
-import {Form, Select, Button, DatePicker, Table, Space} from 'antd';
+import {Form, Select, Button, DatePicker, Table, Space, message, Modal} from 'antd';
 import {ClockCircleOutlined, CheckCircleOutlined} from '@ant-design/icons';
 import { FormInstance } from 'antd/lib/form';
 import { ColumnsType } from 'antd/lib/table';
+import axios from 'axios';
+import {appeals, colors} from '../../const/const';
+import ReplyModal from './ReplyModal';
+
 
 export default class Convenient extends Component {
 	formRef = React.createRef<FormInstance>();
+	state = {
+		convenients: [],
+		replyModalVisible: false,
+		convenient: {},
+		downNum: 0,
+		doingNum: 0,
+	}
+
+	componentDidMount() {
+		this.getAllConvenients();
+	}
+	getAllConvenients = () => {
+		axios({
+			method: 'GET',
+			url: 'api/getConvenientService',
+		}).then((res) => {
+			if (res.data.status === 200){
+				const convenients = res.data?.data || [];
+				const down = [];
+				const doing = [];
+				convenients.map((item: any) => {
+					if (item.state == 2){
+						down.push(item);
+					} else {
+						doing.push(item);
+					}
+				});
+				this.setState({
+					convenients: convenients,
+					downNum: down.length,
+					doingNum: doing.length,
+				});
+			} else {
+				this.setState({
+					convenients: [],
+					downNum: 0,
+					doingNum: 0,
+				});
+			}
+		}).catch(() => {
+			this.setState({
+				convenients: [],
+				downNum: 0,
+				doingNum: 0,
+			});
+		});
+	}
+
+	replyConvenient = (convenient: any) => {
+		this.setState({replyModalVisible: true, convenient: convenient});
+	}
+
+	downConvenient = (convenient: any) => {
+		Modal.confirm({
+			title: '完成诉求',
+			content: '确认完成该诉求?',
+			okText: '确认',
+			cancelText: '取消',
+			onOk: () => {
+				convenient.state = 2;
+				this.updateConvenient(convenient);
+			},
+		});
+	}
+
+	updateConvenient = (convenient: any) => {
+		axios({
+			method: 'PUT',
+			url: 'api/updateConvenientService',
+			data: convenient,
+		}).then((res) => {
+			if (res.data.status === 200){
+				this.getAllConvenients();
+			}
+		}).catch(() => {
+			message.error('操作失败');
+		});
+	}
+
+
+	closeReply = () => {
+		this.setState({replyModalVisible: false});
+	}
+
+	replySuccess = () => {
+		this.getAllConvenients();
+		this.closeReply();
+	}
+
+	delConvenient = (id: any) => {
+		axios({
+			method: 'DELETE',
+			url: `api/spb/delConvenientService/${id}`,
+		}).then((res) => {
+			if (res.data.status === 200){
+				this.getAllConvenients();
+			}
+		}).catch(() => {
+			message.error('删除失败');
+		});
+	}
+
+	delConvenientClcik = (convenient: any) => {
+		Modal.confirm({
+			title: '删除诉求',
+			content: '确认删除？',
+			okText: '确认',
+			cancelText: '取消',
+			onOk: () => {
+				this.delConvenient(convenient.bmId);
+			},
+		});
+	}
 	render(){
+		const {convenients, replyModalVisible, convenient, downNum, doingNum} = this.state;
 		const columns: ColumnsType<any> | undefined = [
 			{
 				title: '诉求人姓名',
@@ -20,49 +141,57 @@ export default class Convenient extends Component {
 			},
 			{
 				title: '联系电话',
-				dataIndex: 'address',
-				key: 'address',
+				dataIndex: 'phone',
+				key: 'phone',
 			},
 			{
 				title: '诉求类型',
-				key: 'monitorNum',
-				dataIndex: 'monitorNum',
+				key: 'type',
+				dataIndex: 'type',
+				render: (type: any) => {
+					const appeal = appeals.find(item => item.type == type);
+					return appeal?.label;
+				},
 			},
 			{
 				title: '诉求内容',
-				dataIndex: 'manage',
-				key: 'manage',
+				dataIndex: 'content',
+				key: 'content',
 			},
 			{
 				title: '状态',
-				key: 'monitorNum',
-				dataIndex: 'monitorNum',
+				key: 'state',
+				dataIndex: 'state',
+				render: (state) => {
+					return state == 1 ? '正在处理' : '已解决';
+				},
 			},
 			{
 				title: '诉求时间',
-				dataIndex: 'manage',
-				key: 'manage',
+				dataIndex: 'createTime',
+				key: 'createTime',
 			},
 			{
 				title: '回复内容',
-				dataIndex: 'manage',
-				key: 'manage',
+				dataIndex: 'returnContent',
+				key: 'returnContent',
 			},
 			{
 				title: '操作',
 				key: 'action',
 				render: (text, record) => (
 					<Space>
-					<Button type="ghost" size="middle">删除</Button>
+						<Button size="middle" disabled={record?.state == 2} onClick={e => this.replyConvenient(record)}>回复</Button>
+						<Button size="middle" disabled={record?.state == 2} onClick={e => this.downConvenient(record)}>完成</Button>
+						<Button size="middle" onClick={e => this.delConvenientClcik(record)} style={{color: colors.danger}}>删除</Button>
 					</Space>
 				),
 			},
 		];
-		const data: any[] | undefined = [];
 		return <div className="convenient-box">
 			<PageTitle title="便民服务" >
-				<span style={{marginRight: '20px'}}><ClockCircleOutlined />正在处理事件： 10</span>
-				<span><CheckCircleOutlined />已处理事件： 20</span>
+				<span style={{marginRight: '20px'}}><ClockCircleOutlined />正在处理事件： {doingNum}</span>
+				<span><CheckCircleOutlined />已处理事件： {downNum}</span>
 			</PageTitle>
 			<div className="convenient-search-box">
 				<div className="card-box search-list">
@@ -71,15 +200,18 @@ export default class Convenient extends Component {
 							layout="inline"
 							ref={this.formRef}>
 							<Form.Item label="诉求类型">
-								<Select style={{width: '200px'}}>
-									<Select.Option value="1">民事诉讼</Select.Option>
-									<Select.Option value="2">刑事诉求</Select.Option>
+								<Select placeholder="诉求类型" style={{width: '200px'}}>
+									{
+										appeals.map(item => {
+											return <Select.Option key={item.type} value={item.type}>{item.label}</Select.Option>;
+										})
+									}
 								</Select>
 							</Form.Item>
 							<Form.Item label="诉求时间">
-								<DatePicker />
+								<DatePicker placeholder="诉求时间"/>
 							</Form.Item>
-							<Form.Item name="layout">
+							<Form.Item>
 								<Button value="horizontal">查询</Button>
 								<Button value="vertical">重置</Button>
 							</Form.Item>
@@ -89,12 +221,14 @@ export default class Convenient extends Component {
 					<div className="list-box">
 						<Table
 							columns={columns}
-							dataSource={data}
+							dataSource={convenients}
 							pagination={{pageSize: 10}}
+							rowKey="bmId"
 						/>
 					</div>
 				</div>
 			</div>
+			<ReplyModal visible={replyModalVisible} replySuccess={this.replySuccess} convenient={convenient} close={this.closeReply}/>
 		</div>;
 	}
 }

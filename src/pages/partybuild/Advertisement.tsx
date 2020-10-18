@@ -99,6 +99,8 @@ export default class Advertisement extends Component<any, AdvertisementState> {
       title: '删除广告',
       icon: <ExclamationCircleOutlined />,
       content: '确认删除？',
+      okText: '确认',
+			cancelText: '取消',
       onOk: () => {
         axios({
           method: 'DELETE',

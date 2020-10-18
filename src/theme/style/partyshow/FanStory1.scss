@@ -15,6 +15,12 @@
             height: 16px;
             margin-right: 10px;
         }*/
+        .more{
+            cursor: pointer;
+            &:hover{
+                color: #66d8fd;
+            }
+        }
     }
     .fan-content{
         display: flex;
@@ -66,6 +72,9 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                &:hover{
+                    color: #66d8fd;
+                }
             }
         }
         

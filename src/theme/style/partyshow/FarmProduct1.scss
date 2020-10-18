@@ -7,7 +7,6 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-         height: 50px;
         .title-icon-text{
             display: flex;
             align-items: center;
@@ -18,6 +17,12 @@
                 background-color: #5d89f2;
                 height: 16px;
                 margin-right: 10px;
+            }
+        }
+        .more{
+            cursor: pointer;
+            &:hover{
+                color: #66d8fd;
             }
         }
     }
@@ -31,15 +36,23 @@
             .farm-p-img-fr-img-title{
                 height: 100%;
                 width: 30%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 img{
-                    height: 80%;
-                    width: 100%;
+                    height: .8rem;
+                    width: 1rem;
+                }
+                .farm-p-img-fr-img-title-ig{
+                    height: .8rem;
+                    width: 1rem;
                 }
                 .product-name{
                     padding-top: 5px;
-                    height: 20%;
+                    height: 25px;
                     overflow: hidden;
                     color:#fff;
+                    text-align: center;
                 }
             }
         }

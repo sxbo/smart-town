@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { LoginActions } from '../features/login';
 
-
 const Login: SFC = () => {
 
   const [remind, setRemimnd] = useState('');
@@ -27,8 +26,9 @@ const Login: SFC = () => {
         const token = res.data.token;
 
         if (token && token !== 'undefined'){
-          dispatch({type: LoginActions.LOGIN, data: true});
+          dispatch({type: LoginActions.LOGIN, data: true, user: res.data.data});
           localStorage.setItem('token', res.data.token);
+          localStorage.setItem('user', JSON.stringify(res.data.data));
           setRemimnd('');
           history.push('/');
         } else {

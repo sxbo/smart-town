@@ -55,7 +55,7 @@ const PartyBuild: SFC = () => {
               </span>
             }
             key="4">
-            <Dynamic/>
+            <Dynamic type="partyBuild"/>
           </TabPane>
           <TabPane
             tab={
@@ -65,6 +65,15 @@ const PartyBuild: SFC = () => {
             }
             key="5">
             <Advertisement/>
+          </TabPane>
+          <TabPane
+            tab={
+              <span>
+                农产品宣传
+              </span>
+            }
+            key="6">
+              <Dynamic type="farmProduct"/>
           </TabPane>
         </Tabs>
       </div>

@@ -63,6 +63,10 @@ class DashBoard extends Component<any, any> {
     this.getAllFarmProducts();
   }
 
+  componentWillUnmount() {
+    window.onresize = null;
+  }
+
   getAllDynamics = () => {
     axios({
       method: 'GET',
@@ -238,7 +242,7 @@ class DashBoard extends Component<any, any> {
   partyPageChange = (current: any) => {
     this.setState({
       partyPage: current,
-    })
+    });
   }
 
   nextAdverClicked = () => {

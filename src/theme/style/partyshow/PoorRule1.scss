@@ -25,6 +25,9 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            &:hover{
+                color: #66d8fd;
+            }
         }
         .date-box{
             color: #b1b1b1;

@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-magic-numbers */
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable indent */
@@ -11,7 +13,6 @@ import { Modal, Form, Input, Select, message} from 'antd';
 import { FormInstance } from 'antd/lib/form/Form';
 import {RichEditor} from 'ppfish';
 import 'ppfish/es/components/RichEditor/style/index.less';
-import {DynamicType} from '../../const/const';
 import axios from 'axios';
 
 // import { UploadOutlined } from '@ant-design/icons';
@@ -22,6 +23,8 @@ interface EditDynamicPro{
   close: () => void;
   dynamic: any;
   editSuccess?: () => void;
+  title: string;
+  types: any[];
 }
 
 export default class EditDynamic extends Component<EditDynamicPro, any> {
@@ -58,6 +61,7 @@ export default class EditDynamic extends Component<EditDynamicPro, any> {
     const dynamic1 = JSON.parse(JSON.stringify(dynamic));
     const form = this.formRef.current;
     if (dynamic1){
+      dynamic1.type = dynamic1.type?.id;
       form?.setFieldsValue({dynamic: dynamic1});
     }
   }
@@ -74,23 +78,59 @@ export default class EditDynamic extends Component<EditDynamicPro, any> {
       const content = this.state.content;
       dynamicOpt.content = content;
       dynamicOpt.id = dynamic.id;
-      axios({
-        method: 'PUT',
-        url: 'api/spb/updateDynamicInformation',
-        data: dynamicOpt,
-      }).then((res) => {
-        if (res.data.status === 200){
-          this.setState({content: ''});
-          this.props.editSuccess?.();
-          this.formRef.current?.resetFields();
-        } else {
-          message.error('操作失败');
-        }
-      }).catch(() => {
-        message.error('新建失败');
-      });
+      dynamicOpt.icon = dynamic.icon;
+      const {types} = this.props;
+      const type = types.find(item => item.id == dynamicOpt.type);
+      dynamicOpt.type = type;
+      const user = JSON.parse(localStorage.getItem('user') || '');
+      if (user.username){
+        dynamicOpt.userName = user.username;
+      }
+      const {title} = this.props;
+      if (title == '编辑动态'){
+        this.updateDynamic(dynamicOpt);
+      } else {
+        this.updateFarmProduct(dynamicOpt);
+      }
     });
   }
+
+  updateDynamic = (dynamic: any) => {
+    axios({
+      method: 'PUT',
+      url: 'api/spb/updateDynamicInformation',
+      data: dynamic,
+    }).then((res) => {
+      if (res.data.status === 200){
+        this.setState({content: ''});
+        this.props.editSuccess?.();
+        this.formRef.current?.resetFields();
+      } else {
+        message.error('操作失败');
+      }
+    }).catch(() => {
+      message.error('新建失败');
+    });
+  }
+
+  updateFarmProduct = (dynamic: any) => {
+    axios({
+      method: 'PUT',
+      url: 'api/spb/updateFarmProduct',
+      data: dynamic,
+    }).then((res) => {
+      if (res.data.status === 200){
+        this.setState({content: ''});
+        this.props.editSuccess?.();
+        this.formRef.current?.resetFields();
+      } else {
+        message.error('操作失败');
+      }
+    }).catch(() => {
+      message.error('新建失败');
+    });
+  }
+
   handleCancel = () => {
     this.setState({content: ''});
     this.formRef.current?.resetFields();
@@ -109,8 +149,10 @@ export default class EditDynamic extends Component<EditDynamicPro, any> {
       wrapperCol: { span: 18 },
     };
 
+    const {types, title} = this.props;
+
     return <Modal
-      title="编辑动态"
+      title={title}
       visible={this.props.visible}
       onOk={this.handleOk}
       onCancel={this.handleCancel}
@@ -127,7 +169,7 @@ export default class EditDynamic extends Component<EditDynamicPro, any> {
         <Form.Item name={['dynamic', 'type']} label="类型" rules={[{ required: true, message: '动态类型是必选字段' }]}>
           <Select>
             {
-              DynamicType.map((type, index) => <Select.Option key={`${index}`} value={type.type}>{type.label}</Select.Option>)
+              types.map((type, index) => <Select.Option key={`${index}`} value={type.id}>{type.type}</Select.Option>)
             }
           </Select>
         </Form.Item>

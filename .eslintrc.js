@@ -317,7 +317,7 @@ module.exports = {
         "no-lonely-if": 2,//禁止else语句内只有if语句
         "no-loop-func": 1,//禁止在循环中出现 function 声明和表达式（如果没有引用外部变量不形成闭包就可以）
         "no-mixed-requires": [0, false],//声明时不能混用声明类型（不能混合常规 var 声明和 require 调用）
-        "no-mixed-spaces-and-tabs": [2, false],//禁止混用tab和空格
+        "no-mixed-spaces-and-tabs": [0, false],//禁止混用tab和空格
         "no-multi-spaces": 1,//不能用多余的空格
         "no-multiple-empty-lines": [1, {"max": 2}],//空行最多不能超过2行（不能出现多行空行）
         "no-native-reassign": 2,//不能重写native对象（不能对原生对象赋值）

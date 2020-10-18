@@ -105,6 +105,8 @@ export default class HorseRaceLamp extends Component<any, HorseRaceLampState> {
       title: '删除',
       icon: <ExclamationCircleOutlined />,
       content: '确认删除？',
+      okText: '确认',
+			cancelText: '取消',
       onOk: () => {
         axios({
           method: 'DELETE',
