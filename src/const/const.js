@@ -1,7 +1,33 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-magic-numbers */
-// 0、个人诉求', '1、民意诉求', '2、业务诉求', '3、政策咨询', '4、业务办理
+import xue from '../theme/img/xue.svg';
+import lei from '../theme/img/lei.svg';
+import shachen from '../theme/img/shachen.svg';
+import wu from '../theme/img/wu.svg';
+import bingbao from '../theme/img/binbao.svg';
+import yun from '../theme/img/yun.svg';
+import yu from '../theme/img/yu.svg';
+import yin from '../theme/img/yin.svg';
+import qing from '../theme/img/qing.svg';
 
+export const weather = {
+  xue: xue,
+  lei: lei,
+  shachen: shachen,
+  wu: wu,
+  bingbao: bingbao,
+  yun: yun,
+  yu: yu,
+  yin: yin,
+  qing: qing,
+};
+
+export const getWeatherImg = (key) => {
+  return weather[key];
+};
+
+export const cityId = '101110504';
+// 0、个人诉求', '1、民意诉求', '2、业务诉求', '3、政策咨询', '4、业务办理
 export const appeals = [
   {
     type: 0,
