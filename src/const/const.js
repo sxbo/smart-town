@@ -27,26 +27,26 @@ export const getWeatherImg = (key) => {
 };
 
 export const cityId = '101110504';
-// 0、个人诉求', '1、民意诉求', '2、业务诉求', '3、政策咨询', '4、业务办理
+// 1、个人诉求', '2、民意诉求', '3、业务诉求', '4、政策咨询', '5、业务办理
 export const appeals = [
   {
-    type: 0,
+    type: 1,
     label: '个人诉求',
   },
   {
-    type: 1,
+    type: 2,
     label: '民意诉求',
   },
   {
-    type: 2,
+    type: 3,
     label: '业务诉求',
   },
   {
-    type: 3,
+    type: 4,
     label: '政策咨询',
   },
   {
-    type: 4,
+    type: 5,
     label: '业务办理',
   },
 ];

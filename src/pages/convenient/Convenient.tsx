@@ -29,6 +29,7 @@ export default class Convenient extends Component {
 	componentDidMount() {
 		this.getAllConvenients();
 	}
+
 	getAllConvenients = () => {
 		axios({
 			method: 'GET',
@@ -131,6 +132,56 @@ export default class Convenient extends Component {
 			},
 		});
 	}
+
+	searchClick = () => {
+		const value: any = this.formRef.current?.getFieldsValue(['type', 'appealTime', 'state']);
+		const appealTime = value.appealTime;
+		const time = appealTime?.format('YYYY-MM-DD') || '';
+		const state = value.state || '';
+		let type = value.type;
+		if (type >= 0){
+			this.filterConvenients(type, time, state);
+		} else {
+			this.filterConvenients('', time, state);
+		}
+	}
+
+	filterConvenients = (type: any, date: any, state: any) => {
+		axios({
+			method: 'GET',
+			url: `api/getConvenientsByTypeAndStateAndTime?type=${type}&date=${date}&state=${state}`,
+		}).then((res) => {
+			if (res.data.status === 200){
+				const convenients = res.data?.data || [];
+				const down = [];
+				const doing = [];
+				convenients.map((item: any) => {
+					if (item.state == 2){
+						down.push(item);
+					} else {
+						doing.push(item);
+					}
+				});
+				this.setState({
+					convenients: convenients,
+					downNum: down.length,
+					doingNum: doing.length,
+				});
+			} else {
+				this.setState({
+					convenients: [],
+					downNum: 0,
+					doingNum: 0,
+				});
+			}
+		}).catch(() => {
+			this.setState({
+				convenients: [],
+				downNum: 0,
+				doingNum: 0,
+			});
+		});
+	}
 	render(){
 		const {convenients, replyModalVisible, convenient, downNum, doingNum} = this.state;
 		const columns: ColumnsType<any> | undefined = [
@@ -199,8 +250,8 @@ export default class Convenient extends Component {
 						<Form
 							layout="inline"
 							ref={this.formRef}>
-							<Form.Item label="诉求类型">
-								<Select placeholder="诉求类型" style={{width: '200px'}}>
+							<Form.Item name="type" label="诉求类型">
+								<Select allowClear placeholder="诉求类型" style={{width: '200px'}}>
 									{
 										appeals.map(item => {
 											return <Select.Option key={item.type} value={item.type}>{item.label}</Select.Option>;
@@ -208,12 +259,17 @@ export default class Convenient extends Component {
 									}
 								</Select>
 							</Form.Item>
-							<Form.Item label="诉求时间">
-								<DatePicker placeholder="诉求时间"/>
+							<Form.Item name="state" label="诉求状态">
+								<Select allowClear placeholder="诉求状态" style={{width: '200px'}}>
+									<Select.Option value={1}>正在处理中</Select.Option>
+									<Select.Option value={2}>已解决</Select.Option>
+								</Select>
+							</Form.Item>
+							<Form.Item name="appealTime" label="诉求时间">
+								<DatePicker placeholder="诉求时间" allowClear/>
 							</Form.Item>
 							<Form.Item>
-								<Button value="horizontal">查询</Button>
-								<Button value="vertical">重置</Button>
+								<Button value="horizontal" onClick={this.searchClick}>查询</Button>
 							</Form.Item>
 						</Form>
 						<Button size="middle">导出</Button>

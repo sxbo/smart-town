@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {PartyShow} from './partyshow';
 import {DashBoard} from './dashboard';
 import {BreedHome} from './breed';
@@ -10,8 +11,8 @@ import {ScenicMonitor} from './scenic';
 import {VideoMonitor} from './videoMonitor';
 import HeaderBar from '../components/Header';
 import LeftMenu from '../components/LeftMenu';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import React from 'react';
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { Layout } from 'antd';
 import '../theme/style/components/Home.scss';
 import { useSelector } from 'react-redux';
@@ -27,7 +28,13 @@ const {Content} = Layout;
 const Home: React.FC = () => {
   const { isLogin } = useSelector((state: RootState) => ({isLogin: state.login.isLogin}));
   const token = localStorage.getItem('token');
+  const history = useHistory();
 
+  useEffect(() => {
+    if (!isLogin && !token){
+      history.push('/login');
+    }
+  }, []);
   if (!isLogin && !token){
     return <Redirect to={{ pathname: '/login'}}/>;
   }
