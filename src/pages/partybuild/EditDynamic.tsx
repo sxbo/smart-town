@@ -40,20 +40,8 @@ export default class EditDynamic extends Component<EditDynamicPro, any> {
     ];
 
     this.state = {
-      content: '',
+      content: props.dynamic?.content,
     };
-  }
-
-  static getDerivedStateFromProps(nextProps: any, prevState: any) {
-    const {dynamic} = nextProps;
-    // 当传入的type发生变化的时候，更新state
-    if (dynamic.content !== prevState.content) {
-      return {
-          content: dynamic.content,
-      };
-    }
-    // 否则，对于state不进行任何操作
-    return null;
   }
 
   componentDidUpdate(prevProps:any, prevState:any){

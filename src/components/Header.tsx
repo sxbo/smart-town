@@ -32,6 +32,15 @@ const HerderBar:SFC<any> = () => {
   const [messageVisible, setMessage] = useState(false);
 
   useEffect(() => {
+    const timer = setInterval(() => {
+      getMessageNum();
+    }, 3000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  const getMessageNum = () => {
     axios({
       method: 'GET',
       url: 'api/getConvenientService',
@@ -54,7 +63,7 @@ const HerderBar:SFC<any> = () => {
     }).catch(() => {
       setDoingNum(0);
     });
-  }, []);
+  };
 
 
   useEffect(() => {

@@ -1,27 +1,27 @@
-.video-item{
+.party-stydy-video-item{
     display: flex;
-    min-width: 315px;
     .video-title-box{
         display: flex;
         flex-direction: column;
         padding: 20px;
-        width: 200px;
+        padding-bottom: 10px;
+        width: 100%;
         align-items: center;
         .video-cover{
             height: 150px;
-            width: 150px;
+            width: 100%;
             box-sizing: border-box;
             padding: 0;
             position: relative;
             overflow: hidden;
             img{
                 height: 150px;
-                width: 150px;
+                width: 100%;
             }
             .video-hover{
                 position: absolute;
                 height: 150px;
-                width: 150px;
+                width: 100%;
                 color: transparent;
                 display: flex;
                 justify-content: center;
@@ -38,23 +38,12 @@
         .video-title{
             text-align: center;
             font-weight: bold;
-            height: 50px;
-            line-height: 50px;
+            height: 30px;
+            line-height: 30px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             width: 100%;
-        }
-    }
-    .upload-box{
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        .opt-btn{
-            width: 100px;
-            margin: 10px;
         }
     }
 }

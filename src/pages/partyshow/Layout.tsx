@@ -24,6 +24,7 @@ import partyLogo from '../../theme/img/partyLogo.jpg';
 export default class PartyShow extends Component<any, any> {
 
   advertCarouselRef: React.RefObject<Carousel>;
+  timer: any;
 
   constructor(props: any){
     super(props);
@@ -42,6 +43,7 @@ export default class PartyShow extends Component<any, any> {
       viewTitle: '',
     };
     this.advertCarouselRef = React.createRef();
+    this.timer = null;
   }
 
 
@@ -54,14 +56,14 @@ export default class PartyShow extends Component<any, any> {
         this.setState({boxHeight: '100%'});
       }
     };
-
     this.getAllDynamics();
-    this.getAllAdvertises();
     this.getAllVideos();
+    this.getAllAdvertises();
   }
 
   componentWillUnmount() {
     window.onresize = null;
+    clearInterval(this.timer);
   }
 
   getAllDynamics = () => {
@@ -99,10 +101,10 @@ export default class PartyShow extends Component<any, any> {
           meetLessons = meetLessons.splice(meetLessons.length - 7);
         }
         this.setState({
-          notices: notices, // 范家故事
-          educations: educations, // 相关政策
-          partyBuildDynamics: partyBuildDynamics, // 党建动态
-          meetLessons: meetLessons, // 新闻资讯
+          notices: notices.reverse(), // 范家故事
+          educations: educations.reverse(), // 相关政策
+          partyBuildDynamics: partyBuildDynamics.reverse(), // 党建动态
+          meetLessons: meetLessons.reverse(), // 新闻资讯
         });
       } else {
         this.setState({
@@ -180,15 +182,10 @@ export default class PartyShow extends Component<any, any> {
   }
 
   viewDynamic = (dynamic: any, title: any) => {
-
-    this.getDynamicById(dynamic.id, (dynamic: any) => {
-      this.setState({
-        dynamic: dynamic,
-        viewModalVisible: true,
-        viewTitle: title,
-      });
-    }, () => {
-      message.error('发生错误');
+    this.setState({
+      dynamic: dynamic || {},
+      viewModalVisible: true,
+      viewTitle: title,
     });
   }
 
@@ -206,21 +203,6 @@ export default class PartyShow extends Component<any, any> {
       });
     }
   }
-
-  getDynamicById = (dynamicId: any, success: (dynamic: any)=> void, fail: () => void) => {
-		axios({
-			method: 'GET',
-			url: `api/spb/getDynamicRichText?id=${dynamicId}`,
-		}).then((res) => {
-      if (res.data.status === 200){
-        success(res.data.data);
-      } else {
-        fail();
-      }
-		}).catch(() => {
-      fail();
-		});
-	}
 
   closeViewModal = () => {
     this.setState({
@@ -293,7 +275,7 @@ export default class PartyShow extends Component<any, any> {
             <div className="card-box fan-story1">
               <div className="title-box">
                 <span></span>
-                <span></span>
+                <span className="more" onClick={e => this.jumpToMoreinfo(4)}>更多 &gt;&gt;</span>
               </div>
               <div className="fan-content">
                 <div className="rotation-box">
@@ -353,7 +335,7 @@ export default class PartyShow extends Component<any, any> {
             <div className="card-box poor-rule1">
               <div className="title-box">
                 <span></span>
-                <span></span>
+                <span className="more" onClick={e => this.jumpToMoreinfo(7)}>更多 &gt;&gt;</span>
               </div>
               <div className="rules-box">
                 <List

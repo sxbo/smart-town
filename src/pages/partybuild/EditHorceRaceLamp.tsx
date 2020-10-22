@@ -42,17 +42,6 @@ export default class EditHorseRaceLamp extends Component<EditHorseRaceLampPro, a
     };
   }
 
-  static getDerivedStateFromProps(nextProps: any, prevState: any) {
-    const {horseRaceLamp} = nextProps;
-    // 当传入的type发生变化的时候，更新state
-    if (horseRaceLamp.content !== prevState.content) {
-      return {
-          content: horseRaceLamp.content,
-      };
-    }
-    // 否则，对于state不进行任何操作
-    return null;
-  }
 
   componentDidUpdate(prevProps:any, prevState:any){
     const {horseRaceLamp} = this.props;

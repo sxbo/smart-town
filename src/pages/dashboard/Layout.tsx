@@ -10,7 +10,7 @@
 /* eslint-disable newline-after-var */
 /* eslint-disable no-invalid-this */
 import React, {Component} from 'react';
-import { Row, Col, List, Carousel, message } from 'antd';
+import { Row, Col, List, Carousel } from 'antd';
 import {withRouter} from 'react-router-dom';
 import '../../theme/style/dashboard/Layout.scss';
 import DynamicViewModal from '../../components/DynamicViewModal';
@@ -27,6 +27,7 @@ import axios from 'axios';
 
 class DashBoard extends Component<any, any> {
   advertCarouselRef: React.RefObject<Carousel>;
+  timer: any;
 
   constructor(props: any){
     super(props);
@@ -46,6 +47,7 @@ class DashBoard extends Component<any, any> {
       viewTitle: '',
     };
     this.advertCarouselRef = React.createRef();
+    this.timer = null;
   }
 
   componentDidMount(){
@@ -57,14 +59,14 @@ class DashBoard extends Component<any, any> {
         this.setState({boxHeight: '100%'});
       }
     };
-
     this.getAllDynamics();
-    this.getAllAdvertises();
     this.getAllFarmProducts();
+    this.getAllAdvertises();
   }
 
   componentWillUnmount() {
     window.onresize = null;
+    clearInterval(this.timer);
   }
 
   getAllDynamics = () => {
@@ -102,10 +104,10 @@ class DashBoard extends Component<any, any> {
           allNews = allNews.splice(allNews.length - 7);
         }
         this.setState({
-          fanStory: fanStory, // 范家故事
-          rules: rules, // 相关政策
-          partyBuildDynamics: partyBuildDynamics, // 党建动态
-          allNews: allNews, // 新闻资讯
+          fanStory: fanStory.reverse(), // 范家故事
+          rules: rules.reverse(), // 相关政策
+          partyBuildDynamics: partyBuildDynamics.reverse(), // 党建动态
+          allNews: allNews.reverse(), // 新闻资讯
         });
       } else {
         this.setState({
@@ -126,32 +128,12 @@ class DashBoard extends Component<any, any> {
   }
 
   viewDynamic = (dynamic: any, title: any) => {
-
-    this.getDynamicById(dynamic.id, (dynamic: any) => {
-      this.setState({
-        dynamic: dynamic,
-        viewModalVisible: true,
-        viewTitle: title,
-      });
-    }, () => {
-      message.error('发生错误');
+    this.setState({
+      dynamic: dynamic || {},
+      viewModalVisible: true,
+      viewTitle: title,
     });
   }
-
-  getDynamicById = (dynamicId: any, success: (dynamic: any)=> void, fail: () => void) => {
-		axios({
-			method: 'GET',
-			url: `api/spb/getDynamicRichText?id=${dynamicId}`,
-		}).then((res) => {
-      if (res.data.status === 200){
-        success(res.data.data);
-      } else {
-        fail();
-      }
-		}).catch(() => {
-      fail();
-		});
-	}
 
   getAllAdvertises = () => {
     axios({
@@ -196,9 +178,14 @@ class DashBoard extends Component<any, any> {
     }).then((res) => {
       if (res.data.status === 200){
         const data: any[] = res.data.data || [];
-        let products: any[] = data.slice(0, 6);
+        let products: any[] = [];
+        if (data && data.length > 6){
+          products = data.splice(data.length - 6);
+        } else {
+          products = data;
+        }
         this.setState({
-          products: products,
+          products: products.reverse(),
         });
       } else {
         this.setState({
@@ -292,7 +279,7 @@ class DashBoard extends Component<any, any> {
             <div className="card-box fan-story">
               <div className="title-box">
                 <span></span>
-                <span></span>
+                <span className="more" onClick={e => this.jumpToMoreinfo(2)}>更多 &gt;&gt;</span>
               </div>
               <div className="fan-content">
                 <div className="rotation-box">
@@ -352,7 +339,7 @@ class DashBoard extends Component<any, any> {
             <div className="card-box poor-rule">
               <div className="title-box">
                 <span></span>
-                <span></span>
+                <span className="more" onClick={e => this.jumpToMoreinfo(3)}>更多 &gt;&gt;</span>
               </div>
               <div className="rules-box">
                 <List
@@ -455,9 +442,9 @@ class DashBoard extends Component<any, any> {
                       <img src={products[0]?.icon} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name">
+                    <div className="product-name" onClick={e => this.viewDynamic(products[0], '农副产品')}>
                       {
-                        products[0]?.type?.type
+                        products[0]?.title
                       }
                     </div>
                   </div>
@@ -467,9 +454,9 @@ class DashBoard extends Component<any, any> {
                       <img src={products[1]?.icon} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name">
+                    <div className="product-name" onClick={e => this.viewDynamic(products[1], '农副产品')}>
                       {
-                        products[1]?.type?.type
+                        products[1]?.title
                       }
                     </div>
                   </div>
@@ -479,9 +466,9 @@ class DashBoard extends Component<any, any> {
                       <img src={products[2]?.icon} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name">
+                    <div className="product-name" onClick={e => this.viewDynamic(products[2], '农副产品')}>
                       {
-                        products[2]?.type?.type
+                        products[2]?.title
                       }
                     </div>
                   </div>
@@ -493,9 +480,9 @@ class DashBoard extends Component<any, any> {
                       <img src={products[3]?.icon} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name">
+                    <div className="product-name" onClick={e => this.viewDynamic(products[3], '农副产品')}>
                       {
-                        products[3]?.type?.type
+                        products[3]?.title
                       }
                     </div>
                   </div>
@@ -505,9 +492,9 @@ class DashBoard extends Component<any, any> {
                       <img src={products[4]?.icon} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name">
+                    <div className="product-name" onClick={e => this.viewDynamic(products[4], '农副产品')}>
                       {
-                        products[4]?.type?.type
+                        products[4]?.title
                       }
                     </div>
                   </div>
@@ -517,9 +504,9 @@ class DashBoard extends Component<any, any> {
                       <img src={products[5]?.icon} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name">
+                    <div className="product-name" onClick={e => this.viewDynamic(products[5], '农副产品')}>
                       {
-                        products[5]?.type?.type
+                        products[5]?.title
                       }
                     </div>
                   </div>

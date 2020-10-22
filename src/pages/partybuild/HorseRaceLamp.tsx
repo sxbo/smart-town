@@ -158,7 +158,7 @@ export default class HorseRaceLamp extends Component<any, HorseRaceLampState> {
       },
     ];
 
-    const {hrls, horseRaceLamp} = this.state;
+    const {hrls, horseRaceLamp, editVisible} = this.state;
 
     return (
       <div className="content-item">
@@ -171,7 +171,7 @@ export default class HorseRaceLamp extends Component<any, HorseRaceLampState> {
           <Table columns={columns} dataSource={hrls} rowKey='id'/>
         </div>
         <NewHorseRaceLamp createSuccess={this.createSuccessCall} visible={this.state.visible} close={this.closeCreateModel}/>
-        <EditHorseRaceLamp horseRaceLamp={horseRaceLamp} editSuccess={this.editSuccessCall} visible={this.state.editVisible} close={this.closeEditModel}/>
+        {editVisible && <EditHorseRaceLamp horseRaceLamp={horseRaceLamp} editSuccess={this.editSuccessCall} visible={editVisible} close={this.closeEditModel}/>}
       </div>
     );
   }

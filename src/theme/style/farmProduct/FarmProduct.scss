@@ -36,6 +36,10 @@
             .product-img-title-title{
                 overflow: hidden;
                 cursor: pointer;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                width: 100%;
+                text-align: center;
                 &:hover{
                     color: #68d8fe;
                 }

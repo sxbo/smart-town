@@ -7,6 +7,7 @@
 /* eslint-disable indent */
 import React, {Component} from 'react';
 import '../../theme/style/farmProduct/FarmProduct.scss';
+import DynamicViewModal from '../../components/DynamicViewModal';
 import {Row, Col, Pagination} from 'antd';
 import fruitImg from '../../theme/img/fruit.jpg';
 import axios from 'axios';
@@ -22,6 +23,9 @@ export default class FarmProduct extends Component<any, any> {
 		  currentPage: 1,
 		  total: 0,
 		  tableData: [],
+		  viewModalVisible: false,
+		  viewTitle: '',
+		  dynamic: {},
         };
 	}
 
@@ -95,6 +99,21 @@ export default class FarmProduct extends Component<any, any> {
 			currentPage: page,
 		});
 	}
+
+	viewDynamic = (dynamic: any, title: any) => {
+		this.setState({
+		  dynamic: dynamic || {},
+		  viewModalVisible: true,
+		  viewTitle: title,
+		});
+	  }
+
+	closeViewModal = () => {
+		this.setState({
+		  viewModalVisible: false,
+		});
+	}
+
 	renderVideos = (dataList: any) => {
 		const farmArr = [];
 		for (let i = 0; i < dataList.length; i += 6 ){
@@ -109,7 +128,7 @@ export default class FarmProduct extends Component<any, any> {
 							return <Col key={`${index}`} xs={{ span: 24}} md={{ span: 4}} xl={{ span: 4}} style={{padding: '10px'}}>
 								<div className="product-img-title">
 									<img src={item.icon || fruitImg} alt="图片"/>
-									<div className="product-img-title-title">{item.title}</div>
+									<div className="product-img-title-title" onClick={e => this.viewDynamic(item, '农副产品')}>{item.title}</div>
 								</div>
 							</Col>;
 						})
@@ -121,7 +140,7 @@ export default class FarmProduct extends Component<any, any> {
 	}
 
 	render(){
-		const {allTypes, currentType, currentPage, total, tableData} = this.state;
+		const {allTypes, currentType, currentPage, total, tableData, viewModalVisible, viewTitle} = this.state;
 		return <div className="farm-product-module">
 			<div className="farm-product-types">
 			{
@@ -138,6 +157,7 @@ export default class FarmProduct extends Component<any, any> {
                 <Pagination onChange={this.onPageChange} current={currentPage} pageSize={12} total={total} showSizeChanger={false}/>
               </div>
             </div>
+			<DynamicViewModal dynamic={this.state.dynamic} visible={viewModalVisible} close={this.closeViewModal} title={viewTitle}/>
 		</div>;
 	}
 }

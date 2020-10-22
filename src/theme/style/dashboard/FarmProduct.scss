@@ -53,6 +53,14 @@
                     overflow: hidden;
                     color:#fff;
                     text-align: center;
+                    max-width: 100px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    cursor: pointer;
+                    &:hover{
+                        color: #66d8fd;
+                    }
                 }
             }
         }

@@ -1,19 +1,24 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable no-invalid-this */
 /* eslint-disable newline-after-var */
 /* eslint-disable no-magic-numbers */
 import React, {Component} from 'react';
-import {Button, Row, Col, Upload, message, Spin} from 'antd';
-import '../../theme/style/partybuild/video.scss';
+import {Button, Row, Col, Spin} from 'antd';
+// import '../../theme/style/partybuild/video.scss';
 import VideoItem, {VideoObj} from './VideoItem';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import NewVideoInfo from './newVideoInfo';
+import EditVideoInfo from './EditVideoInfo';
 
 
 interface VideoState{
   newVedioVisble: boolean;
+  editVideoVisible: boolean;
   videos: [];
   loading: boolean;
+  videoInfo: any;
 }
 
 
@@ -25,6 +30,8 @@ export default class Video extends Component<any, VideoState> {
       newVedioVisble: false,
       videos: [],
       loading: false,
+      editVideoVisible: false,
+      videoInfo: {},
     };
   }
 
@@ -32,30 +39,30 @@ export default class Video extends Component<any, VideoState> {
     this.getVideos();
   }
 
-  // 上传视频成功，立即调用创建学习信息接口，创建成功，刷新列表
-  ceateStudyInformation = (stydyInfo: any) => {
-    axios({
-      method: 'POST',
-      url: 'api/spb/addStudyInformation',
-      data: stydyInfo,
-    }).then((res) => {
-      if (res.data.status === 200){
-        this.getVideos();
-        this.setState({
-          loading: false,
-        });
-      } else {
-        message.error('操作失败');
-        this.setState({
-          loading: false,
-        });
-      }
-    }).catch(() => {
-      message.error('操作失败');
-      this.setState({
-        loading: false,
-      });
+  openNewVideo = () => {
+    this.setState({
+      newVedioVisble: true,
     });
+  }
+
+  closeNewVideo = () => {
+    this.setState({
+      newVedioVisble: false,
+    });
+  }
+
+  closeEditVideo = () => {
+    this.setState({
+      editVideoVisible: false,
+    });
+  }
+
+  refreshVideos = () => {
+    this.getVideos();
+  }
+
+  editVideo = (video: any) => {
+    this.setState({videoInfo: video, editVideoVisible: true});
   }
 
   getVideos = () => {
@@ -80,27 +87,27 @@ export default class Video extends Component<any, VideoState> {
     });
   }
 
-  befaoreUploadCall = () => {
-    this.setState({loading: true});
-    return true;
-  }
 
-  uploadSuccessCall = () => {
-    this.setState({loading: false});
+  createSuccessCall = () => {
     this.getVideos();
-  }
-
-  uploadFailCall = () => {
     this.setState({
-      loading: false,
+      newVedioVisble: false,
     });
   }
+
+  editSuccessCall = () => {
+    this.getVideos();
+    this.setState({
+      editVideoVisible: false,
+    });
+  }
+
 
   renderVideos = () => {
     const {videos} = this.state;
     const videoArr = [];
-    for (let i = 0; i < videos.length; i += 4 ){
-      videoArr.push(videos.slice(i, i + 4));
+    for (let i = 0; i < videos.length; i += 6 ){
+      videoArr.push(videos.slice(i, i + 6));
     }
     return <>
       {
@@ -108,8 +115,8 @@ export default class Video extends Component<any, VideoState> {
           return <Row key={`${videoItemindex}`}>
             {
               videoItems.map((video: VideoObj, index) => {
-                return <Col key={`${index}`} xs={{ span: 24}} md={{ span: 12}} xl={{ span: 6}} style={{padding: '10px'}}>
-                  <VideoItem beforeUpload={this.befaoreUploadCall} uploadSuccess={this.uploadSuccessCall} uploadFail={this.uploadFailCall} video={video}/>
+                return <Col key={`${index}`} xs={{ span: 24}} md={{ span: 12}} xl={{ span: 4}} style={{padding: '10px'}}>
+                  <VideoItem video={video} edit={this.editVideo} refreshVideos={this.refreshVideos}/>
                 </Col>;
               })
             }
@@ -120,49 +127,23 @@ export default class Video extends Component<any, VideoState> {
   }
 
   render(){
-
-    const uploadProps = {
-      name: 'file',
-      action: 'api/upload/uploadVideo',
-      headers: {
-        authorization: 'authorization-text',
-      },
-      onChange: (info: any) => {
-        if (info.file.status !== 'uploading') {
-          this.setState({
-            loading: true,
-          });
-        }
-        if (info.file.status === 'done') {
-          const studyInfor = {
-            url: info?.file?.response?.videoUrl,
-            cover: '',
-            title: info?.file?.name,
-          };
-          this.ceateStudyInformation(studyInfor);
-        } else if (info.file.status === 'error') {
-          this.setState({
-            loading: false,
-          });
-          message.info('上传失败！');
-        }
-      },
-    };
-
+    const {newVedioVisble, editVideoVisible, videoInfo} = this.state;
     return (
       <div className="content-item">
         <Spin tip="正在上传，请稍后!" spinning={this.state.loading} delay={500}>
           <div className="orginization">
             <div>
-              <Upload beforeUpload={this.befaoreUploadCall} showUploadList={false} {...uploadProps} accept=".mp4,.flv,.f4v,.webm,.m4v,.mov,.3gp,.3g2,.rm,.rmvb,.wmv,.avi,.asf,.mpg,.mpeg,.mpe,.ts,.div,.dv,.divx,.vob,.dat,.mkv,.swf,.lavf,.cpk,.dirac,.ram,.qt,.fli,.flc,.mod">
-                <Button type="primary" icon={<UploadOutlined/>} size="middle">新建</Button>
-              </Upload>
+              <Button onClick={e => this.openNewVideo()} type="primary" icon={<UploadOutlined/>} size="middle">新建</Button>
             </div>
           </div>
           {
             this.renderVideos()
           }
         </Spin>
+        {
+          editVideoVisible && <EditVideoInfo editSuccess={this.editSuccessCall} visible={editVideoVisible} close={this.closeEditVideo} title="视频信息" videoInfo={videoInfo}/>
+        }
+        <NewVideoInfo createSuccess={this.createSuccessCall} visible={newVedioVisble} close={this.closeNewVideo} title="视频信息" />
       </div>
     );
   }

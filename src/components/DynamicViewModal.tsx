@@ -26,7 +26,7 @@ export default class DynamicViewModal extends Component<any, any> {
 				<div className="title-box">{this.props.dynamic.title}</div>
 				<div className="publish-time-click-box">
 					<span style={{marginRight: '20px'}}>发布时间： {this.props.dynamic.createTime}</span>
-					<span>点击数量： {this.props.dynamic.clickedNum}</span>
+					<span>发布者： {this.props.dynamic.userName}</span>
 				</div>
 				<div className="dynamic-view-content" dangerouslySetInnerHTML={{__html: this.props.dynamic.content}}>
 				</div>
