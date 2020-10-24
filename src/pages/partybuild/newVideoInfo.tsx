@@ -52,6 +52,12 @@ export default class NewVideoInfo extends Component<NewVideoInfoPro, any> {
       const videoInfo = data;
       const content = this.state.content;
       videoInfo.content = content;
+      const user1 = localStorage.getItem('user');
+      let user = {username: 'admin'};
+      if (user1) {
+        user = JSON.parse(user1);
+      }
+      videoInfo.userName = user.username;
       this.ceateStudyInformation(videoInfo);
     });
   }

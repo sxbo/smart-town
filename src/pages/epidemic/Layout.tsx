@@ -1,10 +1,8 @@
-import React, {SFC} from 'react';
+/* eslint-disable no-shadow */
+import React, {SFC, useState} from 'react';
 import PageTitle from '../../components/PageTitle';
-import EpidemicList from '../../components/EpidemicList';
-import EpidemicMap from '../../components/EpidemicMap';
-import MonitorRadar from '../../components/MonitorRadar';
-import EpidemicStatusLine from '../../components/EpidemicStatusLine';
-import EpidemicSituationBar from '../../components/EpidemicSituationBar';
+import EpidemicList from './EpidemicList';
+import {colors} from '../../const/const';
 
 import { Row, Col } from 'antd';
 import '../../theme/style/epidemic/layout.scss';
@@ -12,75 +10,29 @@ import '../../theme/style/epidemic/layout.scss';
 
 const EpidemicSituation: SFC = () => {
 
-  const monitorRadarData = [
-    {
-      item: '大棚',
-      user: '全部告警',
-      score: 70,
-    },
-    {
-      item: '确诊',
-      user: '疫情监控',
-      score: 50,
-    },
-    {
-      item: '养殖',
-      user: '全部告警',
-      score: 60,
-    },
-    {
-      item: '疫情',
-      user: '全部告警',
-      score: 60,
-    },
-    {
-      item: '隔离',
-      user: '疫情监控',
-      score: 50,
-    },
-    {
-      item: '景区',
-      user: '全部告警',
-      score: 40,
-    },
-    {
-      item: '滑坡',
-      user: '全部告警',
-      score: 60,
-    },
-    {
-      item: '无症状',
-      user: '疫情监控',
-      score: 70,
-    },
-  ];
+  const [cureCount, setCureCount] = useState(0);
+  const [diagnose, setDiagnose] = useState(0);
+  const [separate, setSeparate] = useState(0);
+  const [asymptomatic, setAsymptomatic] = useState(0);
+
+  const countEpidemic = (diagnose: any, cure: any, separate: any, asymptomatic: any) => {
+    setCureCount(cure);
+    setDiagnose(diagnose);
+    setSeparate(separate);
+    setAsymptomatic(asymptomatic);
+  };
 
   return (
     <div className="epidemic">
-      <PageTitle title="疫情监控"/>
+      <PageTitle title="疫情防控">
+        <span style={{display: 'inline-block', width: '10px', background: colors.danger, height: '10px'}}></span><span style={{marginRight: '20px'}}>确诊： {diagnose}</span>
+				<span style={{display: 'inline-block', width: '10px', background: colors.success, height: '10px'}}></span><span style={{marginRight: '20px'}}>治愈：{cureCount}</span>
+        <span style={{display: 'inline-block', width: '10px', background: colors.warn, height: '10px'}}></span><span style={{marginRight: '20px'}}>隔离：{separate}</span>
+        <span style={{display: 'inline-block', width: '10px', background: colors.primary, height: '10px'}}></span><span style={{marginRight: '20px'}}>无症状：{asymptomatic}</span>
+      </PageTitle>
       <Row>
         <Col span={24}>
-          <EpidemicList pagination={{pageSize: 5}}/>
-        </Col>
-        <Col span={24}>
-          <div className="card-box poor-map-box">
-            <EpidemicMap/>
-          </div>
-        </Col>
-        <Col span={8}>
-          <div className="card-box">
-            <MonitorRadar title="疫情告警分布" data={monitorRadarData}/>
-          </div>
-        </Col>
-        <Col span={8}>
-          <div className="card-box">
-            <EpidemicStatusLine/>
-          </div>
-        </Col>
-        <Col span={8}>
-          <div className="card-box">
-            <EpidemicSituationBar/>
-          </div>
+          <EpidemicList pagination={{pageSize: 5}} count={countEpidemic}/>
         </Col>
       </Row>
     </div>

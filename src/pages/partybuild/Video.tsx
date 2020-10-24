@@ -11,7 +11,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import NewVideoInfo from './newVideoInfo';
 import EditVideoInfo from './EditVideoInfo';
-
+import DynamicViewModal from '../../components/DynamicViewModal';
 
 interface VideoState{
   newVedioVisble: boolean;
@@ -19,6 +19,9 @@ interface VideoState{
   videos: [];
   loading: boolean;
   videoInfo: any;
+  videoDynamic: any;
+  viewModalVisible: boolean;
+  viewTitle: string;
 }
 
 
@@ -32,6 +35,9 @@ export default class Video extends Component<any, VideoState> {
       loading: false,
       editVideoVisible: false,
       videoInfo: {},
+      videoDynamic: {},
+      viewModalVisible: false,
+      viewTitle: '视频信息',
     };
   }
 
@@ -56,6 +62,11 @@ export default class Video extends Component<any, VideoState> {
       editVideoVisible: false,
     });
   }
+  closeViewModal = () => {
+    this.setState({
+      viewModalVisible: false,
+    });
+  }
 
   refreshVideos = () => {
     this.getVideos();
@@ -63,6 +74,13 @@ export default class Video extends Component<any, VideoState> {
 
   editVideo = (video: any) => {
     this.setState({videoInfo: video, editVideoVisible: true});
+  }
+
+  viewVideo = (video: any) => {
+    this.setState({
+      videoDynamic: video,
+      viewModalVisible: true,
+    });
   }
 
   getVideos = () => {
@@ -116,7 +134,7 @@ export default class Video extends Component<any, VideoState> {
             {
               videoItems.map((video: VideoObj, index) => {
                 return <Col key={`${index}`} xs={{ span: 24}} md={{ span: 12}} xl={{ span: 4}} style={{padding: '10px'}}>
-                  <VideoItem video={video} edit={this.editVideo} refreshVideos={this.refreshVideos}/>
+                  <VideoItem video={video} viewVideo={this.viewVideo} edit={this.editVideo} refreshVideos={this.refreshVideos}/>
                 </Col>;
               })
             }
@@ -127,7 +145,7 @@ export default class Video extends Component<any, VideoState> {
   }
 
   render(){
-    const {newVedioVisble, editVideoVisible, videoInfo} = this.state;
+    const {newVedioVisble, editVideoVisible, videoInfo, viewModalVisible, videoDynamic, viewTitle } = this.state;
     return (
       <div className="content-item">
         <Spin tip="正在上传，请稍后!" spinning={this.state.loading} delay={500}>
@@ -144,6 +162,9 @@ export default class Video extends Component<any, VideoState> {
           editVideoVisible && <EditVideoInfo editSuccess={this.editSuccessCall} visible={editVideoVisible} close={this.closeEditVideo} title="视频信息" videoInfo={videoInfo}/>
         }
         <NewVideoInfo createSuccess={this.createSuccessCall} visible={newVedioVisble} close={this.closeNewVideo} title="视频信息" />
+        {
+          viewModalVisible && <DynamicViewModal dynamic={videoDynamic} visible={viewModalVisible} close={this.closeViewModal} title={viewTitle}/>
+        }
       </div>
     );
   }

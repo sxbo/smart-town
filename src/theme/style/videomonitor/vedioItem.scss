@@ -27,10 +27,11 @@
                 justify-content: center;
                 align-items: center;
                 font-size: 18px;
+                transition: all .3s;
+                background-color: rgba(0,0,0,.5);
+                color: #fff;
                 &:hover{
-                    transition: all .3s;
-                    background-color: rgba(0,0,0,.5);
-                    color: #fff;
+                    background-color: rgba(0,0,0,.6);
                 }
             }
         }
@@ -53,6 +54,5 @@
         justify-content: center;
         align-items: flex-start;
         overflow: hidden;
-        padding-left: 20%;
     }
 }

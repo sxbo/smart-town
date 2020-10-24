@@ -10,6 +10,12 @@ import yu from '../theme/img/yu.svg';
 import yin from '../theme/img/yin.svg';
 import qing from '../theme/img/qing.svg';
 
+export const filterStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+};
+
 export const weather = {
   xue: xue,
   lei: lei,
@@ -48,6 +54,25 @@ export const appeals = [
   {
     type: 5,
     label: '业务办理',
+  },
+];
+
+export const epidemicTypes = [
+  {
+    type: 1,
+    label: '确诊',
+  },
+  {
+    type: 2,
+    label: '治愈',
+  },
+  {
+    type: 3,
+    label: '隔离',
+  },
+  {
+    type: 4,
+    label: '无症状',
   },
 ];
 
@@ -99,6 +124,7 @@ export const colors = {
   primary: '#1890ff',
   success: '#00c292',
   danger: '#f64a4a',
+  warn: '#ef9661',
 };
 
 /**

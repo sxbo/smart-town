@@ -70,7 +70,11 @@ export default class EditDynamic extends Component<EditDynamicPro, any> {
       const {types} = this.props;
       const type = types.find(item => item.id == dynamicOpt.type);
       dynamicOpt.type = type;
-      const user = JSON.parse(localStorage.getItem('user') || '');
+      const user1 = localStorage.getItem('user');
+      let user = {username: 'admin'};
+      if (user1) {
+        user = JSON.parse(user1);
+      }
       if (user.username){
         dynamicOpt.userName = user.username;
       }

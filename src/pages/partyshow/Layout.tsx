@@ -6,7 +6,7 @@
 /* eslint-disable newline-after-var */
 /* eslint-disable no-invalid-this */
 import React, {Component} from 'react';
-import { Row, Col, List, Carousel, message } from 'antd';
+import { Row, Col, List, Carousel } from 'antd';
 import '../../theme/style/partyshow/Layout1.scss';
 import DynamicViewModal from '../../components/DynamicViewModal';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
@@ -438,7 +438,7 @@ export default class PartyShow extends Component<any, any> {
                       <img src={videos[0]?.cover} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name">
+                    <div className="product-name" onClick={e => this.viewDynamic(videos[0], '视频学习')}>
                       {
                         videos[0]?.title
                       }
@@ -450,7 +450,7 @@ export default class PartyShow extends Component<any, any> {
                       <img src={videos[1]?.cover} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name">
+                    <div className="product-name" onClick={e => this.viewDynamic(videos[1], '视频学习')}>
                       {
                         videos[1]?.title
                       }
@@ -462,7 +462,7 @@ export default class PartyShow extends Component<any, any> {
                       <img src={videos[2]?.cover} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name">
+                    <div className="product-name" onClick={e => this.viewDynamic(videos[2], '视频学习')}>
                       {
                         videos[2]?.title
                       }
@@ -476,7 +476,7 @@ export default class PartyShow extends Component<any, any> {
                       <img src={videos[3]?.cover} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name">
+                    <div className="product-name" onClick={e => this.viewDynamic(videos[3], '视频学习')}>
                       {
                         videos[3]?.title
                       }
@@ -488,7 +488,7 @@ export default class PartyShow extends Component<any, any> {
                       <img src={videos[4]?.cover} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name">
+                    <div className="product-name" onClick={e => this.viewDynamic(videos[4], '视频学习')}>
                       {
                         videos[4]?.title
                       }
@@ -500,7 +500,7 @@ export default class PartyShow extends Component<any, any> {
                       <img src={videos[5]?.cover} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name">
+                    <div className="product-name" onClick={e => this.viewDynamic(videos[5], '视频学习')}>
                       {
                         videos[5]?.title
                       }

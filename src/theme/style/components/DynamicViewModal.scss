@@ -16,6 +16,12 @@
         text-align: center;
         border-radius: 3px;
     }
+    .dynamic-video-box{
+        padding: 10px;
+        video{
+            height: 100%;
+        }
+    }
     .dynamic-view-content{
         padding-top: 10px;
     }

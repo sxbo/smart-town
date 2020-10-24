@@ -21,6 +21,7 @@ interface VideoItemPro{
   video: VideoObj,
   refreshVideos: () => void;
   edit: (video: any) => void;
+  viewVideo: (video: any) => void;
 }
 
 export default class VideoItem extends Component<VideoItemPro, any> {
@@ -35,6 +36,11 @@ export default class VideoItem extends Component<VideoItemPro, any> {
   editVedio = () => {
     const {video} = this.props;
     this.props.edit(video);
+  }
+
+  viewVideo = () => {
+    const {video} = this.props;
+    this.props.viewVideo(video);
   }
 
   deleteVedio = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
@@ -74,7 +80,7 @@ export default class VideoItem extends Component<VideoItemPro, any> {
           <div className="video-cover">
             <div className="video-hover">
               <span><EditOutlined onClick={this.editVedio} style={iconStyle}/></span>
-              <span><PlayCircleOutlined style={iconStyle}/></span>
+              <span><PlayCircleOutlined onClick={this.viewVideo} style={iconStyle}/></span>
               <span><DeleteOutlined onClick={this.deleteVedio} style={{ cursor: 'pointer'}}/></span>
             </div>
             <img src={this.props.video.cover || cover} alt="cover" ></img>
