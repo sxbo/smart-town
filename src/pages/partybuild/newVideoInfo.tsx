@@ -16,6 +16,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import {RichEditor} from 'ppfish';
 import 'ppfish/es/components/RichEditor/style/index.less';
 import axios from 'axios';
+import {customInsertImage} from '../../const/const';
 
 interface NewVideoInfoPro{
   visible: boolean;
@@ -107,6 +108,22 @@ export default class NewVideoInfo extends Component<NewVideoInfoPro, any> {
     });
   }
 
+  customInsertImage = (callback: any) => {
+    customInsertImage(() => {
+      this.setState({
+        loading: true,
+      });
+    }, (imageUrl: any) => {
+      this.setState({
+        loading: false,
+      });
+      callback({
+        src: imageUrl,
+        alt: 'image',
+      });
+    });
+  }
+
   render() {
 
     const layout = {
@@ -191,6 +208,7 @@ export default class NewVideoInfo extends Component<NewVideoInfoPro, any> {
               <RichEditor ref={this.editorRef}
               toolbar={this.toolbar}
               onChange={this.onChange}
+              customInsertImage={this.customInsertImage}
               value={this.state.content}
               />
             </Form.Item>

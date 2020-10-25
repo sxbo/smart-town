@@ -25,7 +25,7 @@ export interface EpidemicPeople{
   sexType: string;
 }
 
-enum EpidmicMode{
+export enum EpidmicMode{
   create,
   edit
 }
@@ -81,12 +81,12 @@ const EpidemicList: SFC<GreenHouseListProps> = (props) => {
   }, []);
 
   const createClicked = () => {
-    openModal('新增', EpidmicMode.create);
+    openModal('新增登记', EpidmicMode.create);
     setEpidmic(undefined);
   };
 
   const editClicked = (text: string, record: EpidemicPeople) => {
-    openModal('编辑', EpidmicMode.edit);
+    openModal('编辑登记', EpidmicMode.edit);
     setEpidmic(record);
   };
 
@@ -98,6 +98,10 @@ const EpidemicList: SFC<GreenHouseListProps> = (props) => {
 
   const closeModal = () => {
     setModalVisible(false);
+  };
+
+  const refreshList = () => {
+    getEpidemics();
   };
 
   const deleteClicked = (text: string, row: EpidemicPeople) => {
@@ -208,7 +212,7 @@ const EpidemicList: SFC<GreenHouseListProps> = (props) => {
         size="small"
       />
       {
-        modalVisible && <EpidemicModal close={closeModal} title={modalTitle} mode={modalMode} visible={modalVisible} lanSlide={epidmic}/>
+        modalVisible && <EpidemicModal refreshList={refreshList} close={closeModal} title={modalTitle} mode={modalMode} visible={modalVisible} epidmic={epidmic}/>
       }
     </div>
   );

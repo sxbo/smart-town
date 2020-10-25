@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* eslint-disable eqeqeq */
 /* eslint-disable no-unneeded-ternary */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable no-unused-vars */
@@ -9,24 +11,24 @@
 /* eslint-disable newline-after-var */
 /* eslint-disable no-template-curly-in-string */
 import React, {Component} from 'react';
-import { Modal, Form, Input, Select, message, Upload, Button} from 'antd';
+import { Modal, Form, Input, Select, message, Upload, Button, Spin} from 'antd';
 import { FormInstance } from 'antd/lib/form/Form';
 import {RichEditor} from 'ppfish';
 import 'ppfish/es/components/RichEditor/style/index.less';
 import {HorseType} from '../../const/const';
 import axios from 'axios';
 import { UploadOutlined } from '@ant-design/icons';
-
-// import { UploadOutlined } from '@ant-design/icons';
+import { AdvertiseMode } from './Advertisement';
+import {customInsertImage} from '../../const/const';
 
 
 interface EditHorseRaceLampPro{
   visible: boolean;
   close: () => void;
   createSuccess?: () => void;
-  beforeUpload: () => void;
-  uploadFail: () => void;
-  uploadSuccess: () => void;
+  advertise: any;
+  title: string;
+  mode: AdvertiseMode
 }
 
 export default class NewAdvertise extends Component<EditHorseRaceLampPro, any> {
@@ -42,8 +44,8 @@ export default class NewAdvertise extends Component<EditHorseRaceLampPro, any> {
     ];
 
     this.state = {
-      content: '',
-      imageUrl: '',
+      content: props.advertise?.content || '',
+      loading: false,
     };
   }
 
@@ -52,32 +54,64 @@ export default class NewAdvertise extends Component<EditHorseRaceLampPro, any> {
   }
 
   handleOk = () => {
-    if (!this.state.imageUrl){
-      message.info('请先上传背景图片！');
-      return;
-    }
     this.formRef.current?.validateFields().then(data => {
-      const advertiseOpt = data.advertise;
-      const content = this.state.content;
-      advertiseOpt.content = content;
-      advertiseOpt.imageUrl = this.state.imageUrl;
-      axios({
-        method: 'POST',
-        url: 'api/spb/addAdvertisement',
-        data: advertiseOpt,
-      }).then((res) => {
-        if (res.data.status === 200){
-          this.setState({content: '', imageUrl: ''});
-          this.props.createSuccess?.();
-          this.formRef.current?.resetFields();
-        } else {
-          message.error('操作失败');
-        }
-      }).catch(() => {
-        message.error('新建失败');
-      });
+      console.log(data);
+      console.log(this.state.content);
+      const {advertise, mode} = this.props;
+      const {content} = this.state;
+      if (mode == AdvertiseMode.create){
+        const advertise_create = {
+          ...data,
+          content: content,
+        };
+        this.createApi(advertise_create);
+      } else {
+        const edit_create = {
+          ...advertise,
+          ...data,
+          content: content,
+        };
+        this.updateApi(edit_create);
+      }
     });
   }
+
+
+  createApi = (advertise: any) => {
+    axios({
+      method: 'POST',
+      url: 'api/spb/addAdvertisement',
+      data: advertise,
+    }).then((res) => {
+      if (res.data.status === 200){
+        this.setState({content: ''});
+        this.props.createSuccess?.();
+        this.formRef.current?.resetFields();
+      } else {
+        message.error('新增失败');
+      }
+    }).catch(() => {
+      message.error('新建失败');
+    });
+  }
+
+  updateApi = (advertise: any) => {
+    axios({
+      method: 'PUT',
+      url: 'api/spb/updateAdvertisement',
+      data: advertise,
+    }).then((res) => {
+      if (res.data.status === 200){
+        this.props.createSuccess?.();
+        this.formRef.current?.resetFields();
+      } else {
+        message.error('更新失败');
+      }
+    }).catch(() => {
+      message.error('更新失败');
+    });
+  }
+
   handleCancel = () => {
     this.setState({content: ''});
     this.formRef.current?.resetFields();
@@ -89,8 +123,36 @@ export default class NewAdvertise extends Component<EditHorseRaceLampPro, any> {
   }
 
   beforeUpload = () => {
-    this.props.beforeUpload();
+    this.openLoading();
     return true;
+  }
+
+  openLoading = () => {
+    this.setState({
+      loading: true,
+    });
+  }
+
+  closeLoading = () => {
+    this.setState({
+      loading: false,
+    });
+  }
+
+  customInsertImage = (callback: any) => {
+    customInsertImage(() => {
+      this.setState({
+        loading: true,
+      });
+    }, (imageUrl: any) => {
+      this.setState({
+        loading: false,
+      });
+      callback({
+        src: imageUrl,
+        alt: 'image',
+      });
+    });
   }
 
 
@@ -113,14 +175,18 @@ export default class NewAdvertise extends Component<EditHorseRaceLampPro, any> {
         }
         if (info.file.status === 'done') {
           const imageUrl = info?.file?.response?.imgUrl;
-          this.setState({imageUrl: imageUrl});
-          this.props.uploadSuccess();
+          this.formRef.current?.setFieldsValue({imageUrl: imageUrl});
+          this.closeLoading();
+          message.success('上传成功');
         } else if (info.file.status === 'error') {
-          message.info('上传失败！');
-          this.props.uploadFail();
+          message.error('上传失败！');
+          this.closeLoading();
         }
       },
     };
+
+    const {advertise = {}} = this.props;
+    const advertisement = JSON.parse(JSON.stringify(advertise));
 
     return <Form ref={this.formRef} name="nest-messages" {...layout}>
       <Modal
@@ -132,28 +198,31 @@ export default class NewAdvertise extends Component<EditHorseRaceLampPro, any> {
         cancelText="取消"
         width="800px"
         destroyOnClose>
-        <Form.Item label="背景图">
-          <Upload beforeUpload={this.beforeUpload} showUploadList={false} {...uploadCoverProps} accept=".jpeg,.bmp,.jpg,.png,.tif,.gif,.pcx,.tga,.exif,.fpx,.svg,.psd,.cdr,.pcd,.dxf,.ufo,.eps,.ai,.raw,.WMF,.webp">
-            <Button disabled={this.state.imageUrl ? true : false} icon={<UploadOutlined/>} type="dashed" size="small">上传背景</Button>
-          </Upload>
-        </Form.Item>
-        <Form.Item name={['advertise', 'link']} label="链接">
-          <Input/>
-        </Form.Item>
-        <Form.Item name={['advertise', 'type']} label="类型" rules={[{ required: true, message: '类型是必选字段!' }]}>
-          <Select>
-            {
-              HorseType.map((type, index) => <Select.Option key={`${index}`} value={type.type}>{type.label}</Select.Option>)
-            }
-          </Select>
-        </Form.Item>
-        <Form.Item label="内容">
-          <RichEditor ref={this.editorRef}
-          toolbar={this.toolbar}
-          onChange={this.onChange}
-          value={this.state.content}
-          />
-        </Form.Item>
+        <Spin tip="正在上传" spinning={this.state.loading}>
+          <Form.Item name="imageUrl" label="背景图" initialValue={advertisement?.imageUrl} rules={[{ required: true, message: '请上传背景!' }]}>
+            <Upload beforeUpload={this.beforeUpload} showUploadList={false} {...uploadCoverProps} accept=".jpeg,.bmp,.jpg,.png,.tif,.gif,.pcx,.tga,.exif,.fpx,.svg,.psd,.cdr,.pcd,.dxf,.ufo,.eps,.ai,.raw,.WMF,.webp">
+              <Button icon={<UploadOutlined/>} type="dashed" size="small">上传背景</Button>
+            </Upload>
+          </Form.Item>
+          <Form.Item name="link" label="链接" initialValue={advertisement?.link}>
+            <Input/>
+          </Form.Item>
+          <Form.Item name="type" label="类型" initialValue={advertisement?.type} rules={[{ required: true, message: '类型是必选字段!' }]}>
+            <Select>
+              {
+                HorseType.map((type, index) => <Select.Option key={`${index}`} value={type.type}>{type.label}</Select.Option>)
+              }
+            </Select>
+          </Form.Item>
+          <Form.Item label="内容">
+            <RichEditor ref={this.editorRef}
+            toolbar={this.toolbar}
+            onChange={this.onChange}
+            customInsertImage={this.customInsertImage}
+            value={this.state.content}
+            />
+          </Form.Item>
+        </Spin>
       </Modal>
     </Form>;
   }

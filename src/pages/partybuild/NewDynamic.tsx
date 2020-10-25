@@ -9,13 +9,12 @@
 /* eslint-disable newline-after-var */
 /* eslint-disable no-template-curly-in-string */
 import React, {Component} from 'react';
-import { Modal, Form, Input, Select, message} from 'antd';
+import { Modal, Form, Input, Select, message, Spin} from 'antd';
 import { FormInstance } from 'antd/lib/form/Form';
 import {RichEditor} from 'ppfish';
 import 'ppfish/es/components/RichEditor/style/index.less';
 import axios from 'axios';
-
-// import { UploadOutlined } from '@ant-design/icons';
+import {customInsertImage} from '../../const/const';
 
 
 interface NewDynamicPro{
@@ -40,6 +39,7 @@ export default class NewDynamic extends Component<NewDynamicPro, any> {
 
     this.state = {
       content: '',
+      loading: false,
     };
   }
 
@@ -115,6 +115,22 @@ export default class NewDynamic extends Component<NewDynamicPro, any> {
     this.setState({content: content});
   }
 
+  customInsertImage = (callback: any) => {
+    customInsertImage(() => {
+      this.setState({
+        loading: true,
+      });
+    }, (imageUrl: any) => {
+      this.setState({
+        loading: false,
+      });
+      callback({
+        src: imageUrl,
+        alt: 'image',
+      });
+    });
+  }
+
 
   render() {
 
@@ -132,29 +148,33 @@ export default class NewDynamic extends Component<NewDynamicPro, any> {
       onCancel={this.handleCancel}
       okText="确认"
       cancelText="取消"
-      width="800px">
-      <Form ref={this.formRef} name="nest-messages" {...layout}>
-        <Form.Item name={['dynamic', 'title']} label="标题" rules={[{ required: true, message: '标题是必填字段!' }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item name={['dynamic', 'subTitle']} label="副标题">
-          <Input />
-        </Form.Item>
-        <Form.Item name={['dynamic', 'type']} label="类型" rules={[{ required: true, message: '动态类型是必选字段' }]}>
-          <Select>
-            {
-              types.map((type, index) => <Select.Option key={`${index}`} value={type.id}>{type.type}</Select.Option>)
-            }
-          </Select>
-        </Form.Item>
-        <Form.Item label="内容">
-          <RichEditor ref={this.editorRef}
-          toolbar={this.toolbar}
-          onChange={this.onChange}
-          value={this.state.content}
-          />
-        </Form.Item>
-      </Form>
+      width="800px"
+      destroyOnClose>
+        <Spin tip="正在上传" spinning={this.state.loading}>
+          <Form ref={this.formRef} name="nest-messages" {...layout}>
+            <Form.Item name={['dynamic', 'title']} label="标题" rules={[{ required: true, message: '标题是必填字段!' }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name={['dynamic', 'subTitle']} label="副标题">
+              <Input />
+            </Form.Item>
+            <Form.Item name={['dynamic', 'type']} label="类型" rules={[{ required: true, message: '动态类型是必选字段' }]}>
+              <Select>
+                {
+                  types.map((type, index) => <Select.Option key={`${index}`} value={type.id}>{type.type}</Select.Option>)
+                }
+              </Select>
+            </Form.Item>
+            <Form.Item label="内容">
+              <RichEditor ref={this.editorRef}
+              toolbar={this.toolbar}
+              onChange={this.onChange}
+              customInsertImage={this.customInsertImage}
+              value={this.state.content}
+              />
+            </Form.Item>
+          </Form>
+        </Spin>
     </Modal>;
   }
 }

@@ -11,13 +11,21 @@ import {HorseType, colors} from '../../const/const';
 import NewAdvertise from './NewAdvertise';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
-import coverImg from '../../theme/img/login.jpg';
+import coverImg from '../../theme/img/partyLogo.jpg';
 
 
 interface AdvertisementState{
   newVisible: boolean;
   advertises: [];
   loading: boolean;
+  advertise: any;
+  modalTitle: string;
+  mode: AdvertiseMode;
+}
+
+export enum AdvertiseMode{
+  create,
+  edit
 }
 
 export default class Advertisement extends Component<any, AdvertisementState> {
@@ -28,6 +36,9 @@ export default class Advertisement extends Component<any, AdvertisementState> {
       newVisible: false,
       advertises: [],
       loading: false,
+      advertise: {},
+      modalTitle: '新增广告',
+      mode: AdvertiseMode.create,
     };
   }
 
@@ -57,15 +68,26 @@ export default class Advertisement extends Component<any, AdvertisementState> {
     });
   }
 
-  openNewMember = () => {
-    // eslint-disable-next-line no-invalid-this
+
+  createClicked = () => {
     this.setState({
+      advertise: {},
+      modalTitle: '新增广告',
       newVisible: true,
+      mode: AdvertiseMode.create,
     });
-  };
+  }
+
+  editClicked = (advertise: any) => {
+    this.setState({
+      advertise: advertise,
+      modalTitle: '编辑广告',
+      newVisible: true,
+      mode: AdvertiseMode.edit,
+    });
+  }
 
   closeNewAdvertise = () => {
-    // eslint-disable-next-line no-invalid-this
     this.setState({
       newVisible: false,
     });
@@ -76,23 +98,6 @@ export default class Advertisement extends Component<any, AdvertisementState> {
     this.getAdvertises();
   }
 
-  uploadSuccessCall = () => {
-    this.setState({
-      loading: false,
-    });
-  }
-
-  beforeUploadCall = () => {
-    this.setState({
-      loading: true,
-    });
-  }
-
-  uploadFailCall = () => {
-    this.setState({
-      loading: false,
-    });
-  }
 
   deleteAdvertise = (advertise: any) => {
     Modal.confirm({
@@ -150,26 +155,29 @@ export default class Advertisement extends Component<any, AdvertisementState> {
         key: 'action',
         render: (text: any, record: any) => (
           <Space>
-            <Button type="ghost" size="small" style={{color: colors.danger}} onClick={() => this.deleteAdvertise(record)}>删除</Button>
+            <Button size="small" onClick={() => this.editClicked(record)}>编辑</Button>
+            <Button size="small" style={{color: colors.danger}} onClick={() => this.deleteAdvertise(record)}>删除</Button>
           </Space>
         ),
       },
     ];
 
-    const {advertises, loading, newVisible} = this.state;
+    const {advertises, loading, newVisible, advertise, modalTitle, mode} = this.state;
     return (
       <Spin tip="正在上传，请稍后" spinning={loading} delay={500}>
         <div className="content-item">
           <div className="orginization">
             <div>
-              <Button type="primary" size="middle" onClick={this.openNewMember}>新建广告</Button>
+              <Button type="primary" size="middle" onClick={this.createClicked}>新建广告</Button>
             </div>
           </div>
           <div>
             <Table columns={columns} dataSource={advertises} rowKey="id"/>
           </div>
-          <NewAdvertise uploadSuccess={this.uploadSuccessCall} uploadFail={this.uploadFailCall} visible={newVisible} beforeUpload={this.beforeUploadCall} createSuccess={this.createSuccessCall} close={this.closeNewAdvertise} />
-        </div>
+          {
+            newVisible && <NewAdvertise mode={mode} advertise={advertise} title={modalTitle} visible={newVisible} createSuccess={this.createSuccessCall} close={this.closeNewAdvertise} />
+          }
+          </div>
       </Spin>
     );
   }

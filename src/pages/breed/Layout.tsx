@@ -1,46 +1,17 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable newline-after-var */
-import React, {SFC, useState, useEffect} from 'react';
+import React, {SFC} from 'react';
 import { Row, Col } from 'antd';
 import '../../theme/style/common.scss';
 import '../../theme/style/greenhouse/layout.scss';
-import BreedList from '../../components/BreedList';
+import BreedList from './BreedList';
 import MonitorRadar from '../../components/MonitorRadar';
 import HumidityLine from '../../components/HumidityLine';
 import CO2Line from '../../components/CO2Line';
 import PageTitle from '../../components/PageTitle';
 import TemperatureLine from '../../components/TemperatureLine';
-import axios from 'axios';
 
 const BreedHome: SFC = () => {
-
-  const [breedsData, setBreedsData] = useState([]);
-
-  useEffect(() => {
-    getBreeds();
-  }, []);
-
-  const getBreeds = () => {
-    axios({
-      method: 'GET',
-      url: 'api/breed',
-    }).then((res) => {
-      if (res.data.status === 200){
-        const data = res.data.data || [];
-        setBreedsData(data);
-      } else {
-        setBreedsData([]);
-      }
-    }).catch(() => {
-      setBreedsData([]);
-    });
-  };
-
-  const deleteSuccess = () => {
-    getBreeds();
-  };
-
-
   const co2LineData = [
     {
       Date: '06:00',
@@ -290,7 +261,7 @@ const BreedHome: SFC = () => {
       <PageTitle title="智能养殖"/>
       <Row>
         <Col span={24}>
-          <BreedList deleteSuccess={deleteSuccess} pagination={{pageSize: 5}} data={breedsData}/>
+          <BreedList pagination={{pageSize: 5}}/>
         </Col>
       </Row>
       <Row>

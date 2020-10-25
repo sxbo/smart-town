@@ -28,7 +28,7 @@ const LeftMenu:SFC = () => {
 
   return (
     <Sider collapsed={dashboardState.menuCollapsed} width={200} className="site-layout-background">
-      <Menu  className="leftbg"
+      <Menu className="leftbg"
         mode="inline"
         defaultSelectedKeys={['1']}
         style={{ height: '100%', borderRight: 0 }}>
@@ -38,7 +38,6 @@ const LeftMenu:SFC = () => {
         <Menu.Item key="2" icon={<FundProjectionScreenOutlined />}>
           <Link to="/datascreen">数据大屏</Link>
         </Menu.Item>
-       
         <Menu.SubMenu key="sub1" icon={<DeploymentUnitOutlined/>} title="农业" >
           <Menu.Item key="4" icon={<DeploymentUnitOutlined />}>
             <Link to="/greenhouse">智能大棚</Link>

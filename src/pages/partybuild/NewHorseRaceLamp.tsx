@@ -1,3 +1,5 @@
+/* eslint-disable callback-return */
+/* eslint-disable no-magic-numbers */
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable indent */
@@ -7,14 +9,13 @@
 /* eslint-disable newline-after-var */
 /* eslint-disable no-template-curly-in-string */
 import React, {Component} from 'react';
-import { Modal, Form, Input, Select, message} from 'antd';
+import { Modal, Form, Input, Select, message, Spin} from 'antd';
 import { FormInstance } from 'antd/lib/form/Form';
 import {RichEditor} from 'ppfish';
 import 'ppfish/es/components/RichEditor/style/index.less';
 import {HorseType} from '../../const/const';
 import axios from 'axios';
-
-// import { UploadOutlined } from '@ant-design/icons';
+import {customInsertImage} from '../../const/const';
 
 
 interface EditHorseRaceLampPro{
@@ -37,6 +38,7 @@ export default class NewHorseRaceLamp extends Component<EditHorseRaceLampPro, an
 
     this.state = {
       content: '',
+      loading: false,
     };
   }
 
@@ -76,6 +78,22 @@ export default class NewHorseRaceLamp extends Component<EditHorseRaceLampPro, an
     this.setState({content: content});
   }
 
+  customInsertImage = (callback: any) => {
+    customInsertImage(() => {
+      this.setState({
+        loading: true,
+      });
+    }, (imageUrl: any) => {
+      this.setState({
+        loading: false,
+      });
+      callback({
+        src: imageUrl,
+        alt: 'image',
+      });
+    });
+  }
+
 
   render() {
 
@@ -95,26 +113,29 @@ export default class NewHorseRaceLamp extends Component<EditHorseRaceLampPro, an
         cancelText="取消"
         width="800px"
         destroyOnClose>
-        <Form.Item name={['horseRaceLamp', 'title']} label="标题" rules={[{ required: true, message: '标题是必填字段!' }]}>
-          <Input/>
-        </Form.Item>
-        <Form.Item name={['horseRaceLamp', 'link']} label="链接">
-          <Input/>
-        </Form.Item>
-        <Form.Item name={['horseRaceLamp', 'type']} label="类型" rules={[{ required: true, message: '类型是必选字段!' }]}>
-          <Select>
-            {
-              HorseType.map((type, index) => <Select.Option key={`${index}`} value={type.type}>{type.label}</Select.Option>)
-            }
-          </Select>
-        </Form.Item>
-        <Form.Item label="内容">
-          <RichEditor ref={this.editorRef}
-          toolbar={this.toolbar}
-          onChange={this.onChange}
-          value={this.state.content}
-          />
-        </Form.Item>
+        <Spin tip="正在上传" spinning={this.state.loading}>
+          <Form.Item name={['horseRaceLamp', 'title']} label="标题" rules={[{ required: true, message: '标题是必填字段!' }]}>
+            <Input/>
+          </Form.Item>
+          <Form.Item name={['horseRaceLamp', 'link']} label="链接">
+            <Input/>
+          </Form.Item>
+          <Form.Item name={['horseRaceLamp', 'type']} label="类型" rules={[{ required: true, message: '类型是必选字段!' }]}>
+            <Select>
+              {
+                HorseType.map((type, index) => <Select.Option key={`${index}`} value={type.type}>{type.label}</Select.Option>)
+              }
+            </Select>
+          </Form.Item>
+          <Form.Item label="内容">
+            <RichEditor ref={this.editorRef}
+            toolbar={this.toolbar}
+            onChange={this.onChange}
+            customInsertImage={this.customInsertImage}
+            value={this.state.content}
+            />
+          </Form.Item>
+        </Spin>
       </Modal>
     </Form>;
   }

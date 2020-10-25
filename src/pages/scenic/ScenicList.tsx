@@ -20,7 +20,7 @@ export interface Scenic{
   alarmNum: number;
 }
 
-enum ScenicMode{
+export enum ScenicMode{
   create,
   edit
 }
@@ -170,7 +170,7 @@ const ScenicList: SFC<GreenHouseListProps> = (props) => {
         size="small"
       />
       {
-        modalVisible && <ScenicModal close={closeModal} title={modalTitle} mode={modalMode} visible={modalVisible} scenic={scenic}/>
+        modalVisible && <ScenicModal refreshList={getScenics} close={closeModal} title={modalTitle} mode={modalMode} visible={modalVisible} scenic={scenic}/>
       }
       </div>
   );

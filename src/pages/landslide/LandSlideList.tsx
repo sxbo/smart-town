@@ -20,7 +20,7 @@ export interface LandSlide{
   phone?: string; // 负责人联系方式
 }
 
-enum lanSlideMode{
+export enum lanSlideMode{
   create,
   edit
 }
@@ -32,7 +32,7 @@ interface GreenHouseListProps{
 const LandSlideList: SFC<GreenHouseListProps> = (props) => {
   const [lanSlides, setLanSlides] = useState<LandSlide[]>([]);
   const [form] = Form.useForm();
-  const [modalTitle, setModalTitle] = useState('新增景区');
+  const [modalTitle, setModalTitle] = useState('新增滑坡点');
   const [modalMode, setModalMode] = useState<lanSlideMode>(lanSlideMode.create);
   const [lanSlide, setlanSlide] = useState<any>();
   const [modalVisible, setModalVisible] = useState(false);
@@ -58,12 +58,12 @@ const LandSlideList: SFC<GreenHouseListProps> = (props) => {
   }, []);
 
   const createClicked = () => {
-    openModal('新增', lanSlideMode.create);
+    openModal('新增滑坡点', lanSlideMode.create);
     setlanSlide(undefined);
   };
 
   const editClicked = (text: string, record: LandSlide) => {
-    openModal('编辑', lanSlideMode.edit);
+    openModal('编辑滑坡点', lanSlideMode.edit);
     setlanSlide(record);
   };
 
@@ -164,7 +164,7 @@ const LandSlideList: SFC<GreenHouseListProps> = (props) => {
         size="small"
       />
       {
-        modalVisible && <LandSlidModal close={closeModal} title={modalTitle} mode={modalMode} visible={modalVisible} lanSlide={lanSlide}/>
+        modalVisible && <LandSlidModal refreshList={getLanSlides} close={closeModal} title={modalTitle} mode={modalMode} visible={modalVisible} lanSlide={lanSlide}/>
       }
     </div>
   );

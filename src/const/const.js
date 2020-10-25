@@ -1,3 +1,4 @@
+/* eslint-disable newline-after-var */
 /* eslint-disable camelcase */
 /* eslint-disable no-magic-numbers */
 import xue from '../theme/img/xue.svg';
@@ -9,12 +10,52 @@ import yun from '../theme/img/yun.svg';
 import yu from '../theme/img/yu.svg';
 import yin from '../theme/img/yin.svg';
 import qing from '../theme/img/qing.svg';
+import axios from 'axios';
+import { message } from 'antd';
+
 
 export const filterStyle = {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
 };
+
+/**
+ * 自定义图片上传
+ * @param {*} callback 回传img url
+ */
+export function customInsertImage(beforeUpload, callback){
+  let fileInput = document.createElement('input');
+  fileInput.setAttribute('type', 'file');
+  fileInput.setAttribute('accept', 'image/jpg,image/jpeg,image/png,image/gif,image/bmp');
+  fileInput.classList.add('ql-image');
+  fileInput.addEventListener('change', function(){
+    if (fileInput.files.length > 0){
+      beforeUpload();
+      const imgFile = fileInput.files[0];
+      const formData = new FormData();
+      formData.append('type', imgFile.type);
+      formData.append('size', imgFile.size);
+      formData.append('name', imgFile.name);
+      formData.append('lastModified', imgFile.lastModified);
+      formData.append('file', imgFile);
+      axios({
+        method: 'POST',
+        url: 'api/upload/uploadImage',
+        data:formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }).then(function (res) {
+        const imageUrl = res.data?.imgUrl;
+        callback(imageUrl);
+      }).catch(() => {
+        message.error('操作错误');
+      });
+    }
+  });
+  fileInput.click();
+}
 
 export const weather = {
   xue: xue,

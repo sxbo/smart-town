@@ -7,8 +7,8 @@ import PoorMap from '../../components/PoorMap';
 import OutPoorRateDonut from '../../components/OutPoorRateDonut';
 import OutPoorTrend from '../../components/OutPoorTrend';
 import PageTitle from '../../components/PageTitle';
-import HelpHistoryList from '../../components/HelpHistoryList';
-import PoorList from '../../components/PoorList';
+import HelpHistoryList from './HelpHistoryList';
+import PoorList from './PoorList';
 
 import '../../theme/style/helppoor/layout.scss';
 import '../../theme/style/common.scss';

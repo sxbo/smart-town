@@ -6,14 +6,14 @@ import React, {SFC, useState, useEffect} from 'react';
 import { Row, Col } from 'antd';
 import '../../theme/style/common.scss';
 import '../../theme/style/greenhouse/layout.scss';
-import GreenHouseList from '../../components/GreenHouseList';
+import GreenHouseList from './GreenHouseList';
 import { MonitorObject } from '../../components/type';
 import MonitorRadar from '../../components/MonitorRadar';
 import HumidityLine from '../../components/HumidityLine';
 import CO2Line from '../../components/CO2Line';
 import PageTitle from '../../components/PageTitle';
 import TemperatureLine from '../../components/TemperatureLine';
-import {GreenHouse as GreenHouseI} from '../../components/GreenHouseList';
+import {GreenHouse as GreenHouseI} from './GreenHouseList';
 import axios from 'axios';
 
 const GreenHouse: SFC = () => {
@@ -26,13 +26,6 @@ const GreenHouse: SFC = () => {
     {id: '2'},
     {id: '3'},
   ];
-
-  /**
-   * 删除大棚成功
-   */
-  const deleteSuccess = () => {
-    getGreenhouses();
-  };
 
   const co2LineData = [
     {
@@ -278,32 +271,12 @@ const GreenHouse: SFC = () => {
     },
   ];
 
-  const getGreenhouses = () => {
-    axios({
-      method: 'GET',
-      url: 'api/greenhouse',
-    }).then((res) => {
-      if (res.data.status === 200){
-        const data = res.data.data || [];
-        setgreehouseData(data);
-      } else {
-        setgreehouseData([]);
-      }
-    }).catch(() => {
-      setgreehouseData([]);
-    });
-  };
-
-  useEffect(() => {
-    getGreenhouses();
-  }, []);
-
   return (
     <div className="small-town-greenhouse">
       <PageTitle title="智能大棚"/>
       <Row>
         <Col span={24}>
-          <GreenHouseList deleteSuccess={deleteSuccess} pagination={{pageSize: 5}} data={greehouseData}/>
+          <GreenHouseList pagination={{pageSize: 5}}/>
         </Col>
       </Row>
       <Row>
