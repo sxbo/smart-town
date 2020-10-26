@@ -44,17 +44,6 @@ export default class EditDynamic extends Component<EditDynamicPro, any> {
     };
   }
 
-  componentDidUpdate(prevProps:any, prevState:any){
-    const {dynamic} = this.props;
-    const dynamic1 = JSON.parse(JSON.stringify(dynamic));
-    const form = this.formRef.current;
-    if (dynamic1){
-      dynamic1.type = dynamic1.type?.id;
-      form?.setFieldsValue({dynamic: dynamic1});
-    }
-  }
-
-
   componentDidMount() {
     (window as any).rEditor = this.editorRef;
   }
@@ -157,7 +146,8 @@ export default class EditDynamic extends Component<EditDynamicPro, any> {
       wrapperCol: { span: 18 },
     };
 
-    const {types, title} = this.props;
+    const {types, title, dynamic = {}} = this.props;
+    const newDynamic = JSON.parse(JSON.stringify(dynamic));
 
     return <Modal
       title={title}
@@ -166,16 +156,17 @@ export default class EditDynamic extends Component<EditDynamicPro, any> {
       onCancel={this.handleCancel}
       okText="确认"
       cancelText="取消"
-      width="800px">
+      width="800px"
+      destroyOnClose>
         <Spin tip="正在上传" spinning={this.state.loading}>
           <Form ref={this.formRef} name="nest-messages" {...layout}>
-            <Form.Item name={['dynamic', 'title']} label="标题" rules={[{ required: true, message: '标题是必填字段!' }]}>
+            <Form.Item name={['dynamic', 'title']} label="标题" initialValue={newDynamic?.title} rules={[{ required: true, message: '请填写标题!' }]}>
               <Input />
             </Form.Item>
-            <Form.Item name={['dynamic', 'subTitle']} label="副标题">
+            <Form.Item name={['dynamic', 'subTitle']} label="副标题" initialValue={newDynamic?.subTitle}>
               <Input />
             </Form.Item>
-            <Form.Item name={['dynamic', 'type']} label="类型" rules={[{ required: true, message: '动态类型是必选字段' }]}>
+            <Form.Item name={['dynamic', 'type']} label="类型" initialValue={newDynamic?.type?.id} rules={[{ required: true, message: '请填写类型' }]}>
               <Select>
                 {
                   types.map((type, index) => <Select.Option key={`${index}`} value={type.id}>{type.type}</Select.Option>)

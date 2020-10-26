@@ -89,22 +89,22 @@ export default class PartyShow extends Component<any, any> {
           }
         });
         if (notices.length > 10){
-          notices = notices.splice(notices.length - 10);
+          notices = notices.splice(0, 10);
         }
         if (educations.length > 10) {
-          educations = educations.splice(educations.length - 10);
+          educations = educations.splice(0, 10);
         }
         if (partyBuildDynamics.length > 7){
-          partyBuildDynamics = partyBuildDynamics.splice(partyBuildDynamics.length - 7);
+          partyBuildDynamics = partyBuildDynamics.splice(0, 7);
         }
         if (meetLessons.length > 7){
-          meetLessons = meetLessons.splice(meetLessons.length - 7);
+          meetLessons = meetLessons.splice(0, 7);
         }
         this.setState({
-          notices: notices.reverse(), // 范家故事
-          educations: educations.reverse(), // 相关政策
-          partyBuildDynamics: partyBuildDynamics.reverse(), // 党建动态
-          meetLessons: meetLessons.reverse(), // 新闻资讯
+          notices: notices, // 范家故事
+          educations: educations, // 相关政策
+          partyBuildDynamics: partyBuildDynamics, // 党建动态
+          meetLessons: meetLessons, // 新闻资讯
         });
       } else {
         this.setState({
@@ -162,7 +162,7 @@ export default class PartyShow extends Component<any, any> {
         const data = res.data.data || [];
         let videos = [];
         if (data && data.length > 6){
-          videos = data.slice(data.length - 6, data.length);
+          videos = data.slice(0, 6);
         } else {
           videos = data;
         }
@@ -264,7 +264,7 @@ export default class PartyShow extends Component<any, any> {
 
     let last4PartyDynamics = [];
     if (partyBuildDynamics.length > 4){
-      last4PartyDynamics = partyBuildDynamics.slice(partyBuildDynamics.length - 4, partyBuildDynamics.length);
+      last4PartyDynamics = partyBuildDynamics.slice(0, 4);
     } else {
       last4PartyDynamics = partyBuildDynamics;
     }

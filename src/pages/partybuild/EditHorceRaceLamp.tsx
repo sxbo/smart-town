@@ -39,19 +39,9 @@ export default class EditHorseRaceLamp extends Component<EditHorseRaceLampPro, a
     this.state = {
       img: '',
       content: props.horseRaceLamp.content,
+      loading: false,
     };
   }
-
-
-  componentDidUpdate(prevProps:any, prevState:any){
-    const {horseRaceLamp} = this.props;
-    const horseRaceLamp1 = JSON.parse(JSON.stringify(horseRaceLamp));
-    const form = this.formRef.current;
-    if (horseRaceLamp1){
-      form?.setFieldsValue({horseRaceLamp: horseRaceLamp1});
-    }
-  }
-
 
   componentDidMount() {
     (window as any).rEditor = this.editorRef;
@@ -63,7 +53,6 @@ export default class EditHorseRaceLamp extends Component<EditHorseRaceLampPro, a
       const horOpt = data.horseRaceLamp;
       const content = this.editorRef.current.getEditor().getHTML();
       horOpt.content = content;
-      console.log(horOpt);
       horOpt.id = horseRaceLamp.id;
       axios({
           method: 'PUT',
@@ -111,7 +100,8 @@ export default class EditHorseRaceLamp extends Component<EditHorseRaceLampPro, a
       labelCol: { span: 4 },
       wrapperCol: { span: 18 },
     };
-
+    const {horseRaceLamp = {}} = this.props;
+    const horseRaceLamp1 = JSON.parse(JSON.stringify(horseRaceLamp));
 
     return <Form ref={this.formRef} name="nest-messages" {...layout}>
       <Modal
@@ -124,13 +114,13 @@ export default class EditHorseRaceLamp extends Component<EditHorseRaceLampPro, a
         width="800px"
         destroyOnClose>
           <Spin tip="正在上传" spinning={this.state.loading}>
-            <Form.Item name={['horseRaceLamp', 'title']} label="标题" rules={[{ required: true, message: '标题是必填字段!' }]}>
+            <Form.Item name={['horseRaceLamp', 'title']} label="标题" initialValue={horseRaceLamp1?.title} rules={[{ required: true, message: '标题是必填字段!' }]}>
               <Input/>
             </Form.Item>
-            <Form.Item name={['horseRaceLamp', 'link']} label="链接">
+            <Form.Item name={['horseRaceLamp', 'link']} initialValue={horseRaceLamp1?.link} label="链接">
               <Input/>
             </Form.Item>
-            <Form.Item name={['horseRaceLamp', 'type']} label="类型" rules={[{ required: true, message: '类型是必选字段!' }]}>
+            <Form.Item name={['horseRaceLamp', 'type']} label="类型" initialValue={horseRaceLamp1?.type} rules={[{ required: true, message: '类型是必选字段!' }]}>
               <Select>
                 {
                   HorseType.map((type, index) => <Select.Option key={`${index}`} value={type.type}>{type.label}</Select.Option>)

@@ -1,5 +1,6 @@
 .site-layout-background{
     box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
     .ant-menu-vertical .ant-menu-item::after, .ant-menu-vertical-left .ant-menu-item::after, .ant-menu-vertical-right .ant-menu-item::after, .ant-menu-inline .ant-menu-item::after{
         border-right: 3px solid #5d89f2;
     }
@@ -27,6 +28,8 @@
  
     .leftbg{
         background: url('../../img/left.jpg') no-repeat;
+        background-position:center;
+        background-size: 100% 100%;
     }
 
     .ant-menu-item-selected{

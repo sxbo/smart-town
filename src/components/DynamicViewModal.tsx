@@ -22,7 +22,6 @@ export default class DynamicViewModal extends Component<any, any> {
 		if (arr && arr.length){
 			format = arr[arr.length - 1];
 		}
-		console.log(url);
 		return <Modal
 			title={this.props.title}
 			width="50vw"

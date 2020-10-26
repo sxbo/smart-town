@@ -9,7 +9,6 @@
   };
 
   if (!doc.addEventListener) {return;}
-  console.log('1223');
   win.addEventListener(resizeEvt, recalc, false);
   doc.addEventListener('DOMContentLoaded', recalc, false);
 })(document, window);

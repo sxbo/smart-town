@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable eqeqeq */
 /* eslint-disable no-invalid-this */
 /* eslint-disable handle-callback-err */
@@ -58,9 +59,15 @@ export default class Orginization extends Component<any, OrginizationState> {
         });
       } else {
         message.error('操作失败');
+        this.setState({
+          loading: false,
+        });
       }
     }).catch(() => {
       message.error('操作失败');
+      this.setState({
+        loading: false,
+      });
     });
   }
 
@@ -207,7 +214,6 @@ export default class Orginization extends Component<any, OrginizationState> {
               if (info.file.status === 'done') {
                 record.headImg = info?.file?.response?.imgUrl;
                 this.updateHeadImg(record);
-                console.log(info);
               } else if (info.file.status === 'error') {
                 this.setState({
                   loading: false,

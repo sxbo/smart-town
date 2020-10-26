@@ -55,8 +55,6 @@ export default class NewAdvertise extends Component<EditHorseRaceLampPro, any> {
 
   handleOk = () => {
     this.formRef.current?.validateFields().then(data => {
-      console.log(data);
-      console.log(this.state.content);
       const {advertise, mode} = this.props;
       const {content} = this.state;
       if (mode == AdvertiseMode.create){

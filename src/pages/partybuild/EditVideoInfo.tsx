@@ -49,19 +49,6 @@ export default class EditVideoInfo extends Component<EditVideoInfoPro, any> {
     (window as any).rEditor = this.editorRef;
   }
 
-  componentDidUpdate(prevProps:any, prevState:any){
-    const {videoInfo} = this.props;
-    const videoInfo1 = JSON.parse(JSON.stringify(videoInfo));
-    const form = this.formRef.current;
-    if (videoInfo1 && videoInfo1.id){
-      form?.setFieldsValue({
-        title: videoInfo1.title,
-        cover: videoInfo1.cover,
-        url: videoInfo1.url,
-      });
-    }
-  }
-
   handleOk = () => {
     this.formRef.current?.validateFields().then(data => {
         const videoInfo = this.props.videoInfo;

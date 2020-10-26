@@ -92,22 +92,22 @@ class DashBoard extends Component<any, any> {
           }
         });
         if (fanStory.length > 10){
-          fanStory = fanStory.splice(fanStory.length - 10);
+          fanStory = fanStory.splice(0, 10);
         }
         if (rules.length > 10) {
-          rules = rules.splice(rules.length - 10);
+          rules = rules.splice(0, 10);
         }
         if (partyBuildDynamics.length > 7){
-          partyBuildDynamics = partyBuildDynamics.splice(partyBuildDynamics.length - 7);
+          partyBuildDynamics = partyBuildDynamics.splice(0, 10);
         }
         if (allNews.length > 7){
-          allNews = allNews.splice(allNews.length - 7);
+          allNews = allNews.splice(0, 10);
         }
         this.setState({
-          fanStory: fanStory.reverse(), // 范家故事
-          rules: rules.reverse(), // 相关政策
-          partyBuildDynamics: partyBuildDynamics.reverse(), // 党建动态
-          allNews: allNews.reverse(), // 新闻资讯
+          fanStory: fanStory, // 范家故事
+          rules: rules, // 相关政策
+          partyBuildDynamics: partyBuildDynamics, // 党建动态
+          allNews: allNews, // 新闻资讯
         });
       } else {
         this.setState({
@@ -180,12 +180,12 @@ class DashBoard extends Component<any, any> {
         const data: any[] = res.data.data || [];
         let products: any[] = [];
         if (data && data.length > 6){
-          products = data.splice(data.length - 6);
+          products = data.splice(0, 6);
         } else {
           products = data;
         }
         this.setState({
-          products: products.reverse(),
+          products: products,
         });
       } else {
         this.setState({

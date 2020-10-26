@@ -81,7 +81,6 @@ export default class VideoBox extends Component<any, any> {
     }
 
     openPlayCall = (url: any, channelNo: any, deviceSerial: any) => {
-        console.log(url, channelNo, deviceSerial);
         this.setState({
           url: url,
           channelNo: channelNo,

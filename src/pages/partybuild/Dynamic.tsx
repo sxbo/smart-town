@@ -284,6 +284,25 @@ export default class Dynamic extends Component<any, DynamicState> {
     });
   }
 
+  updateFarmProduct = (farmProduct: any) => {
+    axios({
+      method: 'PUT',
+      url: 'api/spb/updateFarmProduct',
+      data: farmProduct,
+    }).then((res) => {
+      if (res.data.status === 200){
+        this.getFarmProducts();
+        this.setState({loading: false});
+      } else {
+        message.error('上传失败');
+        this.uploadFail();
+      }
+    }).catch(() => {
+      message.error('上传失败');
+      this.uploadFail();
+    });
+  }
+
   render(){
 
     const {types} = this.state;
@@ -341,8 +360,14 @@ export default class Dynamic extends Component<any, DynamicState> {
                 this.beforeUpload();
               }
               if (info.file.status === 'done') {
-                record.icon = info?.file?.response?.imgUrl,
-                this.updateDynamic(record);
+                const url = info?.file?.response?.imgUrl;
+                record.icon = url;
+                const {type} = this.props;
+                if (type == 'farmProduct'){
+                  this.updateFarmProduct(record);
+                } else {
+                  this.updateDynamic(record);
+                }
               } else if (info.file.status === 'error') {
                 this.uploadFail();
                 message.info('上传失败！');
