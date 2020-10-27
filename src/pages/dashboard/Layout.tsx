@@ -10,14 +10,13 @@
 /* eslint-disable newline-after-var */
 /* eslint-disable no-invalid-this */
 import React, {Component} from 'react';
-import { Row, Col, List, Carousel } from 'antd';
+import { Row, Col, List, Carousel, Skeleton } from 'antd';
 import {withRouter} from 'react-router-dom';
 import '../../theme/style/dashboard/Layout.scss';
 import DynamicViewModal from '../../components/DynamicViewModal';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import '../../theme/style/common.scss';
 import '../../theme/style/dashboard/FanStory.scss';
-import '../../theme/style/dashboard/Advertise.scss';
 import '../../theme/style/dashboard/Party.scss';
 import '../../theme/style/dashboard/FarmProduct.scss';
 import '../../theme/style/dashboard/NewInfo.scss';
@@ -324,15 +323,18 @@ class DashBoard extends Component<any, any> {
               <div className="advertise-to-prev">
                 <LeftOutlined style={{cursor: 'pointer'}} onClick={this.prevAdverClicked}/>
               </div>
-              <Carousel style={{height: '100%'}} ref={this.advertCarouselRef} dots={false} autoplay>
-                {
-                  homeAdvertises.map((item: any, index: number) => {
-                    return <div className="advertise-content" key={`${index}`}>
-                      <img src={item.imageUrl} alt="图片"/>
-                    </div>;
-                  })
-                }
-              </Carousel>
+              {
+                homeAdvertises.length ?
+                <Carousel style={{height: '100%'}} ref={this.advertCarouselRef} dots={false} autoplay>
+                  {
+                    homeAdvertises.map((item: any, index: number) => {
+                      return <div className="advertise-content" key={`${index}`}>
+                        <img src={item.imageUrl} alt="图片"/>
+                      </div>;
+                    })
+                  }
+                </Carousel> : <Skeleton.Image />
+              }
             </div>
           </Col>
           <Col xs={{ span: 24}} md={{ span: 24}} xl={{ span: 6}}>

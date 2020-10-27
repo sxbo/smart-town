@@ -241,8 +241,8 @@ export default class Convenient extends Component {
 		];
 		return <div className="convenient-box">
 			<PageTitle title="便民服务" >
-				<span style={{marginRight: '20px'}}><ClockCircleOutlined />正在处理事件： {doingNum}</span>
-				<span><CheckCircleOutlined />已处理事件： {downNum}</span>
+				<span style={{marginRight: '20px'}}><ClockCircleOutlined style={{color: colors.primary, marginRight:'5px'}}/>正在处理事件： {doingNum}</span>
+				<span><CheckCircleOutlined style={{color: colors.success, marginRight:'5px'}}/>已处理事件： {downNum}</span>
 			</PageTitle>
 			<div className="convenient-search-box">
 				<div className="card-box search-list">

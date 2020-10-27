@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-shadow */
 /* eslint-disable eqeqeq */
@@ -6,7 +7,7 @@
 /* eslint-disable newline-after-var */
 /* eslint-disable no-invalid-this */
 import React, {Component} from 'react';
-import { Row, Col, List, Carousel } from 'antd';
+import { Row, Col, List, Carousel, Skeleton } from 'antd';
 import '../../theme/style/partyshow/Layout1.scss';
 import DynamicViewModal from '../../components/DynamicViewModal';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
@@ -48,7 +49,7 @@ export default class PartyShow extends Component<any, any> {
 
 
   componentDidMount(){
-    window.onresize = (e: any) => {
+    window.onresize = () => {
       const boxWidth = document.body.clientWidth;
       if (boxWidth < 1200){
         this.setState({boxHeight: 'auto'});
@@ -275,7 +276,7 @@ export default class PartyShow extends Component<any, any> {
             <div className="card-box fan-story1">
               <div className="title-box">
                 <span></span>
-                <span className="more" onClick={e => this.jumpToMoreinfo(4)}>更多 &gt;&gt;</span>
+                <span className="more" onClick={() => this.jumpToMoreinfo(4)}>更多 &gt;&gt;</span>
               </div>
               <div className="fan-content">
                 <div className="rotation-box">
@@ -307,7 +308,7 @@ export default class PartyShow extends Component<any, any> {
                     size="small"
                     bordered={false}
                     dataSource={notices}
-                    renderItem={(item: any) => <List.Item><div onClick={e => this.viewDynamic(item, '相关公告')} className="story-link">· {item.title}</div></List.Item>}/>
+                    renderItem={(item: any) => <List.Item><div onClick={() => this.viewDynamic(item, '相关公告')} className="story-link">· {item.title}</div></List.Item>}/>
                 </div>
               </div>
             </div>
@@ -320,22 +321,25 @@ export default class PartyShow extends Component<any, any> {
               <div className="advertise-to-prev">
                 <LeftOutlined style={{cursor: 'pointer'}} onClick={this.prevAdverClicked}/>
               </div>
-              <Carousel style={{height: '100%'}} ref={this.advertCarouselRef} dots={false} autoplay>
-                {
-                  partyAdvertises.map((item: any, index: number) => {
-                    return <div className="advertise-content" key={`${index}`}>
-                      <img src={item.imageUrl} alt="图片"/>
-                    </div>;
-                  })
+              {
+                partyAdvertises.length ?
+                <Carousel style={{height: '100%'}} ref={this.advertCarouselRef} dots={false} autoplay>
+                  {
+                    partyAdvertises.map((item: any, index: number) => {
+                      return <div className="advertise-content" key={`${index}`}>
+                        <img src={item.imageUrl} alt="图片"/>
+                      </div>;
+                    })
+                  }
+                </Carousel> : <Skeleton.Image/>
                 }
-              </Carousel>
             </div>
           </Col>
           <Col xs={{ span: 24}} md={{ span: 24}} xl={{ span: 6}}>
             <div className="card-box poor-rule1">
               <div className="title-box">
                 <span></span>
-                <span className="more" onClick={e => this.jumpToMoreinfo(7)}>更多 &gt;&gt;</span>
+                <span className="more" onClick={() => this.jumpToMoreinfo(7)}>更多 &gt;&gt;</span>
               </div>
               <div className="rules-box">
                 <List
@@ -343,7 +347,7 @@ export default class PartyShow extends Component<any, any> {
                   bordered={false}
                   dataSource={educations}
                   renderItem={(item: any) => <List.Item>
-                    <div className="story-link" onClick={e => this.viewDynamic(item, '主题教育')}>· {item.title}</div>
+                    <div className="story-link" onClick={() => this.viewDynamic(item, '主题教育')}>· {item.title}</div>
                     <div className="date-box">{item.createTime}</div>
                   </List.Item>}/>
               </div>
@@ -359,7 +363,7 @@ export default class PartyShow extends Component<any, any> {
                   <span></span>
                 </div>
                 <div>
-                  <span onClick={e => this.jumpToMoreinfo(5)} className="spancolor more">更多 &gt;&gt;</span>
+                  <span onClick={() => this.jumpToMoreinfo(5)} className="spancolor more">更多 &gt;&gt;</span>
                 </div>
               </div>
               <div className="imgply-news-box">
@@ -388,7 +392,7 @@ export default class PartyShow extends Component<any, any> {
                       bordered={false}
                       dataSource={partyBuildDynamics}
                       renderItem={(item: any) => <List.Item>
-                        <div className="story-link" onClick={e => this.viewDynamic(item, '党建动态')}>· {item.title}</div>
+                        <div className="story-link" onClick={() => this.viewDynamic(item, '党建动态')}>· {item.title}</div>
                         <div className="date-box">{item.createTime}</div>
                       </List.Item>}/>
                   </div>
@@ -404,7 +408,7 @@ export default class PartyShow extends Component<any, any> {
                   <span></span>
                 </div>
                 <div>
-                  <span className="spancolor more" onClick={e => this.jumpToMoreinfo(6)}>更多 &gt;&gt;</span>
+                  <span className="spancolor more" onClick={() => this.jumpToMoreinfo(6)}>更多 &gt;&gt;</span>
                 </div>
               </div>
               <div className="news-box">
@@ -413,7 +417,7 @@ export default class PartyShow extends Component<any, any> {
                   bordered={false}
                   dataSource={meetLessons}
                   renderItem={(item: any) => <List.Item>
-                    <div className="story-link" onClick={e => this.viewDynamic(item, '三会一课')}>· {item.title}</div>
+                    <div className="story-link" onClick={() => this.viewDynamic(item, '三会一课')}>· {item.title}</div>
                     <div className="date-box">{item.createTime}</div>
                   </List.Item>}/>
               </div>
@@ -427,7 +431,7 @@ export default class PartyShow extends Component<any, any> {
                   <span></span>
                 </div>
                 <div>
-                  <span className="spancolor more" onClick={e => this.jumpToMoreinfo('农副产品')}>更多 &gt;&gt;</span>
+                  <span className="spancolor more" onClick={() => this.jumpToMoreinfo('农副产品')}>更多 &gt;&gt;</span>
                 </div>
               </div>
               <div className="farm-p-img">
@@ -438,7 +442,7 @@ export default class PartyShow extends Component<any, any> {
                       <img src={videos[0]?.cover} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name" onClick={e => this.viewDynamic(videos[0], '视频学习')}>
+                    <div className="product-name" onClick={() => this.viewDynamic(videos[0], '视频学习')}>
                       {
                         videos[0]?.title
                       }
@@ -450,7 +454,7 @@ export default class PartyShow extends Component<any, any> {
                       <img src={videos[1]?.cover} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name" onClick={e => this.viewDynamic(videos[1], '视频学习')}>
+                    <div className="product-name" onClick={() => this.viewDynamic(videos[1], '视频学习')}>
                       {
                         videos[1]?.title
                       }
@@ -462,7 +466,7 @@ export default class PartyShow extends Component<any, any> {
                       <img src={videos[2]?.cover} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name" onClick={e => this.viewDynamic(videos[2], '视频学习')}>
+                    <div className="product-name" onClick={() => this.viewDynamic(videos[2], '视频学习')}>
                       {
                         videos[2]?.title
                       }
@@ -476,7 +480,7 @@ export default class PartyShow extends Component<any, any> {
                       <img src={videos[3]?.cover} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name" onClick={e => this.viewDynamic(videos[3], '视频学习')}>
+                    <div className="product-name" onClick={() => this.viewDynamic(videos[3], '视频学习')}>
                       {
                         videos[3]?.title
                       }
@@ -488,7 +492,7 @@ export default class PartyShow extends Component<any, any> {
                       <img src={videos[4]?.cover} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name" onClick={e => this.viewDynamic(videos[4], '视频学习')}>
+                    <div className="product-name" onClick={() => this.viewDynamic(videos[4], '视频学习')}>
                       {
                         videos[4]?.title
                       }
@@ -500,7 +504,7 @@ export default class PartyShow extends Component<any, any> {
                       <img src={videos[5]?.cover} alt="farm"/>
                       : <div className="farm-p-img-fr-img-title-ig"></div>
                     }
-                    <div className="product-name" onClick={e => this.viewDynamic(videos[5], '视频学习')}>
+                    <div className="product-name" onClick={() => this.viewDynamic(videos[5], '视频学习')}>
                       {
                         videos[5]?.title
                       }

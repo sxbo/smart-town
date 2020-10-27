@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { Scene, ImageLayer } from '@antv/l7';
 import { ISceneConfig } from '@antv/l7/es';
 import { GaodeMap } from '@antv/l7-maps';
@@ -30,7 +31,7 @@ const PoorMap: SFC = () => {
         {
           parser: {
             type: 'image',
-            extent: [113.1277263548, 32.3464238863, 118.1365790452, 36.4786759137]
+            extent: [113.1277263548, 32.3464238863, 118.1365790452, 36.4786759137],
           },
         },
       );

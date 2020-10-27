@@ -1,5 +1,15 @@
 .advertise{
     position: relative;
+    .ant-skeleton-element{
+        width: 100% !important;
+        height: 100% !important;
+        background: #024170 !important;
+        .ant-skeleton-image{
+            width: 100% !important;
+            height: 100% !important;
+            background: #024170 !important;
+        }
+    }
     .advertise-content{
         height: 100%;
         color: #fff;

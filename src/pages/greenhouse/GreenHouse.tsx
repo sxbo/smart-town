@@ -2,30 +2,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable newline-after-var */
-import React, {SFC, useState, useEffect} from 'react';
+import React, {SFC} from 'react';
 import { Row, Col } from 'antd';
 import '../../theme/style/common.scss';
 import '../../theme/style/greenhouse/layout.scss';
 import GreenHouseList from './GreenHouseList';
-import { MonitorObject } from '../../components/type';
 import MonitorRadar from '../../components/MonitorRadar';
 import HumidityLine from '../../components/HumidityLine';
 import CO2Line from '../../components/CO2Line';
 import PageTitle from '../../components/PageTitle';
 import TemperatureLine from '../../components/TemperatureLine';
-import {GreenHouse as GreenHouseI} from './GreenHouseList';
 import axios from 'axios';
 
 const GreenHouse: SFC = () => {
-
-  const [greehouseData, setgreehouseData] = useState([]);
-
-  const monitors: MonitorObject[] = [
-    {id: '1'},
-    {id: '4'},
-    {id: '2'},
-    {id: '3'},
-  ];
 
   const co2LineData = [
     {
