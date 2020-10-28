@@ -47,6 +47,12 @@ const HelpHistoryList: SFC<GreenHouseListProps> = (props) => {
     setHelpHistory(undefined);
   };
 
+  const searchClicked = () => {
+    const value: any = form.getFieldsValue(['helpObj', 'personCharge']);
+    const url = `api/findByPovertyAlleviationRecordHistoryList?helpObj=${value.helpObj || ''}&personCharge=${value.personCharge || ''}`;
+    getRecords(url);
+  };
+
   const editClicked = (text: string, record: HelpHistory) => {
     openModal('编辑记录', HelpHistoryMode.edit);
     setHelpHistory(record);
@@ -63,10 +69,10 @@ const HelpHistoryList: SFC<GreenHouseListProps> = (props) => {
   };
 
 
-  const getRecords = () => {
+  const getRecords = (url: string = 'api/povertyAlleviationRecord') => {
     axios({
       method: 'GET',
-      url: 'api/povertyAlleviationRecord',
+      url: url,
     }).then((res) => {
       if (res.data.status === 200){
         const data: HelpHistory[] = res.data.data || [];
@@ -159,15 +165,14 @@ const HelpHistoryList: SFC<GreenHouseListProps> = (props) => {
           <Form
             layout="inline"
             form={form}>
-            <Form.Item label="贫困对象">
-              <Input size="small" placeholder="请输入贫困户名字" />
+            <Form.Item label="贫困对象" name="helpObj">
+              <Input allowClear size="small" placeholder="请输入贫困户名字" />
             </Form.Item>
-            <Form.Item label="负责人">
-              <Input size="small" placeholder="请输入负责人名字" />
+            <Form.Item label="负责人" name="personCharge">
+              <Input allowClear size="small" placeholder="请输入负责人名字" />
             </Form.Item>
             <Form.Item>
-              <Button size="small" value="horizontal">查询</Button>
-              <Button size="small" value="vertical">重置</Button>
+              <Button size="small" value="horizontal" onClick={searchClicked}>查询</Button>
             </Form.Item>
           </Form>
           <Button size="small" type="primary" onClick={createClicked}>新增</Button>

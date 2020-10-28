@@ -38,13 +38,13 @@ const ScenicList: SFC<GreenHouseListProps> = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    getScenics();
+    getScenics('api/scenicSpot');
   }, []);
 
-  const getScenics = () => {
+  const getScenics = (url: string = 'api/scenicSpot') => {
     axios({
       method: 'GET',
-      url: 'api/scenicSpot',
+      url: url,
     }).then((res) => {
       if (res.data.status === 200){
         const data: Scenic[] = res.data.data || [];
@@ -55,6 +55,12 @@ const ScenicList: SFC<GreenHouseListProps> = (props) => {
     }).catch(() => {
       setScenics([]);
     });
+  };
+
+  const searchClicked = () => {
+    const value: any = form.getFieldsValue(['scenicspotName', 'address', 'personCharge']);
+    const url = `api/findByScenicSpotList?scenicspotName=${value.scenicspotName || ''}&address=${value.address || ''}&personCharge=${value.personCharge || ''}`;
+    getScenics(url);
   };
 
   const createClicked = () => {
@@ -145,18 +151,17 @@ const ScenicList: SFC<GreenHouseListProps> = (props) => {
           <Form
             layout="inline"
             form={form}>
-            <Form.Item label="景区名称">
-              <Input size="small" placeholder="景区名称" />
+            <Form.Item label="景区名称" name="scenicspotName">
+              <Input allowClear size="small" placeholder="景区名称" />
             </Form.Item>
-            <Form.Item label="景区地址">
-              <Input size="small" placeholder="景区地址" />
+            <Form.Item label="景区地址" name="address">
+              <Input allowClear size="small" placeholder="景区地址" />
             </Form.Item>
-            <Form.Item label="负责人">
-              <Input size="small" placeholder="负责人" />
+            <Form.Item label="负责人" name="personCharge">
+              <Input allowClear size="small" placeholder="负责人" />
             </Form.Item>
             <Form.Item>
-              <Button size="small" value="horizontal">查询</Button>
-              <Button size="small" value="vertical">重置</Button>
+              <Button size="small" value="horizontal" onClick={searchClicked}>查询</Button>
             </Form.Item>
           </Form>
           <Button type="primary" size="small" onClick={createClicked}>新增</Button>

@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable handle-callback-err */
 /* eslint-disable no-invalid-this */
 /* eslint-disable no-else-return */
@@ -84,10 +85,10 @@ export default class PermissionList extends Component<any, any> {
     });
   }
 
-  getPermissions = () => {
+  getPermissions = (url: string = 'api/permission') => {
     axios({
       method: 'GET',
-      url: 'api/permission',
+      url: url,
     }).then((res) => {
       if (res.data.status === 200){
         const data = res.data.data || [];
@@ -104,6 +105,11 @@ export default class PermissionList extends Component<any, any> {
         permissions: [],
       });
     });
+  }
+
+  onSearch = (value: any) => {
+    const url = `api/permission/search?permissionName=${value}`;
+    this.getPermissions(url);
   }
 
   render(){
@@ -135,7 +141,7 @@ export default class PermissionList extends Component<any, any> {
     return <>
       <div className="single-search-box">
         <Space>
-          <Search style={{width: '3rem'}} placeholder="请输入关键字" onSearch={value => console.log(value)} enterButton />
+          <Search style={{width: '3rem'}} allowClear placeholder="请输入权限名称" onSearch={this.onSearch} enterButton />
           <Button size="middle" type="primary" onClick={this.createPerClick}>新建权限</Button>
         </Space>
       </div>

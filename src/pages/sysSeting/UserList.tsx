@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable handle-callback-err */
 /* eslint-disable no-invalid-this */
 /* eslint-disable no-else-return */
@@ -33,10 +34,10 @@ export default class UserList extends Component<any, any> {
     this.getUserList();
   }
 
-  getUserList = () => {
+  getUserList = (url: string = 'api/user') => {
     axios({
       method: 'GET',
-      url: 'api/user',
+      url: url,
     }).then((res) => {
       if (res.data.status === 200){
         const data = res.data.data || [];
@@ -104,6 +105,11 @@ export default class UserList extends Component<any, any> {
     });
   }
 
+  onSearch = (value: any) => {
+    const url = `api/user/search?userName=${value}`;
+    this.getUserList(url);
+  }
+
   render(){
     const {mode, user, title} = this.state;
     const columns: ColumnsType<any> = [
@@ -158,7 +164,7 @@ export default class UserList extends Component<any, any> {
     return <>
       <div className="single-search-box">
         <Space>
-          <Search style={{width: '3rem'}} size="middle" placeholder="请输入关键字" onSearch={value => console.log(value)} enterButton />
+          <Search style={{width: '3rem'}} allowClear size="middle" placeholder="请输入用户名" onSearch={this.onSearch} enterButton />
           <Button size="middle" type="primary" onClick={this.createUserClick}>新建用户</Button>
         </Space>
       </div>

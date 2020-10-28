@@ -42,6 +42,12 @@ const PoorList: SFC<GreenHouseListProps> = (props) => {
     getPoors();
   }, []);
 
+  const searchClicked = () => {
+    const value: any = form.getFieldsValue(['name', 'village', 'idCard']);
+    const url = `api/findByPoorList?name=${value.name || ''}&village=${value.village || ''}&idCard=${value.idCard || ''}`;
+    getPoors(url);
+  };
+
 
   const createClicked = () => {
     openModal('贫困户登记', PoorMode.create);
@@ -63,10 +69,10 @@ const PoorList: SFC<GreenHouseListProps> = (props) => {
     setModalVisible(false);
   };
 
-  const getPoors = () => {
+  const getPoors = (url: string = 'api/poor') => {
     axios({
       method: 'GET',
-      url: 'api/poor',
+      url: url,
     }).then((res) => {
       if (res.data.status === 200){
         const data: PoorPeople[] = res.data.data || [];
@@ -148,18 +154,17 @@ const PoorList: SFC<GreenHouseListProps> = (props) => {
           <Form
             layout="inline"
             form={form}>
-            <Form.Item label="姓名">
-              <Input size="small" placeholder="请输入姓名" />
+            <Form.Item label="姓名" name="name">
+              <Input allowClear size="small" placeholder="请输入姓名" />
             </Form.Item>
-            <Form.Item label="所属村">
-              <Input size="small" placeholder="所属村" />
+            <Form.Item label="所属村" name="village">
+              <Input allowClear size="small" placeholder="所属村" />
             </Form.Item>
-            <Form.Item label="身份证号">
-              <Input size="small" placeholder="请输入身份证号" />
+            <Form.Item label="身份证号" name="idCard">
+              <Input allowClear size="small" placeholder="请输入身份证号" />
             </Form.Item>
             <Form.Item>
-              <Button size="small" value="horizontal">查询</Button>
-              <Button size="small" value="vertical">重置</Button>
+              <Button size="small" value="horizontal" onClick={searchClicked}>查询</Button>
             </Form.Item>
           </Form>
           <Button size="small" type="primary" onClick={createClicked}>新增</Button>

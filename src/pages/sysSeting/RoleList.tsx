@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable handle-callback-err */
 /* eslint-disable no-invalid-this */
 /* eslint-disable no-else-return */
@@ -36,10 +37,10 @@ export default class RoleList extends Component<any, any> {
     this.getPermissions();
   }
 
-  getRoleList = () => {
+  getRoleList = (url: string = 'api/role') => {
     axios({
       method: 'GET',
-      url: 'api/role',
+      url: url,
     }).then((res) => {
       if (res.data.status === 200){
         const data = res.data.data || [];
@@ -78,6 +79,11 @@ export default class RoleList extends Component<any, any> {
         permissions: [],
       });
     });
+  }
+
+  onSearch = (value: any) => {
+    const url = `api/role/search?roleName=${value}`;
+    this.getRoleList(url);
   }
 
   createRoleClick = () => {
@@ -182,7 +188,7 @@ export default class RoleList extends Component<any, any> {
     return <>
       <div className="single-search-box">
         <Space>
-          <Search style={{width: '3rem'}} placeholder="请输入关键字" onSearch={value => console.log(value)} enterButton />
+          <Search style={{width: '3rem'}} placeholder="请输入角色名称" allowClear onSearch={this.onSearch} enterButton />
           <Button size="middle" type="primary" onClick={this.createRoleClick}>新建角色</Button>
         </Space>
       </div>

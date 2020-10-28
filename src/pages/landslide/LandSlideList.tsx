@@ -37,10 +37,10 @@ const LandSlideList: SFC<GreenHouseListProps> = (props) => {
   const [lanSlide, setlanSlide] = useState<any>();
   const [modalVisible, setModalVisible] = useState(false);
 
-  const getLanSlides = () => {
+  const getLanSlides = (url: string = 'api/landslide') => {
     axios({
       method: 'GET',
-      url: 'api/landslide',
+      url: url,
     }).then((res) => {
       if (res.data.status === 200){
         const data: LandSlide[] = res.data.data || [];
@@ -54,8 +54,14 @@ const LandSlideList: SFC<GreenHouseListProps> = (props) => {
   };
 
   useEffect(() => {
-    getLanSlides();
+    getLanSlides('api/landslide');
   }, []);
+
+  const searchClicked = () => {
+    const value: any = form.getFieldsValue(['address', 'personCharge']);
+    const url = `api/findByLandslideList?address=${value.address || ''}&personCharge=${value.personCharge || ''}`;
+    getLanSlides(url);
+  };
 
   const createClicked = () => {
     openModal('新增滑坡点', lanSlideMode.create);
@@ -128,7 +134,7 @@ const LandSlideList: SFC<GreenHouseListProps> = (props) => {
       render: (text: any, record: any) => (
         <Space>
           <Button size="small" onClick={e => editClicked(text, record)}>编辑</Button>
-          <Button size="middle" style={{color: colors.danger}} onClick={e => deleteClicked(text, record)}>删除</Button>
+          <Button size="small" style={{color: colors.danger}} onClick={e => deleteClicked(text, record)}>删除</Button>
         </Space>
       ),
     },
@@ -142,15 +148,14 @@ const LandSlideList: SFC<GreenHouseListProps> = (props) => {
           <Form
             layout="inline"
             form={form}>
-            <Form.Item label="山体点">
-              <Input size="small" placeholder="山体点" />
+            <Form.Item label="山体点" name="address">
+              <Input allowClear size="small" placeholder="山体点" />
             </Form.Item>
-            <Form.Item label="负责人">
-              <Input size="small" placeholder="负责人" />
+            <Form.Item label="负责人" name="personCharge">
+              <Input allowClear size="small" placeholder="负责人" />
             </Form.Item>
-            <Form.Item name="layout">
-              <Button size="small" value="horizontal">查询</Button>
-              <Button size="small" value="vertical">重置</Button>
+            <Form.Item>
+              <Button size="small" value="horizontal" onClick={searchClicked}>查询</Button>
             </Form.Item>
           </Form>
           <Button size="small" type="primary" onClick={createClicked}>新增</Button>

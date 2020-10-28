@@ -7,7 +7,7 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {SFC, useState, useEffect} from 'react';
-import { Table, Button, Form, Input, Modal, message, Space } from 'antd';
+import { Table, Button, Form, Input, Modal, message, Space, Select } from 'antd';
 import {TablePaginationConfig} from 'antd/es/table/interface';
 import {ColumnsType} from 'antd/es/table/interface';
 import axios from 'axios';
@@ -44,10 +44,10 @@ const EpidemicList: SFC<GreenHouseListProps> = (props) => {
   const [epidmic, setEpidmic] = useState<any>();
   const [modalVisible, setModalVisible] = useState(false);
 
-  const getEpidemics = () => {
+  const getEpidemics = (url: string = 'api/epidemicSurveillance') => {
     axios({
       method: 'GET',
-      url: 'api/epidemicSurveillance',
+      url: url,
     }).then((res) => {
       if (res.data.status === 200){
         const data: EpidemicPeople[] = res.data.data || [];
@@ -77,8 +77,15 @@ const EpidemicList: SFC<GreenHouseListProps> = (props) => {
   };
 
   useEffect(() => {
-    getEpidemics();
+    getEpidemics('api/epidemicSurveillance');
   }, []);
+
+
+  const searchClicked = () => {
+    const value: any = form.getFieldsValue(['name', 'idCard', 'state']);
+    const url = `api/findByEpidemicSurveillanceList?name=${value.name || ''}&idCard=${value.idCard || ''}&state=${value.state || ''}`;
+    getEpidemics(url);
+  };
 
   const createClicked = () => {
     openModal('新增登记', EpidmicMode.create);
@@ -187,18 +194,21 @@ const EpidemicList: SFC<GreenHouseListProps> = (props) => {
           <Form
             layout="inline"
             form={form}>
-            <Form.Item label="姓名">
-              <Input size="small" placeholder="姓名" />
+            <Form.Item label="姓名" name="name">
+              <Input allowClear size="small" placeholder="姓名" />
             </Form.Item>
-            <Form.Item label="身份证号">
-              <Input size="small" placeholder="身份证号" />
+            <Form.Item label="身份证号" name="idCard">
+              <Input allowClear size="small" placeholder="身份证号" />
             </Form.Item>
-            <Form.Item label="状态">
-              <Input size="small" placeholder="状态" />
+            <Form.Item label="状态" name="state">
+              <Select allowClear size="small" style={{minWidth:'180px'}}>
+                {
+                  epidemicTypes.map(type => <Select.Option key={`${type.type}`} value={type.type}>{type.label}</Select.Option>)
+                }
+              </Select>
             </Form.Item>
             <Form.Item>
-              <Button size="small" value="horizontal">查询</Button>
-              <Button size="small" value="vertical">重置</Button>
+              <Button size="small" value="horizontal" onClick={searchClicked}>查询</Button>
             </Form.Item>
           </Form>
           <Button size="small" type="primary" onClick={createClicked}>新增登记</Button>
