@@ -193,7 +193,7 @@ export default class PartyShow extends Component<any, any> {
   jumpToMoreinfo = (pageType: any) => {
     if (pageType == '农副产品'){
       this.props.history.push({
-        pathname: '/farmProduct',
+        pathname: '/partybuild',
       });
     } else {
       this.props.history.push({

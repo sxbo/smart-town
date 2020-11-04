@@ -24,20 +24,20 @@ const PartyBuild: SFC = () => {
           <TabPane
             tab={
               <span>
-                组织管理
+                视频学习
               </span>
             }
             key="1">
-            <Orginization />
+              <Video />
           </TabPane>
           <TabPane
             tab={
               <span>
-                视频学习
+                组织管理
               </span>
             }
             key="2">
-            <Video />
+              <Orginization />
           </TabPane>
           <TabPane
             tab={

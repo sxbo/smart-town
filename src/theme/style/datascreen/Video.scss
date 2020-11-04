@@ -1,0 +1,17 @@
+.screen-scine-land{
+    font-size: .13rem;
+    .s-sl-b{
+        display: flex;
+        height: calc(100% - .4rem);
+        padding: 20px 10px 10px 10px;
+    }
+    .s-sl-vu{
+        height: 100%;
+        width: 33.3%;
+        padding: 1px;
+        iframe{
+            height: 100%;
+            width: 100%;
+        }
+    }
+}

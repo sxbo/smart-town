@@ -1,178 +1,157 @@
+/* eslint-disable newline-after-var */
+/* eslint-disable no-invalid-this */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-magic-numbers */
 import React, {Component} from 'react';
-import {Button} from 'antd';
-import {FullscreenOutlined} from '@ant-design/icons';
-// FullscreenExitOutlined
+import {message} from 'antd';
+// import {FullscreenOutlined} from '@ant-design/icons';
 import BackShadow from './BackShadow';
 import ScreenTitle from './ScreenTitle';
-import MonitorRadar from '../../components/MonitorRadar';
 import '../../theme/style/datascreen/layout.scss';
 import '../../theme/style/common.scss';
-import EpidemicRate from './EpidemicRate';
-import LiquidChart from './LiquidChart';
 import ScreenEpidemicMap from './ScreenEpidemicMap';
-import ScreenDataLines from './ScreenDataLines';
-import ScenicFlow from '../../components/ScenicFlow';
-import ScreenEpidemicChart from './ScreenEpidemicChart';
-import VillagePoorBar from '../../components/VillagePoorBar';
-import ScreenLandslide from './ScreenLandslide';
-// import ScreenModel from './ScreenModel';
-
-const monitorRadarData = [
-  {
-    item: '大棚',
-    user: '全部告警',
-    score: 70,
-  },
-  {
-    item: '养殖',
-    user: '全部告警',
-    score: 60,
-  },
-  {
-    item: '疫情',
-    user: '全部告警',
-    score: 60,
-  },
-  {
-    item: '景区',
-    user: '全部告警',
-    score: 40,
-  },
-  {
-    item: '滑坡',
-    user: '全部告警',
-    score: 60,
-  },
-];
-
-const epidemicLineData = [
-  { type: '确诊', date: '07-26', value: 1000 },
-  { type: '确诊', date: '07-27', value: 5000 },
-  { type: '确诊', date: '07-28', value: 8000 },
-  { type: '确诊', date: '07-29', value: 2000 },
-  { type: '确诊', date: '07-30', value: 600 },
-  { type: '确诊', date: '07-31', value: 1000 },
-  { type: '确诊', date: '08-01', value: 5000 },
-  { type: '确诊', date: '08-02', value: 8000 },
-  { type: '确诊', date: '08-03', value: 2000 },
-  { type: '确诊', date: '08-04', value: 600 },
-  { type: '确诊', date: '08-05', value: 1000 },
-  { type: '确诊', date: '08-06', value: 5000 },
-  { type: '确诊', date: '08-07', value: 8000 },
-  { type: '确诊', date: '08-08', value: 2000 },
-  { type: '确诊', date: '08-09', value: 600 },
-  { type: '确诊', date: '08-10', value: 1000 },
-  { type: '确诊', date: '08-11', value: 5000 },
-  { type: '确诊', date: '08-12', value: 8000 },
-  { type: '确诊', date: '08-13', value: 2000 },
-  { type: '确诊', date: '08-14', value: 600 },
-  { type: '确诊', date: '08-15', value: 1000 },
-  { type: '确诊', date: '08-16', value: 5000 },
-  { type: '确诊', date: '08-17', value: 8000 },
-  { type: '确诊', date: '08-18', value: 2000 },
-  { type: '确诊', date: '08-19', value: 600 },
-  { type: '确诊', date: '08-20', value: 1000 },
-  { type: '确诊', date: '08-21', value: 5000 },
-  { type: '确诊', date: '08-22', value: 8000 },
-  { type: '确诊', date: '08-23', value: 2000 },
-  { type: '确诊', date: '08-24', value: 600 },
-  { type: '确诊', date: '08-25', value: 1000 },
-  { type: '确诊', date: '08-26', value: 5000 },
-  { type: '确诊', date: '08-27', value: 8000 },
-  { type: '确诊', date: '08-28', value: 2000 },
-  { type: '确诊', date: '08-29', value: 600 },
-  { type: '治愈', date: '07-26', value: 500 },
-  { type: '治愈', date: '07-27', value: 1000 },
-  { type: '治愈', date: '07-28', value: 6000 },
-  { type: '治愈', date: '07-29', value: 600 },
-  { type: '治愈', date: '07-30', value: 10 },
-  { type: '治愈', date: '07-31', value: 500 },
-  { type: '治愈', date: '08-01', value: 1000 },
-  { type: '治愈', date: '08-02', value: 6000 },
-  { type: '治愈', date: '08-03', value: 600 },
-  { type: '治愈', date: '08-04', value: 10 },
-  { type: '治愈', date: '08-05', value: 500 },
-  { type: '治愈', date: '08-06', value: 1000 },
-  { type: '治愈', date: '08-07', value: 6000 },
-  { type: '治愈', date: '08-08', value: 600 },
-  { type: '治愈', date: '08-09', value: 10 },
-  { type: '治愈', date: '08-10', value: 500 },
-  { type: '治愈', date: '08-11', value: 1000 },
-  { type: '治愈', date: '08-12', value: 6000 },
-  { type: '治愈', date: '08-13', value: 600 },
-  { type: '治愈', date: '08-14', value: 10 },
-  { type: '治愈', date: '08-15', value: 500 },
-  { type: '治愈', date: '08-16', value: 1000 },
-  { type: '治愈', date: '08-17', value: 6000 },
-  { type: '治愈', date: '08-18', value: 600 },
-  { type: '治愈', date: '08-19', value: 10 },
-  { type: '治愈', date: '08-20', value: 500 },
-  { type: '治愈', date: '08-21', value: 1000 },
-  { type: '治愈', date: '08-22', value: 6000 },
-  { type: '治愈', date: '08-23', value: 600 },
-  { type: '治愈', date: '08-24', value: 10 },
-  { type: '治愈', date: '08-25', value: 500 },
-  { type: '治愈', date: '08-26', value: 1000 },
-  { type: '治愈', date: '08-27', value: 6000 },
-  { type: '治愈', date: '08-28', value: 600 },
-  { type: '治愈', date: '08-29', value: 10 },
-  { type: '死亡', date: '07-26', value: 100 },
-  { type: '死亡', date: '07-27', value: 500 },
-  { type: '死亡', date: '07-28', value: 1000 },
-  { type: '死亡', date: '07-29', value: 200 },
-  { type: '死亡', date: '07-30', value: 20 },
-  { type: '死亡', date: '07-31', value: 100 },
-  { type: '死亡', date: '08-01', value: 500 },
-  { type: '死亡', date: '08-02', value: 1000 },
-  { type: '死亡', date: '08-03', value: 200 },
-  { type: '死亡', date: '08-04', value: 20 },
-  { type: '死亡', date: '08-05', value: 100 },
-  { type: '死亡', date: '08-06', value: 500 },
-  { type: '死亡', date: '08-07', value: 1000 },
-  { type: '死亡', date: '08-08', value: 200 },
-  { type: '死亡', date: '08-09', value: 20 },
-  { type: '死亡', date: '08-10', value: 100 },
-  { type: '死亡', date: '08-11', value: 500 },
-  { type: '死亡', date: '08-12', value: 1000 },
-  { type: '死亡', date: '08-13', value: 200 },
-  { type: '死亡', date: '08-14', value: 20 },
-  { type: '死亡', date: '08-15', value: 100 },
-  { type: '死亡', date: '08-16', value: 500 },
-  { type: '死亡', date: '08-17', value: 1000 },
-  { type: '死亡', date: '08-18', value: 200 },
-  { type: '死亡', date: '08-19', value: 20 },
-  { type: '死亡', date: '08-20', value: 100 },
-  { type: '死亡', date: '08-21', value: 500 },
-  { type: '死亡', date: '08-22', value: 1000 },
-  { type: '死亡', date: '08-23', value: 200 },
-  { type: '死亡', date: '08-24', value: 20 },
-  { type: '死亡', date: '08-25', value: 100 },
-  { type: '死亡', date: '08-26', value: 500 },
-  { type: '死亡', date: '08-27', value: 1000 },
-  { type: '死亡', date: '08-28', value: 200 },
-  { type: '死亡', date: '08-29', value: 20 },
-];
-
+import MemberCount from './MemberCount';
+import Farming from './Farming';
+import HPoor from './HPoor';
+import MonitorCount from './MonitorCount';
+import Video from './Video';
+import Convenient from './Convenient';
+import Epidemic from './Epidemic';
+import axios from 'axios';
 
 export default class Screen extends Component{
+
+  state = {
+    greenHouseMonitors: 0,
+    breedMonitors: 0,
+    totalMonitors: 0,
+    villageMonitors: 0,
+    scenicMonitors: 0,
+    landMonitors: 0,
+    accessToken: '',
+    landSerial: '',
+    scenicSerial1: '',
+    scenicSerial2: '',
+  }
+
+  componentDidMount() {
+    this.getMonitorCounts();
+    this.getAccessToken();
+    this.getLandDeviceSerial();
+    this.getScenicDeviceSerial();
+  }
+
+  getMonitorCounts = (url: string = 'api/getMonitorCount') => {
+    axios({
+      method: 'GET',
+      url: url,
+    }).then((res) => {
+      if (res.data.status === 200){
+        const data = res.data?.data || [];
+        const greenHouseMonitor = data.find((item: any) => item.label == 'greenHouse') || {value: 0};
+        const breedMonitor = data.find((item: any) => item.label == 'breed') || {value: 0};
+        const totalMonitor = data.find((item: any) => item.label == 'total') || {value: 0};
+        const villageMonitor = data.find((item: any) => item.label == 'village') || {value: 0};
+        const scenicMonitor = data.find((item: any) => item.label == 'scenic') || {value: 0};
+        const landMonitor = data.find((item: any) => item.label == 'land') || {value: 0};
+
+        this.setState({
+          greenHouseMonitors: greenHouseMonitor.value,
+          breedMonitors: breedMonitor.value,
+          totalMonitors: totalMonitor.value,
+          villageMonitors: villageMonitor.value,
+          scenicMonitors: scenicMonitor.value,
+          landMonitors: landMonitor.value,
+        });
+      }
+    }).catch(() => {
+      this.setState({
+        greenHouseMonitors: 0,
+        breedMonitors: 0,
+        totalMonitors: 0,
+        villageMonitors: 0,
+        scenicMonitors: 0,
+        landMonitors: 0,
+      });
+    });
+  };
+
+  getAccessToken = () => {
+    axios({
+        method: 'GET',
+        url: '/api/video/getAccessToken',
+    }).then((res) => {
+        if (res.status === 200){
+            const accessToken: string = res.data.data;
+            this.setState({
+                accessToken: accessToken,
+            });
+        }
+    }).catch(() => {
+        message.error('获取萤石云Token失败');
+    });
+  }
+
+  getLandDeviceSerial = () => {
+    // 查询山体设备序列号
+    axios({
+        method: 'GET',
+        url: '/api/videos/getMonitorSeriaNumber?monitorType=2',
+    }).then((res) => {
+        if (res.status === 200){
+            let deviceSerials: any[] = res.data?.data || [];
+            deviceSerials = deviceSerials.slice(0, 1);
+            const landSerial = deviceSerials[0]?.seriaNumber;
+            this.setState({
+              landSerial: landSerial,
+            });
+        }
+    }).catch(() => {
+        message.error('获取设备序列失败！');
+    });
+  }
+
+  getScenicDeviceSerial = () => {
+    // 查询山体设备序列号
+    axios({
+        method: 'GET',
+        url: '/api/videos/getMonitorSeriaNumber?monitorType=1',
+    }).then((res) => {
+        if (res.status === 200){
+            let deviceSerials: any[] = res.data?.data || [];
+            deviceSerials = deviceSerials.slice(0, 2);
+            const scenicSerial1 = deviceSerials[0]?.seriaNumber;
+            const scenicSerial2 = deviceSerials[1]?.seriaNumber;
+            this.setState({
+              scenicSerial1: scenicSerial1,
+              scenicSerial2: scenicSerial2,
+            });
+        }
+    }).catch(() => {
+        message.error('获取设备序列失败！');
+    });
+  }
+
+
   render(){
-    const textStyle = {
-      style: {
-        fill: '#ffffff',
-      },
-    };
 
     const chartStyle = {
       height: 'calc(100% - 0.4rem)',
     };
 
+    const {greenHouseMonitors, breedMonitors,
+      totalMonitors,
+      villageMonitors,
+      scenicMonitors,
+      landMonitors,
+      landSerial,
+      accessToken,
+      scenicSerial1,
+      scenicSerial2} = this.state;
+
     return <>
       <div className="card-box data-screen-wapper">
         <div className="screen-head">
-          <div className="scale-btn">
-            <Button icon={<FullscreenOutlined className="full-screen" style={{color: '#ffffff'}}/>} type="text"></Button>
-            {/* <Button icon={<FullscreenExitOutlined className="full-screen-exit" style={{color: '#ffffff'}}/>} type="text"></Button> */}
-          </div>
           <div className="left-line"></div>
           <div className="circle"></div>
           <div className="screen-title">范家镇实时数据监控平台</div>
@@ -182,50 +161,20 @@ export default class Screen extends Component{
         <div className="screen-body">
           <div className="screen-left-body">
             <div className="screen-monitor-wapper screen-padding ">
-              <BackShadow className="screen-monitor-shadow">
-                <div className="s-chart-wapper">
-                  <ScreenTitle title="告警分布"></ScreenTitle>
-                  <MonitorRadar
-                    legendTextStyle={textStyle}
-                    styleObj={chartStyle}
-                    data={monitorRadarData}
-                    rediusAxisLabel={textStyle}
-                    angleAxixLabel={textStyle}/>
-                </div>
-                <div className="s-chart-wapper">
-                  <ScreenTitle title="疫情数据"></ScreenTitle>
-                  <EpidemicRate
-                    styleObj={chartStyle}
-                    legendTextStyle={textStyle}/>
-                </div>
-                <div className="s-chart-wapper">
-                  <ScreenTitle title="脱贫率"></ScreenTitle>
-                  <LiquidChart></LiquidChart>
-                </div>
-              </BackShadow>
+              <Farming greenHouseMonitors={greenHouseMonitors} breedMonitors={breedMonitors}/>
             </div>
             <div className="screen-green-wapper screen-padding">
-              <BackShadow className="screen-monitor-shadow">
-                <div className="s-chart-wapper">
-                  <ScreenTitle title="大棚数据监控-(雷北村1号)"></ScreenTitle>
-                  <ScreenDataLines/>
-                </div>
-              </BackShadow>
+              <HPoor/>
             </div>
             <div className="screen-breed-wapper screen-padding">
-              <BackShadow className="screen-monitor-shadow">
-                <div className="s-chart-wapper">
-                  <ScreenTitle title="养殖场数据监控-(范家村东)"></ScreenTitle>
-                  <ScreenDataLines/>
-                </div>
-              </BackShadow>
+              <MonitorCount totalMonitors={totalMonitors} villageMonitors={villageMonitors} scenicMonitors={scenicMonitors} landMonitors={landMonitors}/>
             </div>
           </div>
           <div className="screen-midd-body">
             <div className="screen-map-wapper screen-padding" id="screen_map">
               <BackShadow className="screen-monitor-shadow">
                 <div className="s-chart-wapper">
-                  <ScreenTitle title="疫情防控地图"></ScreenTitle>
+                  <ScreenTitle title="范家镇分布图"></ScreenTitle>
                   <div style={{height: 'calc(100% - 0.4rem)'}}>
                     <ScreenEpidemicMap/>
                   </div>
@@ -233,42 +182,29 @@ export default class Screen extends Component{
               </BackShadow>
             </div>
             <div className="screen-scenic-wapper screen-padding">
-              <BackShadow className="screen-monitor-shadow">
-                <div className="s-chart-wapper">
-                  <ScreenTitle title="景区流量数据监控"></ScreenTitle>
-                  <ScenicFlow legendTextStyle={textStyle} styleObj={chartStyle}/>
-                </div>
-              </BackShadow>
+              {
+                accessToken && landSerial && scenicSerial1 && scenicSerial2 &&
+                <Video landSerial={landSerial} accessToken={accessToken} scenicSerial1={scenicSerial1} scenicSerial2={scenicSerial2}/>
+              }
             </div>
           </div>
           <div className="screen-right-body">
             <div className="screen-poor-wapper screen-padding">
-              <BackShadow className="screen-monitor-shadow">
-                <div className="s-chart-wapper">
-                  <ScreenTitle title="疫情走势"></ScreenTitle>
-                  <ScreenEpidemicChart data={epidemicLineData} styleObj={chartStyle}/>
-                </div>
-              </BackShadow>
+              <Convenient/>
             </div>
             <div className="screen-landslid-wapper screen-padding">
-              <BackShadow className="screen-monitor-shadow">
-                <div className="s-chart-wapper">
-                  <ScreenTitle title="贫困户分布趋势"></ScreenTitle>
-                  <VillagePoorBar styleObj={chartStyle} yAxisTitleStyle={textStyle}/>
-                </div>
-              </BackShadow>
+              <Epidemic/>
             </div>
             <div className="screen-epidemic-wapper screen-padding">
               <BackShadow className="screen-monitor-shadow">
                 <div className="s-chart-wapper">
-                  <ScreenTitle title="滑坡数据监控"></ScreenTitle>
-                  <ScreenLandslide styleObj={chartStyle}/>
+                  <ScreenTitle title="各村党员人数统计"></ScreenTitle>
+                  <MemberCount styleObj={chartStyle}/>
                 </div>
               </BackShadow>
             </div>
           </div>
         </div>
-        {/* <ScreenModel visible={true}/> */}
       </div>
     </>;
   }

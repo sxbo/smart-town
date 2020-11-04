@@ -1,0 +1,39 @@
+.screen-convenient{
+    font-size: .13rem;
+    overflow: hidden;
+    .s-convenient-b{
+        height: calc(100% - .4rem);
+        padding-top: 0;
+    }
+    .s-convenient-hy{
+        display: flex;
+        white-space: nowrap;
+        overflow: hidden;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .s-convenient-hyc{
+        display: flex;
+        white-space: nowrap;
+        overflow: hidden;
+        justify-content: center;
+    }
+    .s-convenient-list{
+        padding: 10px;
+        padding-top: 10px;
+        height: 310px;
+        overflow-y: scroll;
+        color: #fff;
+        .ant-list-item{
+            color: #fff;
+            padding: 4px 16px;
+            &:nth-child(odd){
+                background-color:#204160;
+            }
+        }
+    }
+    svg{
+        width: .2rem;
+        height: .2rem;
+    }
+}

@@ -1,0 +1,20 @@
+.screen-epidemic{
+    font-size: .13rem;
+    overflow: hidden;
+    .s-pei-b{
+        height: calc(100% - .6rem);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .s-pei-u{
+        display: flex;
+        align-items: center;
+    }
+    .s-pei-icon{
+        display: inline-block;
+        width: .12rem;
+        height: .12rem;
+        margin-right: 2px;
+    }
+}

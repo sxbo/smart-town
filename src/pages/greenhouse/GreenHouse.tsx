@@ -12,7 +12,6 @@ import HumidityLine from '../../components/HumidityLine';
 import CO2Line from '../../components/CO2Line';
 import PageTitle from '../../components/PageTitle';
 import TemperatureLine from '../../components/TemperatureLine';
-import axios from 'axios';
 
 const GreenHouse: SFC = () => {
 

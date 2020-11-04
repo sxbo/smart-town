@@ -22,6 +22,7 @@ import SystemSetting from './sysSeting';
 import FarmProduct from './farmProduct/FarmProduct';
 import Convenient from './convenient/Convenient';
 import MoreInfoList from './dashboard/MoreInfoList';
+import LandCirculation from './landCirculation';
 const {Content} = Layout;
 
 
@@ -60,7 +61,8 @@ const Home: React.FC = () => {
               <Route path="/farmProduct" component={FarmProduct}></Route>
               <Route path="/convenient" component={Convenient}></Route>
               <Route path="/moreinfo" component={MoreInfoList}></Route>
-              <Route path="/partyshow" exact component={PartyShow}></Route>
+              <Route path="/partyshow" component={PartyShow}></Route>
+              <Route path="/landCirculation" component={LandCirculation}></Route>
             </Switch>
           </Content>
         </Layout>

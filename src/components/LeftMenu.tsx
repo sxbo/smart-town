@@ -20,6 +20,7 @@ import {
   AppstoreOutlined,
   CustomerServiceOutlined,
   FileTextOutlined,
+  SwapOutlined,
 } from '@ant-design/icons';
 import Icon from '@ant-design/icons';
 
@@ -81,6 +82,9 @@ const LeftMenu:SFC = () => {
           </Menu.Item>
           <Menu.Item key="5" icon={<GoldOutlined />}>
             <Link to="/breed">智能养殖</Link>
+          </Menu.Item>
+          <Menu.Item key="20" icon={<SwapOutlined />}>
+            <Link to="/landCirculation">土地流转</Link>
           </Menu.Item>
           <Menu.Item key="6" icon={<AppstoreOutlined />}>
             <Link to="/farmProduct">农副产品</Link>

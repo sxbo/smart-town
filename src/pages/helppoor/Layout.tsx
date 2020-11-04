@@ -1,11 +1,7 @@
 import React, {SFC} from 'react';
 import { Tabs } from 'antd';
-import { EnvironmentOutlined, TeamOutlined, CopyOutlined } from '@ant-design/icons';
+import { TeamOutlined, CopyOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';
-import VillagePoorBar from '../../components/VillagePoorBar';
-import PoorMap from '../../components/PoorMap';
-import OutPoorRateDonut from '../../components/OutPoorRateDonut';
-import OutPoorTrend from '../../components/OutPoorTrend';
 import PageTitle from '../../components/PageTitle';
 import HelpHistoryList from './HelpHistoryList';
 import PoorList from './PoorList';
@@ -28,38 +24,11 @@ const HelpPoor: SFC = () => {
               <TabPane
                 tab={
                   <span>
-                    <EnvironmentOutlined />
-                    脱贫地图
-                  </span>
-                }
-                key="1">
-                <Row>
-                  <Col span={24}>
-                    <PoorMap/>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span={24}>
-                    <VillagePoorBar title="范家镇贫困户统计"/>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span={8}>
-                    <OutPoorRateDonut/>
-                  </Col>
-                  <Col span={16}>
-                    <OutPoorTrend/>
-                  </Col>
-                </Row>
-              </TabPane>
-              <TabPane
-                tab={
-                  <span>
                     <CopyOutlined />
                     扶贫记录
                   </span>
                 }
-                key="2">
+                key="1">
                 <HelpHistoryList pagination={{pageSize: 5}}/>
               </TabPane>
               <TabPane
@@ -69,7 +38,7 @@ const HelpPoor: SFC = () => {
                     贫困户统计
                   </span>
                 }
-                key="3">
+                key="2">
                 <PoorList pagination={{pageSize: 5}}/>
               </TabPane>
             </Tabs>

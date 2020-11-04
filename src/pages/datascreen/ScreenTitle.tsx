@@ -6,7 +6,7 @@ interface DataTitleProp{
   title: string
 }
 
-export default class DataWapper extends Component<DataTitleProp>{
+export default class ScreenTitle extends Component<DataTitleProp>{
   render() {
     const {title} = this.props;
 

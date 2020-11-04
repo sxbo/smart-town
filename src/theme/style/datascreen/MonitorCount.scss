@@ -1,0 +1,52 @@
+.screen-monitor-count{
+    font-size: .13rem;
+    .screen-monitor-count-lr{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .m-u-lr{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .s-m-c-lr-u{
+        padding: 10px;
+        min-width: 1.5rem;
+        overflow: hidden;
+        white-space: nowrap;
+        background: url('../../img/screen_boder.png');
+        background-position:center;
+        background-size: 100% 100%;
+    }
+
+    .s-m-c-lr-h{
+        height: calc(100% - .4rem);
+    }
+    .m-c-h{
+        height: 50%;
+    }
+    .m-circle{
+        width: .4rem;
+        height: .4rem;
+        border: 1px solid #134e88;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+        svg{
+            width: .3rem;
+            height: .3rem;
+        }
+    }
+
+    .s-m-c-title{
+        color: #02edeb;
+    }
+    .s-m-c-num{
+        text-align: center;
+    }
+}

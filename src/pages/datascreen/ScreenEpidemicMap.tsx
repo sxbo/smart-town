@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable import/first */
 /* eslint-disable newline-after-var */
 
@@ -53,7 +54,7 @@ export default class ScreenEpidemicMap extends React.Component<any, ScreenEpidem
             center: [CENTER.x, CENTER.y],
             pitch: 0,
             style: 'dark',
-            zoom: 12.5,
+            zoom: 13,
           }}
           style={{
             position: 'absolute',

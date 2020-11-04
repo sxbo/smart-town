@@ -6,7 +6,6 @@
 /* eslint-disable max-len */
 /* eslint-disable newline-after-var */
 import React, {Component} from 'react';
-import {Button, message, Modal, Upload} from 'antd';
 import { PlayCircleOutlined } from '@ant-design/icons';
 import '../../theme/style/videomonitor/vedioItem.scss';
 import cover from '../../theme/img/vedio.svg';
