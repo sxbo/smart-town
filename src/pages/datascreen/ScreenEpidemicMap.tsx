@@ -1,8 +1,11 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-invalid-this */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable import/first */
 /* eslint-disable newline-after-var */
 
 import * as React from 'react';
+import axios from 'axios';
 const {
   LayerEvent,
   AMapScene,
@@ -15,6 +18,7 @@ import {CENTER, epidemicData} from '../../const/const';
 interface ScreenEpidemicMapState{
   data: Array<Object>;
   popupInfo: any;
+  zoom: number;
 }
 export default class ScreenEpidemicMap extends React.Component<any, ScreenEpidemicMapState> {
 
@@ -26,17 +30,44 @@ export default class ScreenEpidemicMap extends React.Component<any, ScreenEpidem
         feature: '',
       },
       data:[],
+      zoom: 13,
     };
   }
 
   componentDidMount(){
-    this.setState({
-      data: epidemicData,
+    this.getVillageRate();
+  }
+
+  getVillageRate = () => {
+    axios({
+      method: 'GET',
+      url: '/api/spb/getDynamicInformation?type=8',
+    }).then((res) => {
+        if (res.status === 200){
+          const rates = res.data?.data || [];
+          const data = epidemicData.map(item => {
+            const finded = rates.find((rate: any) => item.name == rate.title);
+            return {
+              ...item,
+              content: finded?.content || '占地面积1000亩',
+            };
+          });
+          this.setState({
+            data: data,
+          });
+        } else {
+          this.setState({
+            data: epidemicData,
+          });
+        }
+    }).catch(() => {
+      this.setState({
+        data: epidemicData,
+      });
     });
   }
 
   showPopup = (args: any) => {
-    // eslint-disable-next-line no-invalid-this
     this.setState({
       popupInfo:{
         lnglat: args.lngLat,
@@ -46,7 +77,6 @@ export default class ScreenEpidemicMap extends React.Component<any, ScreenEpidem
   }
   render(){
     const {data, popupInfo} = this.state;
-
     return (
       <>
         <AMapScene
@@ -72,15 +102,7 @@ export default class ScreenEpidemicMap extends React.Component<any, ScreenEpidem
             <Popup lnglat={popupInfo.lnglat}
               option={{closeButton: false}}>
               {popupInfo.feature.name}
-              <ul
-                style={{
-                  margin: 0,
-                }}
-              >
-                <li>确诊:{popupInfo.feature.currentConfirmedCount}</li>
-                <li>治愈:{popupInfo.feature.curedCount}</li>
-                <li>死亡:{popupInfo.feature.deadCount}</li>
-              </ul>
+              <div dangerouslySetInnerHTML={{__html: popupInfo.feature?.content}}></div>
             </Popup>
           )}
           {data && [
@@ -126,8 +148,41 @@ export default class ScreenEpidemicMap extends React.Component<any, ScreenEpidem
                 opacity: 0.6,
               }}
             >
-              <LayerEvent type="mousemove" handler={() => this.showPopup} />
+              <LayerEvent type="mousemove" handler={this.showPopup} />
             </PointLayer>,
+            <PointLayer
+              key={'5'}
+              source={{
+                data,
+                parser: {
+                  type: 'json',
+                  coordinates: 'centroid',
+                },
+              }}
+              color={{
+                values: '#fff',
+              }}
+              shape={{
+                field: 'name',
+                values: 'text',
+              }}
+              filter={{
+                field: 'currentConfirmedCount',
+                values: (v: any) => {
+                  return v > 500;
+                },
+              }}
+              size={{
+                values: 12,
+              }}
+              style={{
+                opacity: 1,
+                strokeOpacity: 1,
+                strokeWidth: 0,
+              }}
+            >
+            <LayerEvent type="mousemove" handler={this.showPopup} />
+          </PointLayer>,
           ]}
         </AMapScene>
       </>

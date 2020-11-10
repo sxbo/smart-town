@@ -1,46 +1,8 @@
 .farming{
     font-size: .13rem;
     overflow: hidden;
-    .gren-breed{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0  .5rem;
-        .gren-breed-green-d{
-            padding: 10px;
-            background: url('../../img/screen_boder.png');
-            background-position:center;
-            background-size: 100% 100%;
-            .gren-breed-green-dd{
-                display: flex;
-                align-items: center;
-                padding: 5px;
-                overflow: hidden;
-                width: 1.3rem;
-                white-space: nowrap;
-                .gren-breed-green-dd-i{
-                    margin-right: 5px;
-                }
-            }
-        }
-        svg{
-            width: .2rem;
-            height: .2rem;
-        }
-    }
-    .farming-product{
-        padding: .1rem  .5rem;
-    }
-    .farm-product-type{
-        display: flex;
-        justify-content: space-between;
-        padding: 0  .5rem;
-    }
-    .farming-number{
-        margin-left: 5px;
-        font-size: .12rem;
-    }
-    .farming-pro-number{
-        font-size: .1rem;
+    #farm_pie{
+        height: calc(100% - .4rem);
+        width: 100%;
     }
 }

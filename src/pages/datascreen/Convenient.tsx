@@ -72,7 +72,7 @@ export default class Convenient extends Component{
                     </div>
                     <div className="s-convenient-hyc">
                         <span><CheckCircleOutlined style={{color: '#02EDEB', width: '.2rem', height: '.2rem'}}/></span>
-                        <span>未处理事件： {downNum} 件</span>
+                        <span>已处理事件： {downNum} 件</span>
                     </div>
                 </div>
                 <div className="s-convenient-list">

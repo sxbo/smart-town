@@ -22,8 +22,6 @@ import axios from 'axios';
 export default class Screen extends Component{
 
   state = {
-    greenHouseMonitors: 0,
-    breedMonitors: 0,
     totalMonitors: 0,
     villageMonitors: 0,
     scenicMonitors: 0,
@@ -48,16 +46,12 @@ export default class Screen extends Component{
     }).then((res) => {
       if (res.data.status === 200){
         const data = res.data?.data || [];
-        const greenHouseMonitor = data.find((item: any) => item.label == 'greenHouse') || {value: 0};
-        const breedMonitor = data.find((item: any) => item.label == 'breed') || {value: 0};
         const totalMonitor = data.find((item: any) => item.label == 'total') || {value: 0};
         const villageMonitor = data.find((item: any) => item.label == 'village') || {value: 0};
         const scenicMonitor = data.find((item: any) => item.label == 'scenic') || {value: 0};
         const landMonitor = data.find((item: any) => item.label == 'land') || {value: 0};
 
         this.setState({
-          greenHouseMonitors: greenHouseMonitor.value,
-          breedMonitors: breedMonitor.value,
           totalMonitors: totalMonitor.value,
           villageMonitors: villageMonitor.value,
           scenicMonitors: scenicMonitor.value,
@@ -66,8 +60,6 @@ export default class Screen extends Component{
       }
     }).catch(() => {
       this.setState({
-        greenHouseMonitors: 0,
-        breedMonitors: 0,
         totalMonitors: 0,
         villageMonitors: 0,
         scenicMonitors: 0,
@@ -139,7 +131,7 @@ export default class Screen extends Component{
       height: 'calc(100% - 0.4rem)',
     };
 
-    const {greenHouseMonitors, breedMonitors,
+    const {
       totalMonitors,
       villageMonitors,
       scenicMonitors,
@@ -161,7 +153,7 @@ export default class Screen extends Component{
         <div className="screen-body">
           <div className="screen-left-body">
             <div className="screen-monitor-wapper screen-padding ">
-              <Farming greenHouseMonitors={greenHouseMonitors} breedMonitors={breedMonitors}/>
+              <Farming/>
             </div>
             <div className="screen-green-wapper screen-padding">
               <HPoor/>

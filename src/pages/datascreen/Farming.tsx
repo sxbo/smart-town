@@ -6,147 +6,114 @@
 import React, {Component} from 'react';
 import BackShadow from './BackShadow';
 import ScreenTitle from './ScreenTitle';
-import {BreedIcon, FarmIcon, MonitorIcon} from './Icon';
 import axios from 'axios';
+import 'echarts/lib/chart/pie';
+// 引入提示框和标题组件
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
 import '../../theme/style/datascreen/Farming.scss';
+const echarts = require('echarts/lib/echarts');
+
+const defaultDatas = [{
+        type: '水稻',
+        count: '300亩',
+    },
+    {
+        type: '葡萄',
+        count: '1000亩',
+    },
+    {
+        type: '苹果',
+        count: '3000亩',
+    },
+    {
+        type: '李子',
+        count: '30亩',
+    },
+    {
+        type: '冬枣',
+        count: '5000亩',
+    },
+];
+
 export default class Farming extends Component<any, any>{
 
-    state = {
-        greenHousesCount: 0,
-        breedsCount: 0,
-        products: [],
-    };
-
     componentDidMount(){
-        this.getGreenhouses();
-        this.getBreeds();
-        this.getAllTypes();
+        var myChart = echarts.init(document.getElementById('farm_pie'));
+        // 绘制图表
+        window.onresize = function () {
+            myChart.resize();
+        };
+
+        this.getAllFarms((farms: any) => {
+            const legends: any[] = farms.map((item: any) => item.type);
+            const seriesData: any[] = farms.map((item: any) => {return {name: item.type, value: item.count};});
+            myChart.setOption({
+                tooltip: {
+                    trigger: 'item',
+                    backgroundColor: 'rgba(245, 245, 245, 0.8)',
+                    borderWidth: 0,
+                    borderColor: '#fff',
+                    textStyle: {
+                        color: '#000',
+                    },
+                    formatter: '{b} : {c} 亩',
+                },
+                legend: {
+                    bottom: 1,
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff',
+                    },
+                    data: legends,
+                },
+                series: [
+                    {
+                        type: 'pie',
+                        radius: '65%',
+                        center: ['50%', '50%'],
+                        selectedMode: 'single',
+                        bottom: 30,
+                        top: 5,
+                        data: seriesData,
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)',
+                            },
+                        },
+                    },
+                ],
+                grid: {
+                    top:'5px',
+                    left:'5px',
+                    right:'5px',
+                    bottom:'5px',
+                },
+            });
+        });
     }
 
-    getGreenhouses = () => {
-        axios({
-          method: 'GET',
-          url: 'api/greenhouse',
-        }).then((res) => {
-          if (res.data.status === 200){
-            const data = res.data.data || [];
-            this.setState({greenHousesCount: data?.length});
-          }
-        }).catch((err) => {
-            throw new Error(err);
-        });
-    };
-
-    getBreeds = () => {
-        axios({
-          method: 'GET',
-          url: 'api/breed',
-        }).then((res) => {
-          if (res.data.status === 200){
-            const data = res.data.data || [];
-            this.setState({breedsCount: data?.length});
-          }
-        }).catch((err) => {
-            throw new Error(err);
-        });
-    };
-
-    getAllTypes = () => {
+    getAllFarms = (callBack: (data: any) => void) => {
 		axios({
 			method: 'GET',
-			url: 'api/getAllFarmTypes',
+			url: 'api/getFarmCount',
 		}).then((res) => {
 			if (res.data.status === 200){
-                let allTypes: any[] = res.data?.data || [];
-                allTypes = allTypes.slice(0, 6);
-                this.getAllFarms((allfarms: []) => {
-                    const products: { type: any; count: number; }[] = [];
-                    allTypes.map((item: any) => {
-                        const typeId = item.id;
-                        const type = item.type;
-                        const typeFarms = allfarms.filter((farm: any) => farm.type.id == typeId);
-                        products.push({
-                            type: type,
-                            count: typeFarms.length,
-                        });
-                    });
-                    this.setState({products: products});
-                });
+                const farms = res.data?.data || defaultDatas;
+                callBack(farms);
 			}
 		}).catch(() => {
-			this.setState({
-			    products: [{count: 30, type: '水果'}, {count: 20, type: '蔬菜'}],
-			});
+			callBack(defaultDatas);
 		});
     }
 
-    getAllFarms = (success: (farms: []) => void) => {
-		axios({
-			method: 'GET',
-			url: 'api/spb/getAllFarmProduct',
-		}).then((res) => {
-			if (res.data.status === 200){
-                const allfarms: [] = res.data?.data || [];
-                success(allfarms);
-			}
-		}).catch((err) => {
-            this.setState({
-			    products: [{count: 30, type: '水果'}, {count: 20, type: '蔬菜'}],
-			});
-			throw new Error(err);
-		});
-	}
-
     render() {
-        const {greenHousesCount, breedsCount, products} = this.state;
-        const {greenHouseMonitors = 0, breedMonitors = 0} = this.props;
         return <BackShadow className="farming">
-            <ScreenTitle title="农业"></ScreenTitle>
-            <div className="gren-breed">
-                <div className="gren-breed-green-d">
-                    <div className="gren-breed-green-dd">
-                        <span className="gren-breed-green-dd-i">
-                            <FarmIcon/>
-                        </span>
-                        <span>大棚:</span>
-                        <span className="farming-number">{greenHousesCount} 户</span>
-                    </div>
-                    <div className="gren-breed-green-dd">
-                        <span className="gren-breed-green-dd-i">
-                            <MonitorIcon/>
-                        </span>
-                        <span>监控点位:</span>
-                        <span className="farming-number">{greenHouseMonitors} 个</span>
-                    </div>
-                </div>
-                <div className="gren-breed-green-d">
-                    <div className="gren-breed-green-dd">
-                        <span className="gren-breed-green-dd-i">
-                            <BreedIcon/>
-                        </span>
-                        <span>养殖场:</span>
-                        <span className="farming-number">{breedsCount} 户</span>
-                    </div>
-                    <div className="gren-breed-green-dd">
-                        <span className="gren-breed-green-dd-i">
-                            <MonitorIcon/>
-                        </span>
-                        <span>监控点位:</span>
-                        <span className="farming-number">{breedMonitors} 个</span>
-                    </div>
-                </div>
-            </div>
-            <div className="farming-product">农副产品:</div>
-            <div className="farm-product-type">
-                {
-                    products.map((product: any, index: number) => {
-                        return <div key={`${index}`}>
-                            <div>{product.type}</div>
-                            <div className="farming-pro-number">{product.count} 种</div>
-                        </div>;
-                    })
-                }
-            </div>
+            <ScreenTitle title="农业分布图"></ScreenTitle>
+            <div style={this.props.styleObj} id="farm_pie"> </div>
         </BackShadow>;
     }
 }
