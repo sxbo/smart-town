@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Scene, PointLayer } from '@antv/l7';
 import { ISceneConfig } from '@antv/l7/es';
 import { GaodeMap } from '@antv/l7-maps';

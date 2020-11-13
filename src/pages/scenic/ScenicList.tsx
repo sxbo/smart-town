@@ -170,7 +170,7 @@ const ScenicList: SFC<GreenHouseListProps> = (props) => {
       <Table
         columns={columns}
         dataSource={scenics}
-        pagination={props.pagination}
+        pagination={{...props.pagination, total: scenics.length, showTotal: total => `共 ${total} 条`}}
         rowKey="id"
         size="small"
       />

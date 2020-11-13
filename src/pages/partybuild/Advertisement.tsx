@@ -172,7 +172,7 @@ export default class Advertisement extends Component<any, AdvertisementState> {
             </div>
           </div>
           <div>
-            <Table columns={columns} dataSource={advertises} rowKey="id"/>
+            <Table columns={columns} dataSource={advertises} rowKey="id" pagination={{total: advertises.length, showTotal: total => `共 ${total} 条`}}/>
           </div>
           {
             newVisible && <NewAdvertise mode={mode} advertise={advertise} title={modalTitle} visible={newVisible} createSuccess={this.createSuccessCall} close={this.closeNewAdvertise} />

@@ -244,7 +244,7 @@ export default class Orginization extends Component<any, OrginizationState> {
           </div>
         </div>
         <div>
-          <Table loading={loading} columns={columns} dataSource={organizations} rowKey="id"/>
+          <Table loading={loading} columns={columns} dataSource={organizations} pagination={{total: organizations.length, showTotal: total => `共 ${total} 条`}} rowKey="id"/>
         </div>
         <NewMember mode={mode} title={title} member={member} newMemberVisble={this.state.newMemberVisible} close={this.closeNewMember} createSuccess={this.createSuccess}/>
       </div>

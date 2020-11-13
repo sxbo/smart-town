@@ -173,7 +173,7 @@ const PoorList: SFC<GreenHouseListProps> = (props) => {
       <Table
         columns={columns}
         dataSource={poors}
-        pagination={props.pagination}
+        pagination={{...props.pagination, total: poors.length, showTotal: total => `共 ${total} 条`}}
         rowKey="id"
         size="small"
       />

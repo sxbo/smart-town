@@ -395,7 +395,7 @@ export default class Dynamic extends Component<any, DynamicState> {
           </div>
         </div>
         <div>
-          <Table loading={loading} columns={columns} dataSource={dynamics} rowKey='id'/>
+          <Table loading={loading} columns={columns} dataSource={dynamics} rowKey='id' pagination={{total: dynamics.length, showTotal: total => `共 ${total} 条`}}/>
         </div>
         <NewDynamic types={types} title={newTitle} visible={this.state.newDynamicVisible} createSuccess={this.createSuccessCall} close={this.closeNewDynamic}/>
         {editDynamicVisible && <EditDynamic types={types} title={editTitle} visible={editDynamicVisible} editSuccess={this.editSuccessCall} close={this.closeEditDynamic} dynamic={dynamic}/>}

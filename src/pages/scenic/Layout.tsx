@@ -16,7 +16,7 @@ const ScenicMonitor: SFC = () => {
       <Row>
         <Col span={24}>
           <div className="card-box">
-            <ScenicList pagination={{pageSize: 5}}/>
+            <ScenicList pagination={{pageSize: 10}}/>
           </div>
         </Col>
       </Row>

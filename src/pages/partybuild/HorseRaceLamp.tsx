@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable eqeqeq */
 /* eslint-disable newline-after-var */
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -168,7 +169,7 @@ export default class HorseRaceLamp extends Component<any, HorseRaceLampState> {
           </div>
         </div>
         <div>
-          <Table columns={columns} dataSource={hrls} rowKey='id'/>
+          <Table columns={columns} dataSource={hrls} rowKey='id' pagination={{total: hrls.length, showTotal: total => `共 ${total} 条`}}/>
         </div>
         <NewHorseRaceLamp createSuccess={this.createSuccessCall} visible={this.state.visible} close={this.closeCreateModel}/>
         {editVisible && <EditHorseRaceLamp horseRaceLamp={horseRaceLamp} editSuccess={this.editSuccessCall} visible={editVisible} close={this.closeEditModel}/>}

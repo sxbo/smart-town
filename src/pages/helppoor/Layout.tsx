@@ -29,7 +29,7 @@ const HelpPoor: SFC = () => {
                   </span>
                 }
                 key="1">
-                <HelpHistoryList pagination={{pageSize: 5}}/>
+                <HelpHistoryList pagination={{pageSize: 10}}/>
               </TabPane>
               <TabPane
                 tab={
@@ -39,7 +39,7 @@ const HelpPoor: SFC = () => {
                   </span>
                 }
                 key="2">
-                <PoorList pagination={{pageSize: 5}}/>
+                <PoorList pagination={{pageSize: 10}}/>
               </TabPane>
             </Tabs>
           </div>

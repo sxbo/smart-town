@@ -176,7 +176,7 @@ const GreenHouseList: SFC<GreenHouseListProps> = (props) => {
       <Table
         columns={columns}
         dataSource={greehouseData}
-        pagination={props.pagination}
+        pagination={{...props.pagination, total: greehouseData.length, showTotal: total => `共 ${total} 条`}}
         rowKey="id"
         size="small"
       />

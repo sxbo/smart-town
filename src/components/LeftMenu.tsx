@@ -1,7 +1,9 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable newline-after-var */
 /* eslint-disable max-len */
 import React, {SFC} from 'react';
 import {useSelector} from 'react-redux';
-import { Layout, Menu} from 'antd';
+import { Layout, Menu, Modal} from 'antd';
 import {Link} from 'react-router-dom';
 import {RootState} from '../store';
 import {
@@ -63,13 +65,43 @@ const LeftMenu:SFC = () => {
   const ControlIcon = (props: any) => <Icon component={ControlSvg} {...props} />;
 
   const dashboardState = useSelector((state: RootState) => ({menuCollapsed: state.dashboard.menuCollapsed}));
+  const onMenuItemClick = (params: any) => {
+    console.log(params);
+    const {key} = params;
+    if (key === '7'){
+      Modal.confirm({
+        title: '系统将跳转至农资监管平台',
+        content: '确认跳转？',
+        okText: '确认',
+        cancelText: '取消',
+        onOk: () => {
+          window.open('http://www.erp.900nong.com', '_blank');
+        },
+      });
+    }
 
+    if (key === '18'){
+      Modal.confirm({
+        title: '系统将跳转至农业数据平台',
+        content: '确认跳转？',
+        okText: '确认',
+        cancelText: '取消',
+        onOk: () => {
+          window.open('http://test.itsv.com/pc/index.html', '_blank');
+        },
+      });
+    }
+    const event: Event = params.domEvent;
+    event.preventDefault();
+    event.stopPropagation();
+  };
   return (
     <Sider collapsed={dashboardState.menuCollapsed} width={200} className="site-layout-background">
       <Menu className="leftbg"
         mode="inline"
         defaultSelectedKeys={['1']}
-        style={{ height: '100%', borderRight: 0 }}>
+        style={{ height: '100%', borderRight: 0 }}
+        onClick={onMenuItemClick}>
         <Menu.Item key="1" icon={<HomeOutlined />}>
           <Link to="/">主页<span style={{visibility: 'hidden'}}>数据</span></Link>
         </Menu.Item>
@@ -89,8 +121,11 @@ const LeftMenu:SFC = () => {
           <Menu.Item key="6" icon={<AppstoreOutlined />}>
             <Link to="/farmProduct">农副产品</Link>
           </Menu.Item>
+          <Menu.Item key="18" icon={<LinkOutlined />}>
+            <a>农业数据</a>
+          </Menu.Item>
           <Menu.Item key="7" icon={<LinkOutlined />}>
-            <a href="http://www.erp.900nong.com" target="_blank" rel="noopener noreferrer">农资监管</a>
+            <a>农资监管</a>
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu key="sub2" icon={<ControlIcon/>} title="综合治理">

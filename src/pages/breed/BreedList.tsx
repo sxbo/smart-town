@@ -196,7 +196,7 @@ const BreedList: SFC<BreedListProps> = (props) => {
       <Table
         columns={columns}
         dataSource={breeds}
-        pagination={props.pagination}
+        pagination={{...props.pagination, total: breeds.length, showTotal: total => `共 ${total} 条`}}
         rowKey="id"
         size="small"
       />

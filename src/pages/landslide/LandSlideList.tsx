@@ -164,7 +164,7 @@ const LandSlideList: SFC<GreenHouseListProps> = (props) => {
       <Table
         columns={columns}
         dataSource={lanSlides}
-        pagination={props.pagination}
+        pagination={{...props.pagination, total: lanSlides.length, showTotal: total => `共 ${total} 条`}}
         rowKey="id"
         size="small"
       />

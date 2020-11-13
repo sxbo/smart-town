@@ -178,7 +178,7 @@ export default class LandCirculation extends Component{
                     <Table
                     columns={columns}
                     dataSource={landCirculatio}
-                    pagination={{pageSize: 5}}
+                    pagination={{pageSize: 10, total: landCirculatio.length, showTotal: total => `共 ${total} 条`}}
                     rowKey="id"
                     size="small"/>
                 </div>

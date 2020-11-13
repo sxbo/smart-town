@@ -134,9 +134,9 @@ const HelpHistoryList: SFC<GreenHouseListProps> = (props) => {
       key: 'helpProject',
     },
     {
-      title: '帮扶时间',
-      key: 'createTime',
-      dataIndex: 'createTime',
+      title: '脱贫年度',
+      key: 'poorYear',
+      dataIndex: 'poorYear',
     },
     {
       title: '当前贫困状态',
@@ -181,7 +181,7 @@ const HelpHistoryList: SFC<GreenHouseListProps> = (props) => {
       <Table
         columns={columns}
         dataSource={helpPoorRecords}
-        pagination={props.pagination}
+        pagination={{...props.pagination, total: helpPoorRecords.length, showTotal: total => `共 ${total} 条`}}
         rowKey="id"
         size="small"
       />

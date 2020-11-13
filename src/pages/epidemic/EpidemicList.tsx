@@ -217,7 +217,7 @@ const EpidemicList: SFC<GreenHouseListProps> = (props) => {
       <Table
         columns={columns}
         dataSource={epidemics}
-        pagination={props.pagination}
+        pagination={{...props.pagination, total: epidemics.length, showTotal: total => `共 ${total} 条`}}
         rowKey="id"
         size="small"
       />

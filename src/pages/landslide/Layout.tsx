@@ -21,7 +21,7 @@ const LandSlide: SFC = () => {
       <Row>
         <Col span={24}>
           <div className="card-box">
-            <LandSlideList pagination={{pageSize: 5}}/>
+            <LandSlideList pagination={{pageSize: 10}}/>
           </div>
         </Col>
       </Row>

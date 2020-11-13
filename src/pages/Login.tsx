@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import React, {SFC, useState} from 'react';
 import '../theme/style/Login.scss';
 import { Form, Input, Button, Checkbox } from 'antd';

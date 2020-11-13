@@ -32,7 +32,7 @@ const EpidemicSituation: SFC = () => {
       </PageTitle>
       <Row>
         <Col span={24}>
-          <EpidemicList pagination={{pageSize: 5}} count={countEpidemic}/>
+          <EpidemicList pagination={{pageSize: 10}} count={countEpidemic}/>
         </Col>
       </Row>
     </div>

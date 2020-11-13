@@ -6,10 +6,9 @@
 /* eslint-disable newline-after-var */
 import React, {Component} from 'react';
 import { FormInstance } from 'antd/lib/form/Form';
-import {Modal, Form, Input, message, Select, DatePicker} from 'antd';
+import {Modal, Form, Input, message, Select} from 'antd';
 import axios from 'axios';
 import {HelpHistoryMode} from './HelpHistoryList';
-import moment from 'moment';
 
 export default class HelpHistoryModal extends Component<any, any> {
     formRef: React.RefObject<FormInstance>;
@@ -30,7 +29,6 @@ export default class HelpHistoryModal extends Component<any, any> {
                 const helpHistory_create = {
                     ...data,
                 };
-                helpHistory_create.createTime = helpHistory_create?.createTime?.format('YYYY-MM-DD') || moment().format('YYYY-MM-DD');
                 this.createApi(helpHistory_create, () => {
                     this.props.refreshList?.();
                     const {close} = this.props;
@@ -41,7 +39,6 @@ export default class HelpHistoryModal extends Component<any, any> {
                     ...helpHistory,
                     ...data,
                 };
-                helpHistory_edit.createTime = helpHistory_edit?.createTime?.format('YYYY-MM-DD') || moment().format('YYYY-MM-DD');
                 this.editApi(helpHistory_edit, () => {
                     this.props.refreshList?.();
                     const {close} = this.props;
@@ -97,12 +94,6 @@ export default class HelpHistoryModal extends Component<any, any> {
         };
         const {title, visible, helpHistory = {}} = this.props;
         let helpHistor = JSON.parse(JSON.stringify(helpHistory));
-        const createTime = moment(helpHistor?.createTime, 'YYYY-MM-DD');
-        if (createTime.isValid()){
-            helpHistor.createTime = moment(helpHistor?.createTime, 'YYYY-MM-DD');
-        } else {
-            helpHistor.createTime = moment();
-        }
         return <Modal
             title={title}
             visible={visible}
@@ -124,8 +115,8 @@ export default class HelpHistoryModal extends Component<any, any> {
                 <Form.Item name="helpProject" label="所属项目" initialValue={helpHistor?.helpProject}>
                     <Input />
                 </Form.Item>
-                <Form.Item name="createTime" label="帮扶时间" initialValue={helpHistor?.createTime} rules={[{ required: true, message: '请填写帮扶时间!'}]}>
-                    <DatePicker format="YYYY-MM-DD"/>
+                <Form.Item name="poorYear" label="脱贫年度" initialValue={helpHistor?.poorYear} rules={[{ required: true, message: '请填写脱贫年度!'}]}>
+                    <Input />
                 </Form.Item>
                 <Form.Item name="poorState" label="当前状态" initialValue={helpHistor?.poorState} rules={[{ required: true, message: '请填写状态!'}]}>
                     <Select>

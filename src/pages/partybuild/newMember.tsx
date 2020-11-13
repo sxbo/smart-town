@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-invalid-this */
 /* eslint-disable newline-after-var */

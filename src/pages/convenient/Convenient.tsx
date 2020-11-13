@@ -278,7 +278,7 @@ export default class Convenient extends Component {
 						<Table
 							columns={columns}
 							dataSource={convenients}
-							pagination={{pageSize: 10}}
+							pagination={{pageSize: 10, total: convenients.length, showTotal: total => `共 ${total} 条`}}
 							rowKey="bmId"
 						/>
 					</div>

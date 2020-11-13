@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 (function(doc, win) {
   var docEl = doc.documentElement;
   var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
