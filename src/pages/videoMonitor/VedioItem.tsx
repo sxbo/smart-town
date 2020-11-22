@@ -63,7 +63,7 @@ export default class VideoItem extends Component<VideoItemPro, any> {
       url: 'ezopen://open.ys7.com/' + this.props.video.deviceSerial + '/' + this.props.video.channelNo + '.hd.live',
       deviceSerial: this.props.video.deviceSerial,
       channelNo: this.props.video.channelNo,
-      template: 'security',
+      template: 'security', // voice
       audio: 1, // 是否默认开启声音 0 - 关闭 1 - 开启
       autoplay: 0,
       width:651,

@@ -91,6 +91,17 @@ const LeftMenu:SFC = () => {
         },
       });
     }
+    if (key === '19'){
+      Modal.confirm({
+        title: '系统将跳转至农业电商平台',
+        content: '确认跳转？',
+        okText: '确认',
+        cancelText: '取消',
+        onOk: () => {
+          window.open('https://shop66088405.taobao.com/', '_blank');
+        },
+      });
+    }
     const event: Event = params.domEvent;
     event.preventDefault();
     event.stopPropagation();
@@ -126,6 +137,9 @@ const LeftMenu:SFC = () => {
           </Menu.Item>
           <Menu.Item key="7" icon={<LinkOutlined />}>
             <a>农资监管</a>
+          </Menu.Item>
+          <Menu.Item key="19" icon={<LinkOutlined />}>
+            <a>农业电商</a>
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu key="sub2" icon={<ControlIcon/>} title="综合治理">
