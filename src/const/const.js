@@ -115,6 +115,10 @@ export const epidemicTypes = [
     type: 4,
     label: '无症状',
   },
+  {
+    type: 5,
+    label: '正常',
+  },
 ];
 
 export const jopType = [

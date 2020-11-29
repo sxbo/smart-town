@@ -1,11 +1,14 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-invalid-this */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable newline-after-var */
 /* eslint-disable max-len */
 import React, {SFC} from 'react';
 import {useSelector} from 'react-redux';
 import { Layout, Menu, Modal} from 'antd';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {RootState} from '../store';
+
 import {
   HomeOutlined,
   StarOutlined,
@@ -23,6 +26,7 @@ import {
   CustomerServiceOutlined,
   FileTextOutlined,
   SwapOutlined,
+  SoundOutlined,
 } from '@ant-design/icons';
 import Icon from '@ant-design/icons';
 
@@ -65,8 +69,8 @@ const LeftMenu:SFC = () => {
   const ControlIcon = (props: any) => <Icon component={ControlSvg} {...props} />;
 
   const dashboardState = useSelector((state: RootState) => ({menuCollapsed: state.dashboard.menuCollapsed}));
+  const history = useHistory();
   const onMenuItemClick = (params: any) => {
-    console.log(params);
     const {key} = params;
     if (key === '7'){
       Modal.confirm({
@@ -102,6 +106,15 @@ const LeftMenu:SFC = () => {
         },
       });
     }
+
+    if (key === '21'){
+      history.push({
+        pathname: '/moreinfo',
+        state: {
+          pageType: 11,
+        },
+      });
+    }
     const event: Event = params.domEvent;
     event.preventDefault();
     event.stopPropagation();
@@ -120,6 +133,9 @@ const LeftMenu:SFC = () => {
           <Link to="/datascreen">数据大屏</Link>
         </Menu.Item>
         <Menu.SubMenu key="sub1" icon={<FarmIcon/>} title="农业" >
+          <Menu.Item key="100" icon={<SoundOutlined />}>
+            <Link to="/travel">旅游宣传</Link>
+          </Menu.Item>
           <Menu.Item key="4" icon={<DeploymentUnitOutlined />}>
             <Link to="/greenhouse">智能大棚</Link>
           </Menu.Item>
@@ -143,6 +159,9 @@ const LeftMenu:SFC = () => {
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu key="sub2" icon={<ControlIcon/>} title="综合治理">
+          <Menu.Item key="21" icon={<LinkOutlined />}>
+            <a>公共安全</a>
+          </Menu.Item>
           <Menu.Item key="9" icon={<DotChartOutlined />}>
             <Link to="/epidemic">疫情防控</Link>
           </Menu.Item>

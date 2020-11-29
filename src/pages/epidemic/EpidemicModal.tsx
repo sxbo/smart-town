@@ -115,7 +115,7 @@ export default class EpidemicModal extends Component<any, any> {
                 <Form.Item name="idCard" label="身份证" initialValue={epidmic?.idCard} rules={[{ required: true, message: '请填写身份证!'}]}>
                     <Input />
                 </Form.Item>
-                <Form.Item name="village" label="所属村" initialValue={epidmic?.village} rules={[{ required: true, message: '请填写所属村庄!'}]}>
+                <Form.Item name="village" label="详情" initialValue={epidmic?.village} rules={[{ required: true, message: '请填写详细信息!'}]}>
                     <Input />
                 </Form.Item>
                 <Form.Item name="state" label="状态" initialValue={epidmic?.state} rules={[{ required: true, message: '请填写状态!'}]}>

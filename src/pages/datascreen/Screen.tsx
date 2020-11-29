@@ -156,7 +156,12 @@ export default class Screen extends Component{
               <Farming/>
             </div>
             <div className="screen-green-wapper screen-padding">
-              <HPoor/>
+              <BackShadow className="screen-monitor-shadow">
+                <div className="s-chart-wapper">
+                  <ScreenTitle title="各村党员人数统计"></ScreenTitle>
+                  <HPoor styleObj={chartStyle}/>
+                </div>
+              </BackShadow>
             </div>
             <div className="screen-breed-wapper screen-padding">
               <MonitorCount totalMonitors={totalMonitors} villageMonitors={villageMonitors} scenicMonitors={scenicMonitors} landMonitors={landMonitors}/>

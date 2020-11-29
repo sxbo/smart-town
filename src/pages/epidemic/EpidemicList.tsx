@@ -32,7 +32,7 @@ export enum EpidmicMode{
 
 interface GreenHouseListProps{
   pagination: false | TablePaginationConfig | undefined
-  count: (diagnose: any, cure: any, separate: any, asymptomatic: any) => void;
+  count: (diagnose: any, cure: any, separate: any, asymptomatic: any, nomal: any) => void;
 }
 
 const EpidemicList: SFC<GreenHouseListProps> = (props) => {
@@ -55,6 +55,7 @@ const EpidemicList: SFC<GreenHouseListProps> = (props) => {
         let cure: any = 0;
         let separate: any = 0;
         let asymptomatic: any = 0;
+        let nomal: any = 0;
         data.map(item => {
           if (item.state == 1){
             diagnose++;
@@ -62,11 +63,13 @@ const EpidemicList: SFC<GreenHouseListProps> = (props) => {
             cure++;
           } else if (item.state == 3) {
             separate++;
-          } else {
+          } else if (item.state == 4){
             asymptomatic++;
+          } else {
+            nomal++;
           }
         });
-        props.count(diagnose, cure, separate, asymptomatic);
+        props.count(diagnose, cure, separate, asymptomatic, nomal);
         setEpidemics(data);
       } else {
         setEpidemics([]);
@@ -157,9 +160,13 @@ const EpidemicList: SFC<GreenHouseListProps> = (props) => {
       dataIndex: 'idCard',
     },
     {
-      title: '所属村',
+      title: '详情',
       dataIndex: 'village',
       key: 'village',
+      width: '30%',
+      render: (text: string) => {
+        return <div dangerouslySetInnerHTML={{__html: text}}></div>;
+      },
     },
     {
       title: '登记时间',

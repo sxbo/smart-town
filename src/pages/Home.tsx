@@ -23,6 +23,7 @@ import FarmProduct from './farmProduct/FarmProduct';
 import Convenient from './convenient/Convenient';
 import MoreInfoList from './dashboard/MoreInfoList';
 import LandCirculation from './landCirculation';
+import Travel from './Travel/TravelVideo';
 const {Content} = Layout;
 
 
@@ -63,6 +64,7 @@ const Home: React.FC = () => {
               <Route path="/moreinfo" component={MoreInfoList}></Route>
               <Route path="/partyshow" component={PartyShow}></Route>
               <Route path="/landCirculation" component={LandCirculation}></Route>
+              <Route path="/travel" component={Travel}></Route>
             </Switch>
           </Content>
         </Layout>

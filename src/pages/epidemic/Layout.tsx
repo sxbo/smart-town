@@ -14,12 +14,14 @@ const EpidemicSituation: SFC = () => {
   const [diagnose, setDiagnose] = useState(0);
   const [separate, setSeparate] = useState(0);
   const [asymptomatic, setAsymptomatic] = useState(0);
+  const [nomal, setNomal] = useState(0);
 
-  const countEpidemic = (diagnose: any, cure: any, separate: any, asymptomatic: any) => {
+  const countEpidemic = (diagnose: any, cure: any, separate: any, asymptomatic: any, nomal: any) => {
     setCureCount(cure);
     setDiagnose(diagnose);
     setSeparate(separate);
     setAsymptomatic(asymptomatic);
+    setNomal(nomal);
   };
 
   return (
@@ -29,6 +31,7 @@ const EpidemicSituation: SFC = () => {
 				<span style={{display: 'inline-block', width: '10px', background: colors.success, height: '10px'}}></span><span style={{marginRight: '20px'}}>治愈：{cureCount}</span>
         <span style={{display: 'inline-block', width: '10px', background: colors.warn, height: '10px'}}></span><span style={{marginRight: '20px'}}>隔离：{separate}</span>
         <span style={{display: 'inline-block', width: '10px', background: colors.primary, height: '10px'}}></span><span style={{marginRight: '20px'}}>无症状：{asymptomatic}</span>
+        <span style={{display: 'inline-block', width: '10px', background: colors.primary, height: '10px'}}></span><span style={{marginRight: '20px'}}>正常：{nomal}</span>
       </PageTitle>
       <Row>
         <Col span={24}>

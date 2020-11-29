@@ -24,6 +24,8 @@ export default class Convenient extends Component {
 		convenient: {},
 		downNum: 0,
 		doingNum: 0,
+		selectedRowKeys: [],
+		selectedRows: [],
 	}
 
 	componentDidMount() {
@@ -182,8 +184,42 @@ export default class Convenient extends Component {
 			});
 		});
 	}
+
+	export = () => {
+		const {selectedRows} = this.state;
+		if (!selectedRows.length){
+			message.info('请先选择需要导出的数据！');
+			return;
+		}
+		const ids = selectedRows.map((item: any) => item.bmId);
+		axios({
+			method: 'POST',
+			url: 'api/exportConvenientService',
+			data: ids,
+			responseType: 'blob',
+		}).then((res) => {
+			let blob = new Blob([res.data]);
+      		let link = document.createElement('a');
+			link.download = '便民服务清单.xlsx';
+			link.href = URL.createObjectURL(blob);
+			link.click();
+			if (res.data){
+				console.log(res.data, res.status);
+			}
+		}).catch(() => {
+			message.error('导出失败');
+		});
+	}
+
+	onSelectionChange = (selectedRowKeys: any, selectedRows: any[]) => {
+		this.setState({
+			selectedRowKeys,
+			selectedRows,
+		});
+	}
+
 	render(){
-		const {convenients, replyModalVisible, convenient, downNum, doingNum} = this.state;
+		const {convenients, replyModalVisible, convenient, downNum, doingNum, selectedRowKeys} = this.state;
 		const columns: ColumnsType<any> | undefined = [
 			{
 				title: '诉求人姓名',
@@ -272,7 +308,7 @@ export default class Convenient extends Component {
 								<Button value="horizontal" onClick={this.searchClick}>查询</Button>
 							</Form.Item>
 						</Form>
-						<Button size="middle">导出</Button>
+						<Button size="middle" onClick={() => this.export()}>导出</Button>
 					</div>
 					<div className="list-box">
 						<Table
@@ -280,6 +316,13 @@ export default class Convenient extends Component {
 							dataSource={convenients}
 							pagination={{pageSize: 10, total: convenients.length, showTotal: total => `共 ${total} 条`}}
 							rowKey="bmId"
+							rowSelection={
+								{
+									type: 'checkbox',
+									onChange: this.onSelectionChange,
+									selectedRowKeys: selectedRowKeys,
+								}
+							}
 						/>
 					</div>
 				</div>
