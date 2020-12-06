@@ -1,13 +1,29 @@
 .screen-epidemic{
     font-size: .13rem;
     overflow: hidden;
-    .s-pei-b{
-        height: calc(100% - .6rem);
+    .s-pei-b-count-box{
         display: flex;
+        overflow: hidden;
         justify-content: space-around;
+        white-space: nowrap;
         align-items: center;
     }
+    .s-pei-b-list{
+        padding: 10px;
+        padding-top: 10px;
+        height: calc(100% - .5rem - 10px);
+        overflow-y: scroll;
+        color: #fff;
+        .ant-list-item{
+            color: #fff;
+            padding: 4px 16px;
+            &:nth-child(odd){
+                background-color:#204160;
+            }
+        }
+    }
     .s-pei-u{
+        font-size: .1rem;
         display: flex;
         align-items: center;
     }

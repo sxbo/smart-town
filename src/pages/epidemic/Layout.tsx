@@ -31,7 +31,7 @@ const EpidemicSituation: SFC = () => {
 				<span style={{display: 'inline-block', width: '10px', background: colors.success, height: '10px'}}></span><span style={{marginRight: '20px'}}>治愈：{cureCount}</span>
         <span style={{display: 'inline-block', width: '10px', background: colors.warn, height: '10px'}}></span><span style={{marginRight: '20px'}}>隔离：{separate}</span>
         <span style={{display: 'inline-block', width: '10px', background: colors.primary, height: '10px'}}></span><span style={{marginRight: '20px'}}>无症状：{asymptomatic}</span>
-        <span style={{display: 'inline-block', width: '10px', background: colors.primary, height: '10px'}}></span><span style={{marginRight: '20px'}}>正常：{nomal}</span>
+        <span style={{display: 'inline-block', width: '10px', background: colors.success, height: '10px'}}></span><span style={{marginRight: '20px'}}>已解除：{nomal}</span>
       </PageTitle>
       <Row>
         <Col span={24}>

@@ -158,7 +158,7 @@ export default class Screen extends Component{
             <div className="screen-green-wapper screen-padding">
               <BackShadow className="screen-monitor-shadow">
                 <div className="s-chart-wapper">
-                  <ScreenTitle title="各村党员人数统计"></ScreenTitle>
+                  <ScreenTitle title="农业扶贫人数统计"></ScreenTitle>
                   <HPoor styleObj={chartStyle}/>
                 </div>
               </BackShadow>

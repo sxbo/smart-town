@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable camelcase */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable eqeqeq */
@@ -6,10 +7,11 @@
 /* eslint-disable newline-after-var */
 import React, {Component} from 'react';
 import { FormInstance } from 'antd/lib/form/Form';
-import {Modal, Form, Input, Select, message} from 'antd';
+import {Modal, Form, Input, Select, message, DatePicker } from 'antd';
 import {epidemicTypes} from '../../const/const';
 import {EpidmicMode} from './EpidemicList';
 import axios from 'axios';
+import moment from 'moment';
 
 export default class EpidemicModal extends Component<any, any> {
     formRef: React.RefObject<FormInstance>;
@@ -29,7 +31,9 @@ export default class EpidemicModal extends Component<any, any> {
             if (mode == EpidmicMode.create){
                 const epidmic_create = {
                     ...data,
+                    createTime: data?.createTime.format('YYYY-MM-DD'),
                 };
+                console.log(epidmic_create);
                 this.createApi(epidmic_create, () => {
                     this.props.refreshList?.();
                     const {close} = this.props;
@@ -39,6 +43,7 @@ export default class EpidemicModal extends Component<any, any> {
                 const epidmic_edit = {
                     ...epidmic,
                     ...data,
+                    createTime: data?.createTime.format('YYYY-MM-DD'),
                 };
                 this.editApi(epidmic_edit, () => {
                     this.props.refreshList?.();
@@ -94,6 +99,11 @@ export default class EpidemicModal extends Component<any, any> {
             wrapperCol: { span: 18 },
         };
         const {title, visible, epidmic} = this.props;
+        const dateFormat = 'YYYY-MM-DD';
+        if (epidmic){
+            epidmic.sexType === 1 ? epidmic.sexType = '1' : epidmic.sexType = '2';
+        }
+
         return <Modal
             title={title}
             visible={visible}
@@ -117,6 +127,13 @@ export default class EpidemicModal extends Component<any, any> {
                 </Form.Item>
                 <Form.Item name="village" label="详情" initialValue={epidmic?.village} rules={[{ required: true, message: '请填写详细信息!'}]}>
                     <Input />
+                </Form.Item>
+                <Form.Item name="contact" label="联系方式" initialValue={epidmic?.contact} rules={[{ required: true, message: '请填写联系方式!'}]}>
+                    <Input />
+                </Form.Item>
+               <Form.Item name="createTime" label="上报时间" initialValue={epidmic && epidmic.createTime ? moment(epidmic.createTime, dateFormat) : moment(moment().format(dateFormat), dateFormat)}
+               rules={[{ required: true, message: '请填写上报时间!'}]}>
+                    <DatePicker/>
                 </Form.Item>
                 <Form.Item name="state" label="状态" initialValue={epidmic?.state} rules={[{ required: true, message: '请填写状态!'}]}>
                     <Select>

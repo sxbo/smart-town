@@ -101,6 +101,7 @@
         .screen-body{
             display: flex;
             flex-grow: 1;
+            height: calc(100% - .5rem);
             .screen-left-body{
                 width: 30%;
                 flex-grow: 1;
@@ -197,7 +198,7 @@
                 flex-direction: column;
                 .screen-poor-wapper{
                     flex-grow: 1;
-                    height: 48.3%;
+                    height: 33.3%;
                     .screen-monitor-shadow{
                         display: flex;
                         .s-chart-wapper{
@@ -208,7 +209,7 @@
                     }
                 }
                 .screen-landslid-wapper{
-                    height: 18.3%;
+                    height: 33.3%;
                     flex-grow: 1;
                     .screen-monitor-shadow{
                         display: flex;

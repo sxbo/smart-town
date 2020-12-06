@@ -160,6 +160,11 @@ const EpidemicList: SFC<GreenHouseListProps> = (props) => {
       dataIndex: 'idCard',
     },
     {
+      title: '联系方式',
+      key: 'contact',
+      dataIndex: 'contact',
+    },
+    {
       title: '详情',
       dataIndex: 'village',
       key: 'village',

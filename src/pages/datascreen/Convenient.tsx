@@ -64,31 +64,29 @@ export default class Convenient extends Component{
         const {convenients, doingNum, downNum} = this.state;
         return <BackShadow className="screen-convenient">
             <ScreenTitle title="便民服务"></ScreenTitle>
-            <div className="s-convenient-b">
-                <div className="s-convenient-hy">
-                    <div className="s-convenient-hyc">
-                        <span><ClockCircleOutlined style={{color: '#02EDEB', width: '.2rem', height: '.2rem'}}/></span>
-                        <span>未处理事件： {doingNum} 件</span>
-                    </div>
-                    <div className="s-convenient-hyc">
-                        <span><CheckCircleOutlined style={{color: '#02EDEB', width: '.2rem', height: '.2rem'}}/></span>
-                        <span>已处理事件： {downNum} 件</span>
-                    </div>
-                </div>
-                <div className="s-convenient-list">
-                    <List
-                        size="small"
-                        bordered={false}
-                        dataSource={convenients}
-                        renderItem={(item: any) =>
-                            <List.Item>
-                                <div>{item.name}</div>
-                                <div>{item.phone}</div>
-                                <div>{item.state == 1 ? '正在处理' : item.state == 2 ? '已解决' : '状态'}</div>
-                            </List.Item>
-                        }/>
-                </div>
-            </div>
+			<div className="s-convenient-hy">
+				<div className="s-convenient-hyc">
+					<span><ClockCircleOutlined style={{color: '#02EDEB', width: '.2rem', height: '.2rem'}}/></span>
+					<span>未处理事件： {doingNum} 件</span>
+				</div>
+				<div className="s-convenient-hyc">
+					<span><CheckCircleOutlined style={{color: '#02EDEB', width: '.2rem', height: '.2rem'}}/></span>
+					<span>已处理事件： {downNum} 件</span>
+				</div>
+			</div>
+			<div className="s-convenient-list">
+				<List
+					size="small"
+					bordered={false}
+					dataSource={convenients}
+					renderItem={(item: any) =>
+						<List.Item>
+							<div>{item.name}</div>
+							<div>{item.phone}</div>
+							<div>{item.state == 1 ? '正在处理' : item.state == 2 ? '已解决' : '状态'}</div>
+						</List.Item>
+					}/>
+			</div>
         </BackShadow>;
     }
 }
