@@ -203,9 +203,6 @@ export default class Convenient extends Component {
 			link.download = '便民服务清单.xlsx';
 			link.href = URL.createObjectURL(blob);
 			link.click();
-			if (res.data){
-				console.log(res.data, res.status);
-			}
 		}).catch(() => {
 			message.error('导出失败');
 		});

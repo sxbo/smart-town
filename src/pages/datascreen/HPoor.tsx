@@ -30,7 +30,6 @@ export default class HPoor extends Component<any>{
             myChart.resize();
         };
         this.getRecords((data: any) => {
-            console.log(data);
             myChart.setOption({
                 color: ['#00c292', '#c23531'],
                 legend: {

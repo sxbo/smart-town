@@ -33,7 +33,6 @@ export default class EpidemicModal extends Component<any, any> {
                     ...data,
                     createTime: data?.createTime.format('YYYY-MM-DD'),
                 };
-                console.log(epidmic_create);
                 this.createApi(epidmic_create, () => {
                     this.props.refreshList?.();
                     const {close} = this.props;

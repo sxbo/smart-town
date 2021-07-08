@@ -21,7 +21,6 @@ export default class LandCirulationModal extends Component<any, any> {
     handleOk = () => {
         const {land, mode} = this.props;
         this.formRef.current?.validateFields().then((data: any) => {
-            console.log(mode);
             if (mode == LandCirculationMode.create){
                 this.create(data);
             }

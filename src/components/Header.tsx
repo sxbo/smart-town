@@ -34,7 +34,7 @@ const HerderBar:SFC<any> = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       getMessageNum();
-    }, 3000);
+    }, 1000 * 60 * 10);
     return () => {
       clearInterval(timer);
     };

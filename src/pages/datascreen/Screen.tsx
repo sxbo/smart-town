@@ -12,7 +12,7 @@ import '../../theme/style/common.scss';
 import ScreenEpidemicMap from './ScreenEpidemicMap';
 import MemberCount from './MemberCount';
 import Farming from './Farming';
-import HPoor from './HPoor';
+import PriceSell from './PriceSell';
 import MonitorCount from './MonitorCount';
 import Video from './Video';
 import Convenient from './Convenient';
@@ -158,8 +158,8 @@ export default class Screen extends Component{
             <div className="screen-green-wapper screen-padding">
               <BackShadow className="screen-monitor-shadow">
                 <div className="s-chart-wapper">
-                  <ScreenTitle title="农业扶贫人数统计"></ScreenTitle>
-                  <HPoor styleObj={chartStyle}/>
+                  <ScreenTitle title="农业价格销量统计"></ScreenTitle>
+                  <PriceSell styleObj={chartStyle}/>
                 </div>
               </BackShadow>
             </div>

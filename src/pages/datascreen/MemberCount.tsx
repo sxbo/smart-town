@@ -147,7 +147,7 @@ export default class MemberCount extends React.Component<MemberCountPro, any> {
   getMemberCounts = (callback: (data: any) => void) => {
     axios({
       method: 'GET',
-      url: 'api/getPartyMemberCount',
+      url: 'api/getAllVillage',
     }).then((res) => {
       if (res.data.status === 200){
         const members: any = res.data?.data || sourceSata;

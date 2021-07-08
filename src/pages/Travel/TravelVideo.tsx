@@ -25,7 +25,6 @@ export default class TravelVideo extends Component{
                 if (arr && arr.length){
                     format = arr[arr.length - 1];
                 }
-                console.log(url, format);
                 this.setState({
                     url: url,
                     format: format,

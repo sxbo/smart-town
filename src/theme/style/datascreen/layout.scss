@@ -128,6 +128,26 @@
                             height: 100%;
                             width: 33.3%;
                             flex-grow: 1;
+                            #price_sell_main{
+                                div{
+                                    height: 100% !important;
+                                    width: 100% !important;
+                                    canvas{
+                                        height: 100% !important;
+                                        width: 100% !important;
+                                    }
+                                }
+                                div:last-child{
+                                    height: auto !important;
+                                    width: auto !important;
+                                    span{
+                                        display: inline-block;
+                                        width: 50px;
+                                        margin-right: 10px;
+                                    }
+                                }
+
+                            }
                         }
                     }
                 }

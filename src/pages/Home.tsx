@@ -6,7 +6,7 @@ import {EpidemicSituation} from './epidemic';
 import {GreenHouse} from './greenhouse';
 import {HelpPoor} from './helppoor';
 import {Landslide} from './landslide';
-import {PartyBuild} from './partybuild';
+import {PartyBuild} from './sysData';
 import {ScenicMonitor} from './scenic';
 import {VideoMonitor} from './videoMonitor';
 import HeaderBar from '../components/Header';

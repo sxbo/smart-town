@@ -191,7 +191,7 @@ const LeftMenu:SFC = () => {
             <Link to="/setting">系统设置</Link>
          </Menu.Item>
          <Menu.Item key="15" icon={<FileTextOutlined />}>
-            <Link to="/partybuild">新闻动态</Link>
+            <Link to="/partybuild">系统数据</Link>
           </Menu.Item>
         </Menu.SubMenu>
       </Menu>
