@@ -65,7 +65,7 @@ export default class VideoItem extends Component<VideoItemPro, any> {
       channelNo: this.props.video.channelNo,
       template: 'security', // voice
       audio: 1, // 是否默认开启声音 0 - 关闭 1 - 开启
-      autoplay: 0,
+      autoplay: 1,
       width:651,
       height:400,
     });
