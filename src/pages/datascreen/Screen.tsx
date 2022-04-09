@@ -27,16 +27,15 @@ export default class Screen extends Component{
     scenicMonitors: 0,
     landMonitors: 0,
     accessToken: '',
-    landSerial: '',
-    scenicSerial1: '',
-    scenicSerial2: '',
+    video1: '',
+    video2: '',
+    video3: '',
   }
 
   componentDidMount() {
     this.getMonitorCounts();
     this.getAccessToken();
-    this.getLandDeviceSerial();
-    this.getScenicDeviceSerial();
+    this.getDeviceSerial();
   }
 
   getMonitorCounts = (url: string = 'api/getMonitorCount') => {
@@ -84,46 +83,28 @@ export default class Screen extends Component{
     });
   }
 
-  getLandDeviceSerial = () => {
+  getDeviceSerial = () => {
     // 查询山体设备序列号
     axios({
         method: 'GET',
-        url: '/api/videos/getMonitorSeriaNumber?monitorType=2',
+        url: '/api/getScreenMonitor',
     }).then((res) => {
         if (res.status === 200){
             let deviceSerials: any[] = res.data?.data || [];
-            deviceSerials = deviceSerials.slice(0, 1);
-            const landSerial = deviceSerials[0]?.seriaNumber;
+            deviceSerials = deviceSerials.slice(0, 3);
+            const video1 = deviceSerials[0];
+            const video2 = deviceSerials[1];
+            const video3 = deviceSerials[2];
             this.setState({
-              landSerial: landSerial,
+              video1,
+              video2,
+              video3,
             });
         }
     }).catch(() => {
         message.error('获取设备序列失败！');
     });
   }
-
-  getScenicDeviceSerial = () => {
-    // 查询山体设备序列号
-    axios({
-        method: 'GET',
-        url: '/api/videos/getMonitorSeriaNumber?monitorType=1',
-    }).then((res) => {
-        if (res.status === 200){
-            let deviceSerials: any[] = res.data?.data || [];
-            deviceSerials = deviceSerials.slice(0, 2);
-            const scenicSerial1 = deviceSerials[0]?.seriaNumber;
-            const scenicSerial2 = deviceSerials[1]?.seriaNumber;
-            this.setState({
-              scenicSerial1: scenicSerial1,
-              scenicSerial2: scenicSerial2,
-            });
-        }
-    }).catch(() => {
-        message.error('获取设备序列失败！');
-    });
-  }
-
 
   render(){
 
@@ -136,11 +117,10 @@ export default class Screen extends Component{
       villageMonitors,
       scenicMonitors,
       landMonitors,
-      landSerial,
+      video1,
       accessToken,
-      scenicSerial1,
-      scenicSerial2} = this.state;
-
+      video2,
+      video3} = this.state;
     return <>
       <div className="card-box data-screen-wapper">
         <div className="screen-head">
@@ -180,8 +160,8 @@ export default class Screen extends Component{
             </div>
             <div className="screen-scenic-wapper screen-padding">
               {
-                accessToken && landSerial && scenicSerial1 && scenicSerial2 &&
-                <Video landSerial={landSerial} accessToken={accessToken} scenicSerial1={scenicSerial1} scenicSerial2={scenicSerial2}/>
+                accessToken && video1 && video2 && video3 &&
+                <Video video1={video1} accessToken={accessToken} video2={video2} video3={video3}/>
               }
             </div>
           </div>

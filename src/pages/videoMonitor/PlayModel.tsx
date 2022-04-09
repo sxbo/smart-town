@@ -3,8 +3,8 @@ import {Modal} from 'antd';
 import React, {Component} from 'react';
 
 export default class PlayModal extends Component<any>{
-
   closePlayModal = () => {
+    Modal.destroyAll();
     this.props.close();
   };
 
@@ -16,7 +16,9 @@ export default class PlayModal extends Component<any>{
     width={650}
     getContainer={false}
     forceRender
-    visible={this.props.visible}>
+    visible={this.props.visible}
+    maskClosable={false}
+    >
       <div id="video-container" ></div>
     </Modal>;
   }

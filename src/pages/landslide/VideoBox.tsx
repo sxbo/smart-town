@@ -20,6 +20,8 @@ export default class VideoBox extends Component<any, any> {
         channelNo: '',
         deviceSerial: '',
         loading: false,
+        // eslint-disable-next-line no-empty-function
+        player: {stop: () => {}},
     }
 
     componentDidMount(){
@@ -90,10 +92,21 @@ export default class VideoBox extends Component<any, any> {
     }
 
     closePlay = () => {
+        const {player} = this.state;
+        if (player) {
+            player.stop();
+        }
         this.setState({
           playModalVisible: false,
         });
     }
+
+    setPalyer = (player: any) => {
+        this.setState({
+          player,
+        });
+    }
+
 
     render = () => {
         const {vedios, playModalVisible, url, channelNo, deviceSerial, loading, accessToken} = this.state;
@@ -113,7 +126,7 @@ export default class VideoBox extends Component<any, any> {
                                 {
                                 videoItems.map((video: any, index: number) => {
                                     return <Col key={`${index}`} xs={{ span: 24}} md={{ span: 12}} xl={{ span: 6}} style={{padding: '10px'}}>
-                                        <LandSlideVideoItem accessToken={accessToken} deviceSerial={video} openPlayCall={this.openPlayCall}/>
+                                        <LandSlideVideoItem accessToken={accessToken} deviceSerial={video} setPalyer={this.setPalyer} openPlayCall={this.openPlayCall}/>
                                     </Col>;
                                 })
                                 }

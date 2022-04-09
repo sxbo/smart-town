@@ -50,12 +50,16 @@ export default class LandSlideVideoItem extends Component<any, any>{
         openPlayCall && openPlayCall(url, channelNo, deviceSerial);
     }
 
+    setPalyer = (player: any) => {
+        this.props.setPalyer(player);
+      }
+
 
     render () {
         const {accessToken} = this.props;
         const {video} = this.state;
         return <>
-            <VideoItem play={this.openPlayCall} accessToken={accessToken} video={video}/>
+            <VideoItem play={this.openPlayCall} accessToken={accessToken} video={video} setPlayer={this.setPalyer}/>
         </>;
     }
 }

@@ -15,6 +15,7 @@ interface VideoItemPro{
   video: any,
   accessToken: string;
   play: (url: any, channelNo: any, deviceSerial: any) => void;
+  setPlayer: (player:any) => void;
 }
 
 export default class VideoItem extends Component<VideoItemPro, any> {
@@ -69,6 +70,7 @@ export default class VideoItem extends Component<VideoItemPro, any> {
       width:651,
       height:400,
     });
+    this.props.setPlayer(this.playr);
   }
 
   render(){

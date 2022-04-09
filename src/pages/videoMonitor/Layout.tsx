@@ -25,6 +25,7 @@ class VideoLayout extends Component<any, any> {
       total: 0,
       currentPage: 1,
       loading: false,
+      player: null,
     };
   }
 
@@ -74,7 +75,17 @@ class VideoLayout extends Component<any, any> {
     });
   }
 
+  setPalyer = (player: any) => {
+    this.setState({
+      player,
+    });
+  }
+
   closePlay = () => {
+    const {player} = this.state;
+    if (player) {
+      player.stop();
+    }
     this.setState({
       playModalVisible: false,
     });
@@ -93,7 +104,7 @@ class VideoLayout extends Component<any, any> {
             {
               videoItems.map((video: any, index: number) => {
                 return <Col key={`${index}`} xs={{ span: 24}} md={{ span: 12}} xl={{ span: 6}} style={{padding: '10px'}}>
-                  <VideoItem play={this.openPlayCall} accessToken={accessToken} video={video}/>
+                  <VideoItem play={this.openPlayCall} accessToken={accessToken} video={video} setPlayer={this.setPalyer}/>
                 </Col>;
               })
             }
