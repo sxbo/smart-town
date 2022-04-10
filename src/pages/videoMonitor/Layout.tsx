@@ -120,7 +120,7 @@ class VideoLayout extends Component<any, any> {
     return (
       <div className="vedio-monitor">
         <Spin tip="正在加载" spinning={this.state.loading}>
-          <PageTitle title="视屏监控"></PageTitle>
+          <PageTitle title="视频监控"></PageTitle>
           <div style={{padding: '10px'}}>
             <div className="videos-content">
               {

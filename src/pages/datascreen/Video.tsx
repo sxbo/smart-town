@@ -58,7 +58,7 @@ export default class Video extends Component<any, any>{
 
     render() {
         return <BackShadow className="screen-scine-land">
-            <ScreenTitle title="景点/山体滑坡点监控"></ScreenTitle>
+            <ScreenTitle title="视频监控"></ScreenTitle>
             <div className="s-sl-b">
                 <div className="s-sl-vu" id="screen_video_play1"></div>
                 <div className="s-sl-vu" id="screen_video_play2"></div>

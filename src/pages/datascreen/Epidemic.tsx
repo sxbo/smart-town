@@ -50,7 +50,8 @@ export default class Epidemic extends Component{
                 const createTimeStr = item.createTime || moment().format('YYYY-MM-DD');
                 const createTime = moment(createTimeStr, 'YYYY-MM-DD').valueOf();
                 const dura = (today - createTime) / (24 * 60 * 60 * 1000);
-                item.restDay = 14 - Math.ceil(dura) + 1;
+                const restDay = 14 - Math.ceil(dura) + 1;
+                item.restDay = restDay >= 0 ? restDay : 0;
                 separates.push(item);
               } else if (item.state == 4){
                 asymptomatic++;
