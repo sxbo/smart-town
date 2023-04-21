@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/charts": "^0.9.10",
-    "@antv/l7": "^2.2.37",
+    "@antv/l7": "^2.15.2",
     "@antv/l7-react": "^2.2.37",
     "@babel/core": "7.9.0",
     "@svgr/webpack": "4.3.3",
